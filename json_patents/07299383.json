@@ -1,0 +1,457 @@
+{
+    "title": "Security method making deterministic real time execution of multitask applications of control and command type with error confinement",
+    "abstract": "The method is implemented with a management system of the time-triggered architecture type in association with a processor of a central processor unit that possesses a privileged execution mode to which access is protected by an instruction of the \u201ccall to system layer\u201d type. The only system layer call that is authorized from an application task under consideration to the system layer consists in reporting a change of node in the control graph of the task in question. When the system layer has verified that the call is legal relative to the execution paths of the control graph as described in the constant tables of the application, all of the operations to be performed on the node in question by the system layer are predetermined by the constant tables of the application associated with the system layer. Prior to real-time execution, pre-ordering of the lists of tasks of an application under consideration is performed in a micro-kernel, which subsequently ensures, when called by the system layer during real-time execution, that task lists are updated in ordered manner depending on the new time characteristics of the tasks, specifically their earliest start times d(i) and their latest finish times f(i) as calculated by the system layer.",
+    "inventors": [
+        "David",
+        "Delcoigne"
+    ],
+    "document_number": "07299383",
+    "publication_date": "20071120",
+    "assignees": [
+        "Commissariat a l'Energie Atomique",
+        "Areva Np"
+    ],
+    "claims": [
+        {
+            "claim_number": "CLM-00001",
+            "preamble": "1. A security method making real time execution of multitask applications of the control and command type in a control system deterministic, the method comprising:",
+            "components": [
+                {
+                    "component": "at least a first clock that issues an interrupt signal sh whenever an adjustable quantity of time has elapsed;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a CPU having at least one processor capable of receiving at least said clock interrupt signal sh;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a main memory; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a set of controllers (",
+                    "subcomponents": []
+                },
+                {
+                    "component": "the method being characterized in that it comprises the following steps:",
+                    "subcomponents": []
+                },
+                {
+                    "component": "for each of the tasks of a given application, storing all of the chaining that is authorized from each time synchronization point of the task that requires a call to a system layer, said chaining being represented by a control graph for monitoring the execution of system layer calls made by the task in question, each control graph comprising a set of nodes each corresponding to a call to the system layer of the control system;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "for each node of the control graph of each task, storing the nature of the call to the system layer and its call parameters, including time parameters enabling \u201cearliest start\u201d times d(i) and \u201clatest finish\u201d times f(i) to be updated;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "for each task, storing an initial node (Node",
+                    "subcomponents": []
+                },
+                {
+                    "component": "for the given application and prior to starting real time execution in a time-triggered mode, initializing, for each task, the initial node (Node",
+                    "subcomponents": []
+                },
+                {
+                    "component": "for the given application and prior to starting real time execution in a time-triggered mode, initializing the starting order of each of the tasks by pre-ordering lists of tasks in an atomic micro-kernel;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "setting the first clock to issue a clock interrupt signal sh constituting a call to the micro-kernel, on the first instant of the application for starting execution of said application in time-triggered mode;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "during normal operation after the first clock has been set, causing the first clock to be reset by the micro-kernel on each call to the micro-kernel; during a call to the micro-kernel by the system layer or by processing the interrupt signal sh, causing the micro-kernel to go to the step of updating the lists of tasks in ordered manner depending on the time characteristics of the tasks, namely their earliest start times d(i) and their latest finish times f(i); and after updating the list, causing the micro-kernel to calculate the nearest future instant on which a task needs to be woken up and causing the first clock to be set by the micro-kernel on the basis of said nearest future instant to wake up said task and leave the micro-kernel; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "while executing a task, making a call to the system layer only when a node of the control graph of said task is reached, and passing as an argument the number of the node; proceeding on entry into the system layer with a check to verify whether, according to the control graph of the task being executed, the chaining from the node corresponding to the preceding system layer call is authorized, in order to launch anomaly processing in the system layer if said chaining is not authorized or to continue with execution if said chaining is authorized, updating the time parameters of the task being executed comprising the earliest start time d(i) and the latest finish time f(i) using calls to the micro-kernel from the system layer, and continuing normal execution of the current task until said task again reaches a node of its control graph.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00002",
+            "preamble": "2. A control system implementing the security method in claim 1 , further comprising a memory protection unit for controlling addressing access rights, which memory protection unit responds to a requested address ad supplied by the CPU and to the rights (C) of the execution context of the processor to access the addressable memory space, by producing in exclusive manner either a validated address av giving access, or else issuing an exception signal se to the CPU indicative of authorized addressing, and in that it further comprises the following steps:",
+            "components": [
+                {
+                    "component": "during a preparatory stage, for a given application, storing the access rights to each of the memory segments for the micro-kernel and for each application task and for the extension of each task in the system layer so as to constitute first and second execution contexts depending on whether the instructions are in the code specific to the application constituting the task or the instructions are located in generic code of the system layer constituting the extension of the task in the system layer;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "for a given application and prior to starting real time execution in a time-triggered operating mode, initializing the micro-kernel context and the first and second execution context for each task and for its extension in the system layer; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "during execution of a task, making a call to the system layer using an instruction for passing into a privileged mode of execution which makes it possible to pass from the execution context of the task to the execution context of its extension in the system layer, and after verifying that chaining from the node corresponding to the preceding system call is authorized, and after updating the time parameters of the task using calls to the micro-kernel from the system layer, returning to the code of the task by means of an instruction for returning into the non-privileged mode enabling execution to pass from the execution context of the extension in the system layer to the execution context of the task.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00003",
+            "preamble": "3. A method according to claim 2 , characterized in that the execution contexts of each application task are disjoint in pairs.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00004",
+            "preamble": "4. A method according to claim 2 , characterized in that the extensions of the execution contexts of the application tasks into the system layer are not write accessible to the execution contexts of the tasks in the application code.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00005",
+            "preamble": "5. A method according to claim 1 , characterized in that the coding of the control graph of a task prevents any failure of common cause occurring both in the mechanism for controlling execution of any task of the application and in the execution of said task itself.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00006",
+            "preamble": "6. A method according to claim 1 , characterized in that it further comprises the following steps:",
+            "components": [
+                {
+                    "component": "during a preparatory stage, for each given application, and for all of the authorized chainings in said task, storing a time quota constituting a supremum for the maximum execution time needed for going from one node to the other in the control graph of the task, each of these time quotas covering both the time passed in executing the instructions specific to the task, and also the time passed in executing the generic code of the system layer in the extension of the task; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "during normal operation, after the first clock has been set, in the event of a call to the micro-kernel triggered by the time interrupt signal sh and causing the first clock to be reset, checking to verify whether the time interrupt signal sh triggering the call to the micro-kernel is associated with an attempt at violating a time quota, and if so, causing the micro-kernel to run anomaly processing, else if the time interrupt signal sh is not associated with an attempt to violate a time quota, causing the micro-kernel to update the task lists, and after updating the task lists, to calculate both the nearest future instants at which a task needs to be woken up and the future instants at which the quota of time allocated to the task that will be executing on exiting the micro-kernel will have expired, which time is determined while updating the lists, and causing the micro-kernel to set the first clock to the nearer of said future instants so that either the task is woken up or else an attempt at violating time quota due to anomalous operation is detected, and leaving the micro-kernel after setting the first clock.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00007",
+            "preamble": "7. A method according to claim 1 , characterized in that a second clock is implemented, and in that the micro-kernel is caused to access the second clock to monitor the flows of time as triggered by the first clock by comparing the time signals.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00008",
+            "preamble": "8. A security method according to claim 1 , causing the real time execution of communicating multitask applications of the control and command type to be made deterministic, the method being characterized in that it further comprises the following steps:",
+            "components": [
+                {
+                    "component": "during a preparatory stage, for each of the tasks of a given application storing all of the authorized chainings of its points for time synchronization and for communication with the other tasks of the application requiring a call to the system layer, these authorized chaining being represented by a control graph for the execution of system layer calls made by the task in question, each graph comprising a set of nodes, each corresponding to a call to the system layer;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "storing each buffer zone needed for exchanging data between tasks, specifying its size, the size of the elements that it contains, its location or base address, and also the relationships between the buffer zones enabling the information transfers needed for communications to be confirmed;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "storing, for each buffer zone, the initial values of its elements;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "for the given application and prior to starting real time execution in a time-triggering operating mode, initializing the values of the elements of the buffer zone with values previously stored in memory; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "during execution of a task, while making a system layer call when a node of the task control graph is reached and after verifying that according to the control graph of the task currently being executed the chaining from the node corresponding to the preceding system layer call is authorized, causing buffer zones to be updated in succession as a function of the nature of the previously-stored call and performing incremental updates as necessary of the time parameters of the task being executed, comprising its earliest start time d(i) and its latest finish time f(i).",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00009",
+            "preamble": "9. A method according to claim 2 for causing the real time execution of communicating multitask applications of the control and command type to be made deterministic, characterized in that during a preparatory stage, for each of the tasks of a given application storing all of the authorized chainings of its points for time synchronization and for communication with the other tasks of the application requiring a call to the system layer, these authorized chaining being represented by a control graph for the execution of system layer calls made by the task in question, each graph comprising a set of nodes, each corresponding to a call to the system layer;",
+            "components": [
+                {
+                    "component": "storing each buffer zone needed for exchanging data between tasks, specifying its size, the size of the elements that it contains, its location or base address, and also the relationships between the buffer zones enabling the information transfers needed for communications to be confirmed;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "storing, for each buffer zone, the initial values of its elements;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "for the given application and prior to starting real time execution in a time-triggering operating mode, initializing the values of the elements of the buffer zone with values previously stored in memory; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "during execution of a task, while making a system layer call when a node of the task control graph is reached and after verifying that according to the control graph of the task currently being executed the chaining from the node corresponding to the preceding system layer call is authorized, causing buffer zones to be updated in succession as a function of the nature of the previously-stored call and performing incremental updates as necessary of the time parameters of the task being executed, comprising its earliest start time d(i) and its latest finish time f(i); and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "further characterized in that in the system layer, only the buffer zones are allowed to be shared by the extensions of the execution contexts of the tasks of an application, a given buffer zone for dynamic communications corresponding to sending messages being sharable only by two task execution context extensions, while a given buffer zone for static communications corresponding to a stream of time-stamped data can be shared by more than two task execution context extensions, but can be written to or modified by a single context only.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00010",
+            "preamble": "10. A control and command system implementing the security method according to claim 1 , further having a safety class level 1E, for a nuclear reactor.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00011",
+            "preamble": "11. A method according to claim 3 , characterized in that the extensions of the execution contexts of the application tasks into the system layer are not write accessible to the execution contexts of the tasks in the application code.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00012",
+            "preamble": "12. A method according to claim 3 , characterized in that:",
+            "components": [
+                {
+                    "component": "the extensions of the execution contexts of the application tasks into the system layer are not write accessible to the execution contexts of the tasks in the application code;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "the coding of the control graph of a task prevents any failure of common cause occurring both in the mechanism for controlling execution of any task of the application and in the execution of said task itself;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "it further comprises the following steps:",
+                    "subcomponents": []
+                },
+                {
+                    "component": "during a preparatory stage, for each given application, and for all of the authorized chainings in said task, storing a time quota constituting a supremum for the maximum execution time needed for going from one node to the other in the control graph of the task, each of these time quotas covering both the time passed in executing the instructions specific to the task, and also the time passed in executing the generic code of the system layer in the extension of the task; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "during normal operation, after the first clock has been set, in the event of a call to the micro-kernel triggered by the time interrupt signal sh and causing the first clock to be reset, checking to verify whether the time interrupt signal sh triggering the call to the micro-kernel is associated with an attempt at violating a time quota, and if so, causing the micro-kernel to run anomaly processing, else if the time interrupt signal sh is not associated with an attempt to violate a time quota, causing the micro-kernel to update the task lists, and after updating the task lists, to calculate both the nearest future instants at which a task needs to be woken up and the future instants at which the quota of time allocated to the task that will be executing on exiting the micro-kernel will have expired, which time is determined while updating the lists, and causing the micro-kernel to set the first clock to the nearer of said future instants so that either the task is woken up or else an attempt at violating time quota due to anomalous operation is detected, and leaving the micro-kernel after setting the first clock;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a second clock is implemented, and in that the micro-kernel is caused to access the second clock to monitor the flows of time as triggered by the first clock by comparing the time signals.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00013",
+            "preamble": "13. A security method according to claim 12 , causing the real time execution of communicating multitask applications of the control and command type to be made deterministic, the method being characterized in that it further comprises the following steps:",
+            "components": [
+                {
+                    "component": "during a preparatory stage, f or each of the tasks of a given application storing all of the authorized chainings of its points for time synchronization and for communication with the other tasks of the application requiring a call to the system layer, these authorized chaining being represented by a control graph for the execution of system layer calls made by the task in question, each graph comprising a set of nodes, each corresponding to a call to the system layer;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "storing each buffer zone needed for exchanging data between tasks, specifying its size, the size of the elements that it contains, its location or base address, and also the relationships between the buffer zones enabling the information transfers needed for communications to be confirmed;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "storing, for each buffer zone, the initial values of its elements;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "for the given application and prior to starting real time execution in a time-triggering operating mode, initializing the values of the elements of the buffer zone with values previously stored in memory; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "during execution of a task, while making a system layer call when a node of the task control graph is reached and after verifying that according to the control graph of the task currently being executed the chaining from the node corresponding to the preceding system layer call is authorized, causing buffer zones to be updated in succession as a function of the nature of the previously-stored call and performing incremental updates as necessary of the time parameters of the task being executed, comprising its earliest start time d(i) and its latest finish time f(i).",
+                    "subcomponents": []
+                }
+            ]
+        }
+    ],
+    "description": [
+        "The present invention relates to a security method for making deterministic the real time execution of multitask applications of the control and command type in a control system having at least a first clock which issues an interrupt signal whenever an adjustable quantity of time has elapsed, a central processor unit with at least one processor capable of receiving at least said clock interrupt signal, a main memory, and a set of peripheral controllers for managing the inputs/outputs of the control system.",
+        "In a system for multitask management of various processes (inputs/outputs, computations, . . . ) having different time scales and liable to exchange data, with all of the processes being synchronized and coordinated in real time, it is desirable to be capable of executing processes in real time in deterministic manner, i.e. with the overall behavior of all of the tasks that interact with one another and with the environment being unique and invariant. It is also desirable for the execution of real time processes to be made secure, i.e. for it to include detecting and confining anomalies in such a manner as to ensure that the various tasks are independent relative to failures, while nevertheless remaining as deterministic as possible in the presence of operating anomalies.",
+        "Numerous multitask management systems are already known. However, most of those management systems are asynchronous and therefore non-deterministic. In addition, such systems are of a design that does not prevent certain failure modes from propagating.",
+        "More particularly, document FR-A-2 771 828 discloses a security method for a multitask computer fitted with a failure detection system by time or space partitioning which, at all times, identifies the task that is executing legally.",
+        "According to that document, which relates to a system of the cyclical ordering type, partitioning is used to limit the propagation of failures, but there is then no longer any communication between partitions, i.e. there is no longer multitask management at an overall level. Furthermore, there is still a possibility of failures propagating within a partition, which means that maximum security is not available.",
+        "Document FR-A-2 771 828 thus shows that obtaining deterministic behavior appears to be contradictory with multitask management.",
+        "The present invention seeks to remedy the drawbacks of the prior art and makes it possible to obtain control systems that are more integrated, that provide better performance, and that are safer.",
+        "More particularly, the present invention seeks to make it possible to obtain secure multitask execution in real time and in deterministic manner by means of a computer, both with error confinement and with fault tolerance.",
+        "The invention thus seeks to make it possible to provide security that guarantees highly deterministic execution in real time of multitask applications, both for tasks that are cyclical and for tasks that are not cyclical, with communications that are explicit (time-stamped messages) and implicit (streams of time-stamped data).",
+        "These objects are achieved by a security method making real time execution of multitask applications of the control and command type in a control system deterministic, the method comprising:",
+        "at least a first clock that issues an interrupt signal sh whenever an adjustable quantity of time has elapsed;",
+        "a central processor unit (CPU) having at least one processor capable of receiving at least said clock interrupt signal sh;",
+        "a main memory; and",
+        "a set of controllers for controlling peripherals for managing inputs/outputs of the control system,",
+        "the method being characterized in that it comprises the following steps:",
+        "a) for each of the tasks of a given application, storing all of the chaining that is authorized from each time synchronization point of the task that requires a call to a system layer, said chaining being represented by a control graph for monitoring the execution of system layer calls made by the task in question, each control graph comprising a set of nodes each corresponding to a call to the system layer of the control system;",
+        "b) for each node of the control graph of each task, storing the nature of the call to the system layer and its call parameters, including time parameters enabling \u201cearliest start\u201d times d(i) and \u201clatest finish\u201d times f(i) to be updated;",
+        "c) for each task, storing an initial node in the associated graph;",
+        "d) for the given application and prior to starting real time execution in a time-triggered mode, initializing, for each task, the initial node and the initial instant representing the initial state of the task in question;",
+        "e) for the given application and prior to starting real time execution in a time-triggered mode, initializing the starting order of each of the tasks by pre-ordering lists of tasks in an atomic micro-kernel;",
+        "f) setting the first clock to issue a clock interrupt signal sh constituting a call to the micro-kernel, on the first instant of the application for starting execution of said application in time-triggered mode;",
+        "g) during normal operation after the first clock has been set, causing the first clock to be reset by the micro-kernel on each call to the micro-kernel; during a call to the micro-kernel by the system layer or by processing the interrupt signal sh, causing the micro-kernel to go to the step of updating the lists of tasks in ordered manner depending on the time characteristics of the tasks, namely their earliest start times d(i) and their latest finish times f(i); and after updating the list, causing the micro-kernel to calculate the nearest future instant on which a task needs to be woken up and causing the first clock to be set by the micro-kernel on the basis of said nearest future instant to wake up said task and leave the micro-kernel; and",
+        "h) while executing a task, making a call to the system layer only when a node of the control graph of said task is reached, and passing as an argument the number of the node; proceeding on entry into the system layer with a check to verify whether, according to the control graph of the task being executed, the chaining from the node corresponding to the preceding system layer call is authorized, in order to launch anomaly processing in the system layer if said chaining is not authorized or to continue with execution if said chaining is authorized, updating the time parameters of the task being executed comprising the earliest start time d(i) and the latest finish time f(i) using calls to the micro-kernel from the system layer, and continuing normal execution of the current task until said task again reaches a node of its control graph.",
+        "More particularly, the security method of the invention is applied to a control system further comprising a memory protection unit for controlling addressing access rights, which memory protection unit responds to a requested address ad supplied by the CPU and to the rights of the execution context of the processor to access the addressable memory space, by producing in exclusive manner either a validated address av giving access, or else issuing an exception signal se to the CPU indicative of authorized addressing, and in that it further comprises the following steps:",
+        "i) during a preparatory stage, for a given application, storing the access rights to each of the memory segments for the micro-kernel and for each application task and for the extension of each task in the system layer so as to constitute first and second execution contexts depending on whether the instructions are in the code specific to the application constituting the task or the instructions are located in generic code of the system layer constituting the extension of the task in the system layer;",
+        "j) for a given application and prior to starting real time execution in a time-triggered operating mode, initializing the micro-kernel context and the first and second execution context for each task and for its extension in the system layer; and\n\n    \n    \n        k) during execution of a task, making a call to the system layer using an instruction for passing into a privileged mode of execution which makes it possible to pass from the execution context of the task to the execution context of its extension in the system layer, and after verifying that chaining from the node corresponding to the preceding system call is authorized, and after updating the time parameters of the task using calls to the micro-kernel from the system layer, returning to the code of the task by means of an instruction for returning into the non-privileged mode enabling execution to pass from the execution context of the extension in the system layer to the execution context of the task.",
+        "Preferably, the execution contexts of each application task are disjoint in pairs.",
+        "According to a particular characteristic of the method of the invention, the extensions of the execution contexts of the application tasks into the system layer are not write accessible to the execution contexts of the tasks in the application code.",
+        "The coding of the control graph of a task prevents any failure of common cause occurring both in the mechanism for controlling execution of any task of the application and in the execution of said task itself.",
+        "The method of the invention may further comprise the following steps:",
+        "l) during a preparatory stage, for each given application, and for all of the authorized chainings in said task, storing a time quota constituting a supremum for the maximum execution time needed for going from one node to the other in the control graph of the task, each of these time quotas covering both the time passed in executing the instructions specific to the task, and also the time passed in executing the generic code of the system layer in the extension of the task; and",
+        "m) during normal operation, after the first clock has been set, in the event of a call to the micro-kernel triggered by the time interrupt signal sh and causing the first clock to be reset, checking to verify whether the time interrupt signal sh triggering the call to the micro-kernel is associated with an attempt at violating a time quota, and if so, causing the micro-kernel to run anomaly processing, else if the time interrupt signal sh is not associated with an attempt to violate a time quota, causing the micro-kernel to update the task lists, and after updating the task lists, to calculate both the nearest future instants at which a task needs to be woken up and the future instants at which the quota of time allocated to the task that will be executing on exiting the micro-kernel will have expired, which time is determined while updating the lists, and causing the micro-kernel to set the first clock to the nearer of said future instants so that either the task is woken up or else an attempt at violating time quota due to anomalous operation is detected, and leaving the micro-kernel after setting the first clock.",
+        "When a second clock is implemented in the control system, and according to a particular characteristic of the invention, the micro-kernel is caused to access the second clock in order to monitor the flow of time as triggered by the first clock by comparing the time signals.",
+        "The security method of the invention adapted to make deterministic the real time execution of communicating multitask applications of the control and command type may further comprise the following steps:",
+        "n) during a preparatory stage, for each of the tasks of a given application storing all of the authorized chainings of its points for time synchronization and for communication with the other tasks of the application requiring a call to the system layer, these authorized chaining being represented by a control graph for the execution of system layer calls made by the task in question, each graph comprising a set of nodes, each corresponding to a call to the system layer;",
+        "o) storing each buffer zone needed for exchanging data between tasks, specifying its size, the size of the elements that it contains, its location or base address, and also the relationships between the buffer zones enabling the information transfers needed for communications to be confirmed;",
+        "p) storing, for each buffer zone, the initial values of its elements;",
+        "q) for the given application and prior to starting real time execution in a time-triggering operating mode, initializing the values of the elements of the buffer zone with values previously stored in memory; and",
+        "r) during execution of a task, while making a system layer call when a node of the task control graph is reached and after verifying that according to the control graph of the task currently being executed the chaining from the node corresponding to the preceding system layer call is authorized, causing buffer zones to be updated in succession as a function of the nature of the previously-stored call and performing incremental updates as necessary of the time parameters of the task being executed, comprising its earliest start time d(i) and its latest finish time f(i).",
+        "According to a particular characteristic of the invention, in the system layer, only the buffer zones are allowed to be shared by the extensions of the execution contexts of the tasks of an application, a given buffer zone for dynamic communications corresponding to sending messages being sharable only by two task execution context extensions, while a given buffer zone for static communications corresponding to a stream of time-stamped data can be shared by more than two task execution context extensions, but can be modified only by the task owning the context extension in the system layer.",
+        "The security method of the invention is applicable to control and command applications which are highly critical concerning safety.",
+        "In particular, the method of the invention may be applied to a control and command system of safety class level 1E, for a nuclear reactor.",
+        "Other characteristics and advantages of the invention appear from the following description of particular embodiments, given as examples with reference to the accompanying drawings, in which:",
+        "FIG. 1 is a simplified diagram of the architecture of a control system to which the safety method of the invention is applicable;",
+        "FIG. 2 is a diagram showing how code is distributed in depth relative to a system layer and to a micro-kernel in the method in accordance with the invention;",
+        "FIG. 3 is a flow chart corresponding to processing an example of a real time task in the security method in accordance with the invention;",
+        "FIG. 4 is a control graph corresponding to the flow chart of FIG. 3;",
+        "FIG. 5 is an example of a timing chart and of associated time values while processing the example of FIGS. 3 and 4 of a real time task using the safety method in accordance with the invention;",
+        "FIG. 6 is a table of the nodes of the FIG. 4 control graph, including a description of the operations to be performed on the earliest start times d(i) and the latest finish times f(i);",
+        "FIG. 7 is a flow chart corresponding to processing an example of a first real time task for communicating with a second task using the security method in accordance with the invention;",
+        "FIG. 8 is a control graph corresponding to the flow chart of FIG. 7;",
+        "FIG. 9 is a flow chart corresponding to processing an example of a second real time task for communicating with the first real time task shown in the flow chart of FIG. 7;",
+        "FIG. 10 is a control graph corresponding to the flow chart of FIG. 9;",
+        "FIG. 11 is an example of a timing chart and of associated time values while processing the example of intercommunicating real time tasks shown in FIGS. 7 to 10 using the security method in accordance with the invention;",
+        "FIGS. 12 and 13 are tables of the nodes of the control graphs of FIGS. 8 and 10 including descriptions of the operations to be performed on the messages at the earliest start times d(i) and the latest finish times f(i); and",
+        "FIG. 14 is a detailed table showing the processor's access rights to memory segments in an example of the method of the invention and depending on whether it is executing a task, the system layer, or the micro-kernel.",
+        "The description begins with reference to FIG. 1 which shows an example of architecture of simplified type for a control system to which the security method of the invention is applicable.",
+        "The control system comprises at least a first clock 14 which transmits an interrupt signal sh over a line 22 whenever a programmable quantity of time has elapsed. A central processor unit (CPU) 10 has at least one processor capable of receiving data over a line 21 and the interrupt signal sh over the line 22.",
+        "The CPU 10 serves to send out address signals over lines 23, 24 to a main memory comprising both read-only memory (ROM) 12 and random access memory (RAM) 13.",
+        "The ROM 12 contains at least information (A) comprising the programs of the application concerned and information (B) comprising the constant tables and data of the application.",
+        "The RAM 13 contains the working variable data of the application programs.",
+        "Controllers 11 to 1N of peripherals 1 to N serve to provide real time management of inputs and outputs of the control system.",
+        "A second clock 15 may be implemented to provide additional monitoring of proper operation of the clock 14.",
+        "The control system may further comprise a memory protection unit 16 for enforcing addressing access rights.",
+        "Starting from a requested address ad supplied by the CPU 10 to the memory protection unit 16 over the line 23 and from the rights (D) of the various execution contexts of the processor to access the addressable memory space, as supplied by a line 26 connecting the ROM 12 to the memory protection unit 16, said memory protection unit 16 produces in exclusive manner either a validated address av giving access over the line 14 connected to the memories 12 and 13, to the peripheral controllers 11 to 1N, and to the clocks 14 and 15, or else an exception signal sc over a line 25 to the CPU 10 indicating that the addressing is not authorized.",
+        "The memory protection unit 16 may be constituted by a mechanism present in a standard memory management unit (MMU), which MMU can itself be incorporated in the processor of the CPU 10.",
+        "The processor of the CPU 10, which is capable of receiving at least one clock interrupt signal sh and an exception signal se flagging non-authorized addressing, possesses a privileged mode of execution to which access is protected by an instruction of the \u201ccall to system layer\u201d type, which may be constituted, for example, by a branch instruction or \u201ctrap\u201d.",
+        "In general, the invention relates to a management system of the type having time-triggered architecture (TTA) for secure deterministic multitasking in real time with explicit communication (time-stamped messages) and implicit communication (streams of time-stamped data), the tasks themselves being either cyclical or non-cyclical.",
+        "More particularly, in the security method in accordance with the invention, calls to the system layer of the control system (by means of a call to privileged mode execution) are managed in specific manner, which makes it possible to detect and to find errors and to guarantee that behavior is deterministic and predictable.",
+        "In the invention, calls to the system layer are managed as follows:",
+        "i/ the only system layer calls that are authorized from an application task in question to the system layer are calls that consist in reporting a change of node in the control graph of the task in question;",
+        "ii/ the system layer then verifies that each call is legal when compared with the execution path of the control graph which is described in the constant tables of the application; and",
+        "iii/ when the call is legal, all of the operations to be performed on the node in question by the system layer are predetermined by the constant tables of the associated application of the system layer.",
+        "Lists of tasks of an application in question are preordered prior to real time execution on an atomic micro-kernel which, when subsequently called by the system layer during real time execution, serves to update the lists of tasks in ordered manner in application of the new time characteristics of the tasks, specifically their earliest start times d(i) and their latest finish time f(i) as calculated by the system layer.",
+        "The basic security method of the invention essentially comprises the following steps:",
+        "a) for each of the tasks of a given application, storing all of the chaining that is authorized from each time synchronization point of the task that requires a call to a system layer, said chaining being represented by a control graph for monitoring the execution of calls to the system layer from the task in question, each control graph comprising a set of nodes each corresponding to a call to the system layer of the control system;",
+        "b) for each node of the control graph of each task, storing the nature of the call to the system layer and its call parameters, including time parameters enabling \u201cearliest start\u201d times d(i) and \u201clatest finish\u201d times f(i) to be updated;",
+        "c) for each task, storing an initial node (Node 0) in the associated graph;",
+        "d) for the given application and prior to starting real time execution in a time-triggered mode, initializing, for each task, the initial node (Node 0) and the initial instant representing the initial state of the task in question;",
+        "e) for the given application and prior to starting real time execution in a time-triggered mode, initializing the starting order of each of the tasks by pre-ordering lists of tasks in an atomic micro-kernel;",
+        "f) setting the first clock 14 to issue a clock interrupt signal sh constituting a call to the micro-kernel, on the first instant of the application for starting execution of said application in time-triggered mode;",
+        "g) during normal operation after the first clock 14 has been set, causing the first clock 14 to be reset by the micro-kernel on each call to the micro-kernel; during a call to the micro-kernel by the system layer or by processing the interrupt signal sh, causing the micro-kernel to go to the step of updating the lists of tasks in ordered manner depending on the time characteristics of the tasks, namely their earliest start times d(i) and their latest finish times f(i); and after updating the list, causing the micro-kernel to calculate the nearest future instant on which a task needs to be woken up and causing the first clock 14 to be set by the micro-kernel on the basis of said nearest future instant to wake up said task and leave the micro-kernel; and",
+        "h) while executing a task, making a call to the system layer only when a node of the control graph of said task is reached, and passing as an argument the number of the node; proceeding on entry into the system layer with a check to verify whether, according to the control graph of the task being executed, the chaining from the node corresponding to the preceding system layer call is authorized, in order to launch anomaly processing in the system layer if said chaining is not authorized or to continue with execution if said chaining is authorized, updating the time parameters of the task being executed comprising the earliest start time d(i) and the latest finish time f(i) using calls to the micro-kernel from the system layer, and continuing normal execution of the current task until said task again reaches a node of its control graph.",
+        "As mentioned above, the control system to which the security method of the invention is applied may include a memory protection unit and tables of the rights of each context to access each of the segments, which access rights are predetermined and may, where appropriate, be stored in ROM. For each execution context, the description of the table defining the rights of the context is initialized only once, during the stage of initializing the entire system, and after this system initialization stage, none of the processes executed on the CPU has those tables in its execution context.",
+        "The security method of the invention can then further comprise the following steps which take place amongst the steps defined above:",
+        "i) during a preparatory stage, for a given application, storing the access rights to each of the memory segments for the micro-kernel and for each application task and for the extension of each task in the system layer so as to constitute first and second execution contexts depending on whether the instructions are in the code specific to the application constituting the task or the instructions are located in generic code of the system layer constituting the extension of the task in the system layer;",
+        "j) for a given application and prior to starting real time execution in a time-triggered operating mode, initializing the micro-kernel context and the first and second execution context for each task and for its extension in the system layer; and",
+        "k) during execution of a task, making a call to the system layer using an instruction for passing into a privileged mode of execution which makes it possible to pass from the execution context of the task to the execution context of its extension in the system layer, and after verifying that chaining from the node corresponding to the preceding system call is authorized, and after updating the time parameters of the task using calls to the micro-kernel from the system layer, returning to the code of the task by means of an instruction for returning into the non-privileged mode enabling execution to pass from the execution context of the extension in the system layer to the execution context of the task.",
+        "The security method of the invention may also refer to time quotas and can then further include the following steps which take place amongst the above-defined steps of the basic method and of the basic method as modified to take account of the existence of privileged modes of execution that make it possible to go to an execution context of the extension of a task in the system layer:",
+        "l) during a preparatory stage, for each given application, and for all of the authorized chainings in said task, storing a time quota constituting a supremum for the maximum execution time needed for going from one node to the other in the control graph of the task, each of these time quotas covering both the time passed in executing the instructions specific to the task, and also the time passed in executing the generic code of the system layer in the extension of the task; and",
+        "m) during normal operation, after the first clock 14 has been set, in the event of a call to the micro-kernel triggered by the time interrupt signal sh and causing the first clock 14 to be reset, checking to verify whether the time interrupt signal sh triggering the call to the micro-kernel is associated with an attempt at violating a time quota, and if so, causing the micro-kernel to run anomaly processing, else if the time interrupt signal sh is not associated with an attempt to violate a time quota, causing the micro-kernel to update the task lists, and after updating the task lists, to calculate both the nearest future instants at which a task needs to be woken up and the future instants at which the quota of time allocated to the task that will be executing on exiting the micro-kernel will have expired, which time is determined while updating the lists, and causing the micro-kernel to set the first clock 14 to the nearer of said future instants so that either the task is woken up or else an attempt at violating time quota due to anomalous operation is detected, and leaving the micro-kernel after setting the first clock 14.",
+        "The procedure for updating the task lists of the application in the micro-kernel can be made more explicit in the manner specified below, which takes account of a preferred implementation in which reference is made to a time quota allocated to the task being processed, but can also be applied to a simplified basic implementation if reference to a time quota is omitted.",
+        "For each call to the micro-kernel during execution, whatever the system layer extension of the execution context of the task in question, two parameters are involved in updating the task lists: the earliest start time d(i) and the latest finish time f(i). Two task lists are managed: the list of eligible tasks ready for execution, i.e. having earliest start times d(i) in the past, and the list of non-eligible tasks, that are not ready for execution or that are waiting to be woken up, i.e. tasks having earliest start times d(i) in the future. The list of eligible tasks is ordered in order of increasing latest finish times; the list of non-eligible tasks is ordered in order of increasing earliest start times d(i). Every waiting task is guaranteed to go to the \u201cready\u201d state once its earliest start time is reached.",
+        "\u03b1) If, during a call to the micro-kernel, the earliest start time d(i) of a task is in the future, the task is not eligible and it is therefore transferred to the ordered list of non-eligible tasks. This time makes it possible to calculate the future instant at which the task ought to be woken up on the basis of the order of earliest start times: the nearest future earliest start time gives the future instant at which the next task in question will become eligible (to be woken up).",
+        "\u03b2) If, on the contrary, during a call to the micro-kernel, the earliest start time d(i) of the task in question is in the past, then the task is eligible and it is transferred to the ordered list of eligible tasks. The micro-kernel then gives control to the eligible task having the nearest future latest finish time in the ordered list of latest finish times, and it calculates the future instant from which the time quota allocated to the elected task will expire (where the quota is the difference between the nearest future latest finish time and the present instant).",
+        "\u03b3) Nevertheless, if the call to the micro-kernel is caused by the clock 14 in the event of being set for the time quota allocated to the task currently being processed, then the micro-kernel begins by executing the anomaly processing action specified by the application, after which it performs actions \u03b1) and \u03b2).",
+        "On the basis of these two instants (the nearest future time for waking up a task and the future time at which the quota of time allocated to the elected task expires), the micro-kernel then sets the clock 14 in such a manner that it is activated at the nearest of those two instants (either to wake up a task at the proper time, or else to detect an attempt at violating time quota, i.e. anomalous operation). With the clock 14 set, the micro-kernel is excited, possibly with switching.",
+        "Thus, during execution, the active task is changed either by a time interrupt, or following a change of node in the active task.",
+        "The origin of a time interrupt may either be the fact that a waiting task has become ready (given the time triggering), or else that the active task has used up the quota of time allocated to it, in which case a safety check is performed.",
+        "When the active task changes node in its control graph, either its latest finish time is pushed back, or else its earliest start time is pushed back. In the first case, some other task can become active, taking its place. In the second case, the active task is put into the set of waiting tasks if its new earliest start time is in the future.",
+        "The number of preemptions is finite and bounded and it is possible analytically to calculate the maximum bound of the number of preemptions.",
+        "Furthermore, insofar as time quotas are updated and monitored on each change of node, it is possible to detect anomalies in time in order to confine the task immediately.",
+        "Insofar as only legal displacements through the control graph are accepted, it is impossible for a task to present behavior in time that leads to it consuming more resources (e.g. memory resource for communications) than that which has been statistically evaluated using the same graph.",
+        "An implementation of the security method of the invention is described below with reference to FIGS. 3 to 6 for a particular real time task.",
+        "In this example, the function of the real time task is to issue an alarm if a measured value is such that v exceeds a threshold s1 over a duration t(v) which itself exceeds a threshold s2.",
+        "FIG. 3 is a flow chart showing the processing of the task corresponding to the above example.",
+        "Reference 101 designates an initial node or Node 0, at which a call is made to the system layer.",
+        "Reference 102 corresponds to a first step of acquiring the measured value v.",
+        "Reference 103 corresponds to making a test, after which the process returns to the initial node 101 followed by the step 102 if v<s1, or else moves on to Node 1, referenced 104, followed by step 105 if v\u2267s1.",
+        "At node 104, a call is made to the system layer, and at step 105, the duration t(v) is calculated.",
+        "After step 105, a test 106 serves to return to the initial node 101 if t(v)<s2, and to move on to Node 2, referenced 107, if t(v)\u2267s2.",
+        "After the second node 107, where a call is made to the system layer, the process moves on to step 108 of issuing an alarm, after which it returns to the initial node 101.",
+        "FIG. 4 is the control graph having nodes 101, 104, and 107 together with the associated arcs that correspond to the flowchart of FIG. 3.",
+        "In this example, the time allocated for performing the operations for \u201cacquiring v\u201d (step 102), for \u201ccalculating t(v)\u201d (step 105), and for \u201cissuing an alarm\u201d (step 108), are as follows:",
+        "acquisition step 102:\n1 time unit\n\n\n\ncalculation step 105:\n2 additional time units\n\n\n\nalarm issuing step 108:\n1 time unit",
+        "For each of nodes 101, 104, and 107, the services provided by the system layer and the operations performed on the earliest start times d(i) and the latest finish times f(i) are given in the table below, it being understood that during initialization, an earliest start time d(0) is given such that d(0)=0, and a latest finish time f(0) is given such that f(0)=1 time unit.",
+        "Services provided by\nOperations performed on\n\n\nNode\nthe system layer\nd (i) and f (i)\n\n\n\n\n\n\n\n1/ Node 0\ni) wait for the end of\nf (i + 1) = f (i) + 1\n\n\n\nthe previously fixed\nd (i + 1) = f (i)\n\n\n\ntime\n\n\n\nii) then adjust the\n\n\n\nnew time\n\n\n2/ Node 1\nadjust the new time\nf (i + 1) = f (i) + 2\n\n\n\n\nd (i + 1) = d (i)\n\n\n3/ Node 2\ni) wait for the end of\nf (i + 1) = f (i) + 1\n\n\n\nthe previously fixed\nd (i + 1) = f (i)\n\n\n\ntime\n\n\n\nii) then adjust the\n\n\n\nnew time",
+        "FIG. 6 summarizes a table of Nodes 0, 1, and 2 and includes descriptions of the operations to be performed on the earliest start time d(i) and the latest finish time f(i).",
+        "Furthermore, the task control graph shown in FIG. 4 can be encoded in matrix form, in which case it is presented as follows for the above-specified example:",
+        "M\n        =\n        \n          \n            \n              \n                Node\n              \n            \n            \n              \n                0\n              \n            \n            \n              \n                1\n              \n            \n            \n              \n                0\n              \n            \n          \n          \u2062\n          \n            \n              \n                \n                  0\n                  \u2062\n                  \n                    \n                  \n                  \u2062\n                  1\n                  \u2062\n                  \n                    \n                  \n                  \u2062\n                  2\n                \n              \n            \n            \n              \n                \n                  (\n                  \n                    \n                      \n                        A\n                      \n                      \n                        A\n                      \n                      \n                        I\n                      \n                    \n                    \n                      \n                        A\n                      \n                      \n                        I\n                      \n                      \n                        A\n                      \n                    \n                    \n                      \n                        A\n                      \n                      \n                        I\n                      \n                      \n                        I\n                      \n                    \n                  \n                  )\n                \n              \n            \n          \n        \n      \n    \n    \n      \n        (\n        I\n        )\n      \n    \n  \n\n\n\n\nwhere:",
+        "mij=A if the move from Node i to Node j is authorized;",
+        "mij=I if the move from Node i to Node j is inhibited.",
+        "FIG. 5 is a timing chart showing an implementation of the above-described real time task, showing the associated time values. Numbers 1 to 10 designate real time in numbers of time units since the start of operation in time-triggered mode.",
+        "The security method of the invention is also adapted to ensure that the real time execution of multitasking applications communicating with one another by messages is made deterministic.",
+        "Under such circumstances, the method includes the following particular steps which take place amongst the steps described above for a basic method with multitasking applications without communication between tasks being indicated:",
+        "n) during a preparatory stage, for each of the tasks of a given application storing all of the authorized chainings of its points for time synchronization and for communication with the other tasks of the application requiring a call to the system layer, these authorized chaining being represented by a control graph for the execution of system layer calls made by the task in question, each graph comprising a set of nodes, each corresponding to a call to the system layer;",
+        "o) storing each buffer zone needed for exchanging data between tasks, specifying its size, the size of the elements that it contains, its location or base address, and also the relationships between the buffer zones enabling the information transfers needed for communications to be confirmed;",
+        "p) storing, for each buffer zone, the initial values of its elements;",
+        "q) for the given application and prior to starting real time execution in a time-triggering operating mode, initializing the values of the elements of the buffer zone with values previously stored in memory; and",
+        "r) during execution of a task, while making a system layer call when a node of the task control graph is reached and after verifying that according to the control graph of the task currently being executed the chaining from the node corresponding to the preceding system layer call is authorized, causing buffer zones to be updated in succession as a function of the nature of the previously-stored call and performing incremental updates as necessary of the time parameters of the task being executed, comprising its earliest start time d(i) and its latest finish time f(i).",
+        "When the first and second execution contexts are defined for each task of the application and for its extension into the system layer, the following particular features also apply:",
+        "In the system layer, only the buffer zones are allowed to be shared by the extensions of the execution contexts of the tasks of an application, a given buffer zone for dynamic communications corresponding to sending messages being sharable only by two task execution context extensions, while a given buffer zone for static communications corresponding to a stream of time-stamped data can be shared by more than two task execution context extensions but can be written to or modified by a single context only.",
+        "An implementation of the security method of the invention involving two real time tasks that communicate by means of messages is described below with reference to FIGS. 7 to 13.",
+        "In this simple example, the function performed consists in switching on an alarm lamp if a measured value v is such that v exceeds a threshold s1, and if the duration t(v) that the threshold s1 has been exceeded by the measured value v, itself exceeds a threshold s2.",
+        "One processing task thus acquires v and, if necessary, sends a message to an alarm task which switches ON the specified lamp.",
+        "FIG. 7 is a flow chart corresponding to executing the processing task in this example.",
+        "Reference 111 designates the initial node or Node 0 at which a call is made to the system layer.",
+        "The first step 112 is a step of acquiring the measured value v and it is associated with a test 113 which compares the value v with the threshold s1.",
+        "If v<s1, then the task returns to the initial mode 111, else if v\u2267s1, the task moves on to Node 1, given reference 114, and giving rise to a call to the system layer.",
+        "The second step 115, following node 114, corresponds to calculating the duration t(v).",
+        "The test 116 associated with step 115 compares the duration t(v) with the threshold s2.",
+        "If t(v)<s2, then the task returns to the initial node 111, else if t(v)\u2267s2, then the task moves on to Node 2, which is referenced 117, and gives rise to a call to the system layer.",
+        "After node 117, the task moves on to Node 3 referenced 118 where a call is made to the system layer, and a third step is performed which consists in sending an alarm message, prior to returning to the initial node 111.",
+        "FIG. 8 shows the control graph corresponding to the flow chart of FIG. 7, with the nodes and the authorized arcs.",
+        "FIG. 9 shows the flow chart corresponding to executing the alarm task in this example.",
+        "Reference 121 designates the initial node or Node 0 at which a call is made to the system layer.",
+        "A test 122 examines whether a message has been received.",
+        "If no message is present, then the task moves on to step 123 of switching OFF the alarm lamp, after which it returns to the initial node 121.",
+        "If one or more messages are present, then the task goes to Node 1, referenced 124, with a call to the system layer and then passes on to a step 125 of switching ON the alarm lamp, prior to returning to the initial node 121.",
+        "FIG. 10 shows the control graph corresponding to the flow chart of FIG. 9, with its nodes and its authorized arcs.",
+        "In this example, the times allowed for performing the operations: \u201cacquire v\u201d; \u201ccalculate t(v)\u201d; \u201csend message\u201d; \u201cswitch OFF\u201d; \u201cswitch ON\u201d; corresponding respectively to steps 112, 115, 118, 123, and 125 are as follows:",
+        "\u201cacquire v\u201d:\n1 time unit\n\n\n\n\u201ccalculate t (v)\u201d:\n2 additional time units\n\n\n\n\u201csend message\u201d:\n1 time unit, but the message will be\n\n\n\n\navailable in 2 time units\n\n\n\n\u201cswitch OFF\u201d:\n1 time unit\n\n\n\n\u201cswitch ON\u201d:\n1 time unit",
+        "The services given by the system layer and the operations performed on the earliest start times d(i) and the latest finish times f(i) (it being understood that d(0)=0 and f(0)=1) together with the time dV at which messages become visible are given below for each node of each of the two tasks.",
+        "Operations\n\n\n\nServices rendered\nperformed on d (i),\n\n\n\n\n\n\n\n\n\n\n\nNode\nby the system layer\nf (i), and dV\n\n\n\n\n\n\n\n\n\n\n\n\n\n(Processing task)\n\n\n\n\n\n\n\n\n\n\n\nNode 0 (111)\nWait for the end\nf (i + 1) = f (i) + 1;\n\n\n\n\nof the previously\nd (i + 1) = f (i)\n\n\n\n\nfixed time\n\n\n\n\nThen adjust new\n\n\n\n\ntime\n\n\n\nNode 1 (114)\nAdjust the new\nf (i + 1) = f (i) + 2;\n\n\n\n\ntime\nd (i + 1) = d (i)\n\n\n\nNode 2 (117)\nWait for the end\nf (i + 1) = f (i) + 1;\n\n\n\n\nof the previously\nd (i + 1) = f (i)\n\n\n\n\nfixed time\n\n\n\n\nThen adjust the\n\n\n\n\nnew time\n\n\n\nNode 3 (118)\nCopy the message\nf (i + 1) = f (i);\n\n\n\n\nin the send zone of\nd (i + 1) = d (i)\n\n\n\n\nthe extension of\ndV = d (i) + 2\n\n\n\n\nthe task context in\n\n\n\n\nthe system layer\n\n\n\n(Alarm task)\n\n\n\nNode 0 (121)\nWait for the end\nf (i + 1) = f (i) + 1\n\n\n\n\nof the previously\nd (i + 1) = f (i)\n\n\n\n\nfixed time\n\n\n\n\nThen adjust new\n\n\n\n\ntime\n\n\n\n\nCopy visible\n\n\n\n\nmessages from the\n\n\n\n\nsend zone of the\n\n\n\n\ntreatment task into\n\n\n\n\nthe receive zone of\n\n\n\n\nthe extension of\n\n\n\n\nthe task context in\n\n\n\n\nthe system layer\n\n\n\nNode 1 (124)\nMake a note in\nf (i + 1) = f (i)\n\n\n\n\nthe receive zone of\nd (i + 1) = d (i)\n\n\n\n\nthe extension of\n\n\n\n\nthe task context in\n\n\n\n\nthe system layer,\n\n\n\n\nthat the first\n\n\n\n\nmessage has been\n\n\n\n\nconsumed.",
+        "FIGS. 12 and 13 relate respectively to the processing task and to the alarm task of this example, and comprise tables of nodes with descriptions of the operations to be performed on the earliest start time d(i), the latest finish time f(i), and the visibility time dV.",
+        "The control graphs of the processing task and of the alarm task can be encoded in matrix form as follows:",
+        "M\n        =\n        \n          \n            \n              \n                \n                  Node\n                  \u2062\n                  \n                    \n                  \n                \n              \n            \n            \n              \n                0\n              \n            \n            \n              \n                1\n              \n            \n            \n              \n                2\n              \n            \n            \n              \n                3\n              \n            \n          \n          \u2062\n          \n            \n              \n                \n                  \n                    \n                  \n                  \u2062\n                  \n                    0\n                    \u2062\n                    \n                      \n                    \n                    \u2062\n                    1\n                    \u2062\n                    \n                      \n                    \n                    \u2062\n                    2\n                    \u2062\n                    \n                      \n                    \n                    \u2062\n                    3\n                  \n                  \u2062\n                  \n                    \n                  \n                \n              \n            \n            \n              \n                \n                  (\n                  \n                    \n                      \n                        A\n                      \n                      \n                        A\n                      \n                      \n                        I\n                      \n                      \n                        I\n                      \n                    \n                    \n                      \n                        A\n                      \n                      \n                        I\n                      \n                      \n                        A\n                      \n                      \n                        I\n                      \n                    \n                    \n                      \n                        I\n                      \n                      \n                        I\n                      \n                      \n                        I\n                      \n                      \n                        A\n                      \n                    \n                    \n                      \n                        A\n                      \n                      \n                        I\n                      \n                      \n                        I\n                      \n                      \n                        I\n                      \n                    \n                  \n                  )\n                \n              \n            \n          \n        \n      \n    \n    \n      \n        \n          (\n          2\n          )\n        \n        \u2062\n        \n          \n        \n        \u2062\n        \n          (\n          \n            processing\n            \u2062\n            \n              \n            \n            \u2062\n            task\n          \n          )\n        \n      \n    \n  \n  \n    \n      \n        M\n        =\n        \n          \n            \n              \n                Node\n              \n            \n            \n              \n                0\n              \n            \n            \n              \n                1\n              \n            \n          \n          \u2062\n          \n            \n              \n                \n                  \n                    \n                  \n                  \u2062\n                  \n                    0\n                    \u2062\n                    \n                      \n                    \n                    \u2062\n                    1\n                  \n                \n              \n            \n            \n              \n                \n                  (\n                  \n                    \n                      \n                        A\n                      \n                      \n                        A\n                      \n                    \n                    \n                      \n                        A\n                      \n                      \n                        I\n                      \n                    \n                  \n                  )\n                \n              \n            \n          \n        \n      \n    \n    \n      \n        \n          (\n          3\n          )\n        \n        \u2062\n        \n          \n        \n        \u2062\n        \n          (\n          \n            alarm\n            \u2062\n            \n              \n                \n              \n              \u2062\n              \n                \n              \n            \n            \u2062\n            task\n          \n          )\n        \n      \n    \n  \n\n\n\n\nwhere:",
+        "mij=A if the move from Node i to Node j is authorized;",
+        "mij=I if the move from Node i to Node j is inhibited.",
+        "FIG. 11 is a timing chart showing an implementation of the two above-described communicating tasks, showing the associated time values. Numbers 1 to 10 specify real time in number of time units since the beginning of operation in time-triggered mode.",
+        "Only one type of message is stored in a given message queue. A message visibility time dV is associated with each message sent. The time dV specifies the future instant from which the destination can consume the message. Messages are consumed in order of visibility time dV, then in order of sender name, and finally in send order, thus making it possible to order messages fully for consumption purposes.",
+        "For each message queue, there exists a send zone in the context of each sender and a receive zone for the owner of the message queue concerned.",
+        "Since each producer (sender) has a send zone, there is no problem of conflict between two messages being sent by two different tasks.",
+        "Furthermore, as mentioned above, segmenting the memory makes it possible for the impact of a failure of a task to be restricted to its own memory space. Failure propagation from one task to other tasks in the application is thus impossible.",
+        "The use of memory segmentation also makes it possible to obtain the following property: within a time interval of the time triggering (TT) of a task, the execution context of the task is invariant between the beginning of a new instruction and the end of the preceding instruction.",
+        "Memory segmentation is applied to the system layer itself so as to partition it internally and thus partition the micro-kernel from the remainder of the system layer.",
+        "The memory protection unit 16 constitutes the hardware mechanism which makes it possible to enforce memory segmentation from the physical architecture point of view.",
+        "FIG. 2 shows the resulting distribution of code depth going from application level with user execution mode 201 (i.e. non-privileged mode) up to the micro-kernel 203, passing via the system layer 202, with privileged execution mode.",
+        "Access to the system layer 202 with privileged execution mode is protected by a \u201ctrap\u201d type branch instruction, while passage from the system layer 202 to the micro-kernel 203 is triggered by a move type instruction.",
+        "The clock 14 provides time triggering and issues a clock interrupt signal sh whenever a programmable quantity of time has elapsed.",
+        "FIG. 2 thus shows the code and the data of the various tasks at application level 201, whereas in system layer level 202 there can be found the extensions of task contexts into the system layer and also the code of the system layer. In micro-kernel level 213, there can be found the data and the code of the micro-kernel for managing the allocation of the processor to the task, and for managing time.",
+        "Reference is now made to FIG. 14 which is a detailed table showing the rights of the various segments in an implementation of the security method of the invention to segmented memory.",
+        "As mentioned above, a multitask application comprises specific code, tasks, streams of time variables, message boxes, a system layer for transferring information between tasks, a graph executor which monitors movements of tasks in the application code, and a micro-kernel for managing time and processor sharing.",
+        "The memory is subdivided into segments having access rights that depend on the execution context of the processor.",
+        "To understand the table of FIG. 14, the following definitions apply:\n\n    .inst: a set of consecutive instructions in memory;\n    .const: a set of consecutive data items of constant values;\n    .var: a set of consecutive data items modifiable by instructions:\n    I: entitled to execute the instructions of the segment;\n    M: entitled to modify and consult the segment;\n    C: access rights to the segment restricted to consultation (read-only);\n    R: access to the segment is refused.",
+        "The segments are grouped together in zones depending on whether they are application-specific or linked with the model of the invention to the CPU 10 and its processor.",
+        "For each task, there are successive application zones CT, FT, BM, ME, VT, and PU. These application zones are described as follows:",
+        "Task Calculation Zone CT:",
+        ".const and .var: task data including its stack in non-privileged mode;\n    .inst: task calculations.\n\nTask Operating Zone FT:\n\n    .const: description of the operation of the task (execution graph, node descriptions, due times, time increments as calculated by the CPU, . . . );\n    .var: zone for passing arguments to the system layer;\n    .inst: functions requesting a change of node from the system layer.\n\nMessage Box Zone BM:\n\n    .const: the characteristics of each message box of the task, including connections to the send zones (zones ME);\n    .var: all of the messages that are accessible to the task at the present instant.\n\nMessage Storage Zone ME:\n\n    .const: the descriptions of storage zones for messages sent by the task and not visible to destination tasks;\n    .var: the storage zones themselves.\n\nTime Variable Zone VT:\n\n    .const: the descriptions of storage zones for the task, the values of the streams of time variables visible to the task including connections to the zones that produce the values;\n    .var: storage zones for the task for visible values that have been passed.\n\nZone PU:\n\n    .var: temporary working data needed by the processor, the current context of the task, the privileged mode stack.",
+        "There is also a global application zone common to all of the tasks, and described as follows:",
+        "Global Zone G:",
+        ".const: descriptions of the global constants of the application (number of tasks, references of task descriptors, descriptions of clocks, . . . ) and the constants providing an interface with the system layer.",
+        "The system layer itself comprises a zone CS which is described as follows:",
+        "System Layer Zone CS:",
+        ".const: for reference;\n    .var: empty (the past is stored in the segment var of the zone PU);\n    .inst: the instructions for the graph executor, for managing the message boxes, for making available the passed values of the streams of time variables, and the instructions for managing the clocks and calculating due times.",
+        "The transfer zone TR common to the system layer is described as follows:",
+        "Transfer Time TR:",
+        ".const: for reference;\n    .var: the identity of the active task;\n    .inst: instructions for changing the hardware access right to the memory and for branching into the system layer or the micro-kernel.",
+        "The micro-kernel comprises zones MN and RS which are described as follows:",
+        "Zone MN:",
+        ".const: for reference;\n    .var: the data needed for managing hardware (managing time, managing \u201ctrap\u201d instructions, . . . );\n    .inst: instructions for managing sets of ready or resting tasks as a function of due times, backing up and changing hardware context, managing clock interrupts for exhausted right to use the processor, and implementing the memory protection function available on the CPU.\n\nZone RS:\n\n    .const: for reference;\n    .var: empty;\n    .inst: instructions for initializing the CPU and the software which executes without memory protection.",
+        "At a given instant, the processor executes instructions either on behalf of a task in the application code (in non-privileged mode), or for a task in the system layer (in privileged mode), or in the micro-kernel.",
+        "The rows of the table of FIG. 14 represent, the segments of a task, then those of the system layer, and finally those of the micro-kernel, as defined above. The columns represent access rights to the memory depending on whether the processor is executing instructions of the application code of the task (column 301), code of the system layer for the task (column 302), code of the system layer for another task (column 303), or code of the micro-kernel after initialization of the CPU (column 304).",
+        "In general, the memory can be subdivided into pages, and a page can be write-protected, absent, or available. In this situation, segment sizes are rounded to multiples of one page, .const and .var are merged and write-protected, and pages whose access rights are R are either absent or else removed from the description."
+    ],
+    "citations": [
+        "4589093",
+        "6338072",
+        "2 771 828",
+        "2771828"
+    ],
+    "us_classification": "714 51",
+    "international_classifications": [
+        {
+            "classification_level": "A",
+            "section": "G",
+            "classification_class": "06",
+            "subclass": "F",
+            "main_group": "11",
+            "subgroup": "00"
+        }
+    ]
+}

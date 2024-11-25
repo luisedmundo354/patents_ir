@@ -1,0 +1,235 @@
+{
+    "title": "Method and device for demodulating signals from multiple users",
+    "abstract": "Method and device for equalizing and decoding digital signals from K users including several modules. Each module includes an equalizer linked to a decoder. An equalizer of rank k corresponding to an index of user k is linked at least to the decoders of rank varying from 1 to k-1. Such a method and apparatus may find particular application for demodulating signals in mobile radio systems.",
+    "inventors": [
+        "Roumy",
+        "Pirez",
+        "Fijalkow"
+    ],
+    "document_number": "07298801",
+    "publication_date": "20071120",
+    "assignees": [
+        "Thales"
+    ],
+    "claims": [
+        {
+            "claim_number": "CLM-00001",
+            "preamble": "1. A device for equalizing and decoding digital signals from K users including K modules, each module comprising:",
+            "components": [
+                {
+                    "component": "an equalizer; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a decoder, wherein",
+                    "subcomponents": []
+                },
+                {
+                    "component": "an equalizer of rank k, k being an index between 1 and K, is linked to at least one decoder of lower rank 1 to k\u22121, and an equalizer of rank k\u22121 thereby receives information from a user of higher rank k to K, whether symbols from signals of K users are useable or not, wherein",
+                    "subcomponents": []
+                },
+                {
+                    "component": "each equalizer includes a first and second block,",
+                    "subcomponents": [
+                        "the first block configured to receive at least a signal to be demodulated from a user k and estimates of the symbols associated with users 1 to k\u22121, and",
+                        "the second block configured to subtract a contribution from past symbols already demodulated from a signal received from the first block, and"
+                    ]
+                },
+                {
+                    "component": "the first block configured to receive at least a signal to be demodulated from a user k and estimates of the symbols associated with users 1 to k\u22121, and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "the second block configured to subtract a contribution from past symbols already demodulated from a signal received from the first block, and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "the first block receives, at an ith iteration, at least the signal from user k to be demodulated, at least the estimates of the symbols associated with users 1 to k\u22121 corresponding to the ith iteration and estimates of the symbols of users k+1 to K which are obtained at the (i\u22121)th iteration and the second block receives the estimates of the symbols of user k which are obtained at the (i\u22121)th iteration.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00002",
+            "preamble": "2. A method for equalizing and decoding digital signals of K users in a receiver comprising several modules each comprising at least one equalizer followed by a decoder wherein the method comprises:",
+            "components": [
+                {
+                    "component": "a) at iteration",
+                    "subcomponents": []
+                },
+                {
+                    "component": "b) for users k of index different to 1, transmitting the signal to be demodulated to an equalizer of rank k and the various estimated modulated symbols from at least one of the decoders of rank (k\u22121),",
+                    "subcomponents": []
+                },
+                {
+                    "component": "performing plural iterations of step a) and step b) and, for an iteration different from the first iteration, step b) includes, during an ith iteration, transmitting to a first block of the equalizer of rank k the symbols of user k to be demodulated, estimates of the symbols of users 1 to k\u22121obtained during the ith iteration and estimates of the symbols of users k+1 to K obtained during the (i\u22121)th iteration and to a second block of the equalizer the estimates of the symbols of user k from the (i\u22121)th iteration.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00003",
+            "preamble": "3. A method for equalizing and decoding digital signals of K users in a receiver comprising several modules each comprising at least one equalizer followed by a decoder wherein the method comprises:",
+            "components": [
+                {
+                    "component": "a) at iteration",
+                    "subcomponents": []
+                },
+                {
+                    "component": "b) for users k of index different to 1, transmitting the signal to be demodulated to an equalizer of rank k and the various estimated modulated symbols from at least one of the decoders of rank (k\u22121), and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "c) ordering the users k, before being processed, according to a criterion taking account of a corrected power, associated with user k, of a contribution of intersymbols associated with himself and with the other users,",
+                    "subcomponents": []
+                },
+                {
+                    "component": "wherein the criterion for ordering the users is determined as follows",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00004",
+            "preamble": "4. The device as claimed in claim 1 , further comprising:",
+            "components": [
+                {
+                    "component": "a device suitable for determining a criterion to order the users before transmitting the signals to the equalizer and the decoder, the criterion taking into account a power of user k and an intersymbol interference for the user k and other users.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00005",
+            "preamble": "5. The method as claimed in claim 2 , further comprising:",
+            "components": [
+                {
+                    "component": "ordering the users k, before being processed, according to a criterion taking account of a corrected power, associated with user k, of the contribution of intersymbols associated with the user k and with other users.",
+                    "subcomponents": []
+                }
+            ]
+        }
+    ],
+    "description": [
+        "The invention relates to a method and a device for equalizing and decoding digital signals from several users.",
+        "The invention applies in a CDMA (code division multiple access) context with channel coding.",
+        "It applies in particular to third generation mobile radio systems.",
+        "In digital transmission, a receiver can be viewed as a succession of several elementary functions each performing a specific process such as filtering, demodulating, equalizing, decoding, etc.",
+        "The CDMA technique is a multiple access technique which will form the basis of third-generation mobile radio systems.",
+        "This technique is based on the spread spectrum principle in which transmission takes place at a much higher bit rate than is necessary for each user, by multiplying the useful symbols by sequences of high bit rate symbols called \u201cspreading sequences\u201d.",
+        "All the transmissions are then performed at the same, frequency and at the same times, separation between the users being obtained by different spreading sequences.",
+        "In the first versions of CDMA systems, demodulation is carried out on a user-by-user basis. The \u201cdespreading\u201d operation which involves remultiplying the received signal by the spreading sequence enables the signal to be brought back into its original useful frequency band, while the signals from other users remain spread; these \u201cother users\u201d are seen as a noise level and the processing gain, known as the \u201cspreading gain\u201d, is equal to the ratio of the useful bit rate to the transmission bit rate. It is this processing gain which allows several users to coexist in the same frequency band.",
+        "More recent techniques attempt to demodulate all the users jointly, by considering the signals from other users as being something other than noise. These techniques, although often more complex, considerably improve the performance compared with the standard technique and in particular they resolve the \u201cnear-far effect\u201d which is a major disadvantage resulting from the fact that, if all the mobile terminals transmit at the same power, a transmitter close to the base station appropriates to itself alone almost the total multiple access capacity in the cell, preventing the others from communicating. To prevent this, conventional systems require a high-performance power control system on each transmitter so that the signals are received with the same power at the base station.",
+        "Various decoding techniques are known in the prior art.",
+        "For example, turbo-codes are powerful error-correcting codes. The basic version uses two simple convolutional codes of which one receives data to be transmitted and the other receives data passed through an interleaver. The outputs of these two codes are then multiplexed. At the receive end, iterations are made a certain number of times between the decoding of the first and the second code, each decoding stage providing weighted information on the useful bits to the next decoding stage. The successive decoding stages improve the knowledge on the bits to be decided. This iterative procedure, with very simple elementary decoding stages, enables performance levels to be achieved that are comparable with those using much more complex codes.",
+        "In turbo-equalization or turbo-detection, the iterative processing principle is adopted using an equalizer and a decoder separated by an interleaver. This principle is applied to demodulation on a frequency-selective channel which requires, as first processing stage, an equalizer. By iteration between equalization steps and decoding steps, the equalizer benefits from information associated with the error-correcting code, to which information it does not normally have access. In this way, an attempt is made to approach the performance levels of optimal joint decoding implementing both the equalization stage and the correcting code, which turns out to be too complex to implement due to the presence of the interleaver.",
+        "The turbo-CDMA applies the \u201cturbo\u201d principle to coded CDMA transmissions. Several iterations between a multiuser demodulator and an error-correcting decoder are carried out.",
+        "Various structures have already been proposed to improve the reception of the signals.",
+        "Patent FR 95/01603 discloses a structure for joint equalization and decoding with iteration at the receive end. It is however limited to a single user. The equalizer used is an MAP (Maximum a Posteriori) equalizer known in the technical field of turbo-codes or turbo-equalizers.",
+        "Patent FR 2,763,978 describes a receiver in which equalization is performed as follows: for the first iteration, a linear equalizer is used and then an interference canceler is used for the next iterations. Although this structure is less complex than that described in patent FR 95/01603, it does not however provide for working under optimal conditions.",
+        "Other documents, for example:\n\n    \n    \n        the article by P. D. Alexander, M. C. Reed, J. A. Asenstorfer and C. B. Schlegel, \u201cIterative multiuser interference reduction: Turbo CDMA\u201d, IEEE Trans. Comm., Vol. 47, No. 7, pp. 1008-1014, July 1999, or\n        the article by J. Hagenauer, \u201cThe Turbo principle: Tutorial introduction and state of the art\u201d, Int. Symp. on Turbo-codes, Brest, 1997, pp. 1-11,\n\ndescribe designs of turbo-CDMA receivers based on MAP equalizers. These receivers are extensions to the multiuser case of the Turbo-detector. Processing is performed in parallel and in a fixed manner for each user: at each iteration, the processing uses the results from the previous iteration.",
+        "The document by X. Wang and H. V. Poor, entitled \u201cIterative (turbo) soft interference cancellation and decoding for coded CDMA\u201d, IEEE Trans. Comm., Vol. 47, No. 7, pp. 1046-1061, July 1999, describes a principle of a turbo-CDMA receiver with filter-based interference canceling. This equalizer contains a generalization of the interference canceler usually used in turbo-equalization in the multiuser case, followed by a Wiener filter. Some complexity is inherent to the principle since a matrix inversion is required at each new symbol to be processed.",
+        "Finally, the article by A. Klein, G. Kawas Kaleh and P. W. Baier, \u201cZero forcing and minimum mean-square-error equalization for multiuser detection in CDMA channels\u201d, IEEE Trans. on Veh. Tech., Vol. 45, No. 2, pp. 276-287, March 1996, describes designs of multiuser equalizers without the error-correcting decoding stage.",
+        "The principle of the invention is based on a new design which fits in particular into a turbo-CDMA system. The idea is to demodulate the users one by one, each demodulation stage being followed by an error decoding stage. At the end of an iteration for a given user which corresponds to an equalization and to a decoding on the symbols of the user, there is reliable information on the symbols of the user in question. Before demodulating a user, a first step consists in subtracting from the received signal the contribution of all the interference from the users demodulated before him, said interference being determined from the information on the decided symbols. Users who have not yet been demodulated are considered as noise, the structure of which is known, in particular due to the knowledge of the spreading sequences or of the coding parameters of the signal at the transmission stage.",
+        "The invention also relates to an equalization and decoding method comprising a step in which the users are ordered before being processed.",
+        "The invention relates to a device for equalizing and decoding digital signals from K users, comprising K modules, each module comprising an equalizer linked to a decoder. It is characterized in that an equalizer of rank k is linked to several decoders of lower rank 1 to k\u22121.",
+        "An equalizer can comprise a first block receiving at least the signal to be demodulated, from user k, and the estimates of the symbols associated with users 1 to k\u22121 and a second block designed to subtract the contribution from the past symbols already demodulated.",
+        "The first block receives, for example during an ith iteration, at least the signal from user k to be demodulated, at least the estimates of the symbols associated with users 1 to k\u22121 corresponding to the ith iteration and the estimates of the symbols of users k+1 to K obtained which are at the (i\u22121)th iteration and the second block receives the estimates of the symbols of user k which are obtained at the (i\u22121)th iteration.",
+        "The device may include a device for determining a criterion to order the users.",
+        "The invention relates to a method for equalizing and decoding digital signals from K users in a receiver comprising several modules each comprising at least one equalizer followed by a decoder. It is characterized in that it comprises at least the following steps:\n\n    \n    \n        a) at iteration 1, for the user of index 1, to transmit the signal to be demodulated to an equalizer of rank 1 then to a decoder of rank 1 so as to obtain estimated modulated symbols of user k, and\n        b) for users k of index different to 1, to transmit the signal to be demodulated to an equalizer of rank k and the various estimated modulated symbols from at least one of the decoders of rank (k\u22121) in order to obtain the estimated modulated symbols of user k.",
+        "The device and method according to the invention are applied to demodulate a signal in the context of a space division and/or a CDMA-type code division multiple access scheme.",
+        "The decoding method according to the invention and the suitable receiver or device have the particular advantage of overcoming interference between symbols more effectively than that of the prior art.",
+        "The method and the structure of the receiver prove also to be less complex than certain methods from the prior art using MAP (maximum a posteriori)-type equalizers or Wiener-type filters which require a matrix inversion for each symbol estimation.",
+        "Other features and advantages of the invention will become apparent on reading the description provided below for illustration purposes and not at all limiting, in conjunction with the figures in which:\n\n    \n    \n        FIG. 1 is a block diagram of a system for coding the signals from K users sharing a propagation channel,\n        FIG. 2 shows an example structure of a receiver, reducing the problem at the receive end to block diagram form,\n        FIG. 3 shows the steps and the means implemented by the invention,\n        FIG. 4 shows a matrix modeling the signal,\n        FIG. 5 shows an example structure of the equalizer used in the method according to the invention, and\n        FIG. 6 is an alternative implementation of the invention.",
+        "FIG. 1 shows a system for coding the signals transmitted by K users who share a same propagation channel and who use waveforms spread spectrally via codes, each user denoted by k, where k varies from 1 to K, having his own code. The users are considered as asynchronous users who access a same frequency-selective propagation channel in order to transmit information.",
+        "The digital signal associated with user k is coded using a correcting code 1 before being transmitted to an interleaver 2. These two functional blocks may be identical or very different for each user k. The correcting code is for example a convolutional-type code, but not necessarily so.",
+        "The coded signal is then \u201cspread\u201d using a spreading sequence 3k\u2014the purpose of the index k is to denote the specific spreading sequence for each user k. The different spreading sequences for each user thus provide for discrimination between them. A modulated signal will see a different propagation channel 4k for each user. This typically corresponds to the uplink of a cellular mobile radio system. The concept of propagation channel includes for example any time shifts resulting from an absence of synchronization between the K users.",
+        "The receiver sees the sum of the various contributions of the signals from the various propagation channels. Thermal noise associated with the input stages of the receiver described below or even interference from signals transmitted in the same frequency band, for example mobile terminals of neighboring cells using the same frequency, may be added to these signals.",
+        "To simplify the description, the modulation operations, typically the shaping by a half-Nyquist filter and the transmission via carrier, which are known to a person skilled in the art, are not represented in FIG. 1.",
+        "FIG. 2 shows a very general block diagram of a receiver.",
+        "The signal made of all the symbols of all K users arrives in a multiuser equalizer 6 before being transmitted to a decoding device 7 comprising one or more decoders 7k.",
+        "The equalizer 6 receives the signal from the various users along with information provided by the decoding block 7 on the coded symbols via a link 8, except when no decoding has been performed. The equalizer 6 delivers as output weighted information on the coded symbols which make use of these two types of information, typically the probabilities of transmission of the various possible symbols.",
+        "The functions for deinterleaving and shaping the weighted information between the equalizer and the decoders are not represented in the figure. These functions are for example for translating information on the 8-ary symbols into probabilities on the bits when the modulation is in 8 states and the code is binary.",
+        "The decoder or decoders 7k receive information from the equalizer and make use of the information associated with the error-correcting code so as to provide more reliable information on the useful symbols and therefore the coded symbols. For example for a convolutional code, the decoder can be of the \u201cMAP\u201d (maximum a posteriori) type and calculates the probabilities on the useful symbols from the knowledge of the probabilities on the coded symbols.",
+        "The weighted information is then reinterleaved and reshaped before being reinputted into the \u201cequalizer\u201d block. The data interleaving step is carried out according to a method known to a person skilled in the art and will not be detailed. One way of proceeding consists for example in writing the data column by column in a matrix of appropriate dimension and reading this matrix row by row for example. This advantageously results in any errors being distributed during the reading stage of the signal. The shaping is performed according to conventional methods which are known to a person skilled in the art, and hence are not detailed.",
+        "FIG. 3 shows a structure of a receiver 10 according to the invention comprising several equalizers 11k and several decoders 12k, where the index k is used to identify a user. The receiver therefore comprises as many modules as there are users, each module being formed from an equalizer and a decoder.",
+        "The signal comprising the symbols from all the users is received by each equalizer 11k of the receiver 10.",
+        "Step a)",
+        "The equalizer of rank 1 referenced 111, receives for example the samples from the signal to be decoded, without information a priori on its own symbols or on the symbols of the other users. The information resulting from this first equalization is transmitted to the decoder of rank 1 denoted by 121, which provides more reliable information on the useful symbols and therefore the modulated symbols of the user.",
+        "Step b)",
+        "The reliable information, on the useful symbols, obtained for user 1 is then transmitted to the equalizer of rank 2, 112, which also receives the samples of the received signal to be decoded. The equalizer thus enables the interference associated with the user of rank 1 to be taken into account, while still knowing nothing a priori about the symbols of the users of rank greater than or equal to 2. The information from this second equalization is then transmitted to the decoder of rank 2, 122, which will provide information on the useful symbols of the user of rank 2.",
+        "Step b) is executed as many times as there are users of rank different to 1, that is K\u22121 times.",
+        "To generalize, for the user of index k, the samples of the signal are transmitted to the equalizer of rank k, 11k, which also receives the useful symbols relating to the users of rank 1 to k\u22121, resulting from the different decoders 121, . . . , 12k\u22121. The equalizer 11k thus takes into account the interference associated with the users of rank 1 to (k\u22121) for decoding the signal associated with user k. The information arising from this kth equalization is then transmitted to the decoder of rank k, 12k, which will provide information on the useful symbols of the user of rank k.",
+        "The last equalizer has information on all the other users.",
+        "According to an embodiment of the invention, the equalizer used has a two-part structure. The first part is for subtracting for a user k in question the participation of the users of rank 1 to k\u22121, and the second part corresponds to a decision feedback equalizer (DFE) structure having the characteristics described below.",
+        "The signal received by the equalizer can be modeled as described below.",
+        "It is assumed that a block of received samples can be arranged in a vectorial form Z. This block of samples arises from the contribution of the K users, each of them contributing with N coded symbols.",
+        "The contribution from an arbitrary user of index k to the received signal is obtained, without taking into account the modulation operations on the carrier, via the following operations:\n\n    \n    \n        spreading by a factor Q of each coded symbol,\n        shaping, for example by a half-Nyquist filter,\n        filtering by the propagation channel by introducing multiple paths for example,\n        anti-aliasing filtering at the receive end, and\n        sampling.",
+        "The signal from user k before sampling is given for example by equation (1) below",
+        "z\n            k\n          \n          \u2061\n          \n            (\n            t\n            )\n          \n        \n        =\n        \n          \n            \u2211\n            n\n          \n          \u2062\n          \n            \n              a\n              \n                n\n                ,\n                k\n              \n            \n            \u2062\n            \n              \n                \u2211\n                \n                  q\n                  =\n                  1\n                \n                Q\n              \n              \u2062\n              \n                \n                  \n                    c\n                    \n                      q\n                      ,\n                      k\n                    \n                  \n                  \u00b7\n                  \n                    (\n                    \n                      h\n                      \u2297\n                      \n                        p\n                        k\n                      \n                      \u2297\n                      f\n                    \n                    )\n                  \n                \n                \u2062\n                \n                  (\n                  \n                    t\n                    -\n                    \n                      q\n                      \u2062\n                      \n                        \n                      \n                      \u2062\n                      \n                        T\n                        c\n                      \n                    \n                    -\n                    \n                      n\n                      \u2062\n                      \n                        \n                      \n                      \u2062\n                      \n                        T\n                        s\n                      \n                    \n                  \n                  )\n                \n              \n            \n          \n        \n      \n    \n    \n      \n        (\n        1\n        )",
+        "In this equation, h represents the shaping filter at the transmission stage, pk(t) is the propagation channel specific to a user k, f(t) is the receive filter before sampling, Tc is the chip period, inverse of the modulation rate, and Ts is the symbol period before spreading. The symbols an,k are the coded symbols of the user k and the symbols cq,k are the chips of the spreading sequence, where n corresponds to the temporal index of the coded symbol and q corresponds to the index of the chips or symbols of the spreading sequence.",
+        "The symbol\n\n    \n\nrepresents the convolution.",
+        "Suppose:",
+        "s\n            k\n          \n          \u2061\n          \n            (\n            t\n            )\n          \n        \n        =\n        \n          \n            \u2211\n            \n              q\n              =\n              1\n            \n            Q\n          \n          \u2062\n          \n            \n              \n                c\n                \n                  q\n                  ,\n                  k\n                \n              \n              \u00b7\n              \n                (\n                \n                  h\n                  \u2297\n                  \n                    p\n                    k\n                  \n                  \u2297\n                  f\n                \n                )\n              \n            \n            \u2062\n            \n              (\n              \n                t\n                -\n                \n                  q\n                  \u2062\n                  \n                    \n                  \n                  \u2062\n                  \n                    T\n                    c\n                  \n                \n              \n              )\n            \n          \n        \n      \n    \n    \n      \n        (\n        2\n        )",
+        "Then:",
+        "z\n            k\n          \n          \u2061\n          \n            (\n            t\n            )\n          \n        \n        =\n        \n          \n            \u2211\n            n\n          \n          \u2062\n          \n            \n              a\n              \n                n\n                ,\n                k\n              \n            \n            \u2062\n            \n              \n                s\n                k\n              \n              \u2061\n              \n                (\n                \n                  t\n                  -\n                  \n                    n\n                    \u2062\n                    \n                      \n                    \n                    \u2062\n                    \n                      T\n                      s\n                    \n                  \n                \n                )\n              \n            \n          \n        \n      \n    \n    \n      \n        (\n        3\n        )",
+        "Equation (3) shows that the contribution of each user k can be put in the form of filtering of a train of symbols by a certain function Sk(t) which contains the effects of the spreading, of the shaping filter at the transmission stage, of the propagation and of the receive filters before sampling.",
+        "Let Sk be the vector containing the samples of sk(t). Then the sampled signal can be rewritten for the user k as follows:\n\nZk=Hk\u00b7Ak\u2003\u2003(4)\n\nwhere Ak is the vector of N symbols an,k and Hk is a matrix constructed from the vector Sk in the manner described in FIG. 4.",
+        "The columns of the matrix Hk are constructed from shifted versions of the sequence Sk, and each column corresponds to a new symbol of the vector Ak and the shift corresponds to the number of samples per symbol. The recovery between the various shifted versions of Sk corresponds to the duration of the overall impulse response (filters plus propagation channel).",
+        "The complete model can then be represented as follows:",
+        "Z\n        =\n        \n          \n            \n              \u2211\n              \n                k\n                =\n                1\n              \n              K\n            \n            \u2062\n            \n              \n                H\n                k\n              \n              \u2062\n              \n                A\n                k\n              \n            \n          \n          +\n          W\n        \n      \n    \n    \n      \n        (\n        5\n        )",
+        "In this equation (5), W is a noise vector associated with the interference outside the cell and with the noise inside the receiver.",
+        "FIG. 5 shows the structure of an equalizer operating by using the feedback principle described previously in relation to FIG. 3.",
+        "During equalization of user k, the purpose of the first block 20 is to subtract from the received signal Z the contributions of the users of indices between 1 and k\u22121, that is users already processed. To do this, it receives the vectors of estimated symbols corresponding to these users. The estimate of the symbols is made for example by calculating the mathematical expectation of the value of the symbol from the probabilities obtained during the decoding steps.",
+        "The purpose of the second block 21 is to process the intersymbol interference corresponding to the symbols of user k himself, and the noise resulting from the users of indices k+1 to K not yet processed and from the thermal noise. The equalizer has a DFE structure, that is it is made up of a \u201ctransverse filter\u201d part and a \u201cdecision in feedback\u201d part. The \u201ctransverse filter\u201d part is calculated by taking into account the knowledge of the structure of the noise generated by the users not yet processed and by the thermal noise. The \u201cdecision in feedback\u201d part has a sequential operation. For each index n symbol of the current user, it subtracts the contribution from the already decided lower index symbols.",
+        "The second block according to the invention comprises for example a transverse filter 22 such as a matrix being applied to the vector U, and the resulting vector V is sampled at the symbol rate. The coordinates v1 of this vector are then passed into a loop comprising a decision unit 23 and a recursive filter 24. The decision unit is for obtaining a decision on the symbols. At each new symbol, the recursive filter 24 subtracts the contribution from the symbols already decided in the block and forwarded. The loop also comprises a weighted output 25, before the decision unit, for transmitting the symbols to the decoder.",
+        "The calculation from the transverse filter 22 and the recursive filter 24 is carried out for example in the manner described below.",
+        "The calculation of the filters uses as criterion the minimization of the mean square error between the weighted output of the equalizer and the vector of symbols of user k.\n\nmin(E(\u2225Yk\u2212Ak\u22252))\u2003\u2003(6)",
+        "From equation (5), the vector U can be represented as follows",
+        "U\n          =\n          \n            \n              \n                H\n                k\n              \n              \u2062\n              \n                A\n                k\n              \n            \n            +\n            B\n          \n        \n        \u2062\n        \n          \n\n        \n        \u2062\n        \n          B\n          =\n          \n            \n              \n                \u2211\n                \n                  l\n                  =\n                  \n                    k\n                    +\n                    1\n                  \n                \n                K\n              \n              \u2062\n              \n                \n                  H\n                  l\n                \n                \u2062\n                \n                  A\n                  l\n                \n              \n            \n            +\n            W\n          \n        \n      \n    \n    \n      \n        (\n        7\n        )",
+        "In this equation (7), the noise is made up of signals transmitted by the rank k+1 to K users not yet decoded and of the initial additive noise W.",
+        "For a white noise W, the expressions for the filters are given below:",
+        "The correlation matrix for B is",
+        "R\n          B\n        \n        =\n        \n          \n            \n              \u03c3\n              A\n              2\n            \n            \u00b7\n            \n              \n                \u2211\n                \n                  l\n                  =\n                  \n                    k\n                    +\n                    1\n                  \n                \n                K\n              \n              \u2062\n              \n                \n                  H\n                  l\n                \n                \u2062\n                \n                  H\n                  l\n                  \u2020\n                \n              \n            \n          \n          +\n          \n            \n              \n                \u03c3\n                W\n                2\n              \n              \u00b7\n              I\n            \n            \u2062\n            \n              \n            \n            \u2062\n            d\n          \n        \n      \n    \n    \n      \n        (\n        8\n        )\n      \n    \n  \n\n\n\n\nwhere \u03c3A2 is the power of the modulation symbols, \u03c3w2 is the power of the noise and Id is the identity matrix\n\n    \n    \n        the matrix Q is defined by",
+        "Q\n        =\n        \n          \n            \n              H\n              k\n              \u2020\n            \n            \u2062\n            \n              R\n              B\n              \n                -\n                1\n              \n            \n            \u2062\n            \n              H\n              k\n            \n          \n          +\n          \n            \n              1\n              \n                \u03c3\n                W\n                2\n              \n            \n            \u2062\n            I\n            \u2062\n            \n              \n            \n            \u2062\n            d\n          \n        \n      \n    \n    \n      \n        (\n        9\n        )\n      \n    \n  \n\n\n\n\n    \n    \n        the Cholesky composition of this matrix is formed as follows\n\nQ=(\u03a3L)\u2020(\u03a3L)\u2003\u2003(10)",
+        "In equation (10), \u03a3 is a diagonal matrix and L is a lower triangular matrix.",
+        "The expression of the transverse filter which minimizes criterion (6) is\n\nT=\u03a3\u22122L\u22121\u2020Hk\u2020RB\u22121\u2003\u2003(11)",
+        "The recursive filter is determined by the rows of (L-Id).",
+        "According to an embodiment of the invention, the device uses an interference canceler when all the symbols to be demodulated have been the subject of at least one decoding stage. In this situation, unlike the decision feedback equalizer, when it is desired to decide the symbol j of the user k, all the other symbols of the same user or of the other users can be considered known, even if in practice only the estimates of these symbols are known. It is then possible to subtract their contribution totally.",
+        "FIG. 6 shows the principle of this canceler in block diagram form.",
+        "Compared to the decision feedback equalizer case in FIG. 5, there is more information on all the symbols from iteration i\u22121 for certain users, for example those of index 1 to k\u22121, and from the current iteration i for the other users of index k+1 to K.",
+        "The principle implemented consists in:\n\n    \n    \n        subtracting the contributions from all the users other than user k being processed, by using the most recent information for each of them, for the users of index 1 to k\u22121 the estimates of the vectors of the symbols during iteration i and for the users of index k+1 to K the information of the estimates obtained during iteration (i\u22121), this iteration being carried out in the first block 20 which generates a vector U,\n        filtering the received samples for the user k in the filter T 22, and the resulting vector V is then sampled for example at the symbol rate,\n        subtracting in the second block 21, for a given symbol n, the residual intersymbol interference coming from the other symbols of the user k. The contribution from the symbols 1 to n\u22121 is determined by the filter Pn, 26 and the contribution from the index n+1 to N symbols is determined by a filter Qn, 27.",
+        "In this way, compared with the decision feedback, much richer information is available than the previous decided symbols, that is information on the past but also future symbols from the previous iteration.",
+        "After the processing steps, the next step is the decoding step, and then the next user is considered and the contribution of user k is subtracted by using the results obtained during iteration i and no longer i\u22121.",
+        "The different equalization and decoding steps can advantageously be applied to a set of users who are ordered according to a criterion taking account of the power associated with a user, from which the contribution of intersymbol interference for this same user and for the other users is subtracted.",
+        "This criterion is determined for example as follows:\n\n    \n    \n        hkl denotes the lth column of the matrix Hk described in relation to FIG. 4. This vector denotes the overall impulse response of the channel for the lth symbol of the block to be demodulated, of user k,\n        the criterion Ck is determined as follows",
+        "C\n    k\n  \n  =\n  \n    \n      \u2211\n      \n        n\n        =\n        1\n      \n      N\n    \n    \u2062\n    \n      (\n      \n        \n          \n            \n              h\n              \n                k\n                ,\n                n\n              \n              \u2020\n            \n            \u2062\n            \n              h\n              \n                k\n                ,\n                n\n              \n            \n          \n          -\n          \n            \u2211\n            \n              m\n              \u2260\n              n\n            \n          \n        \n        |\n        \n          \n            h\n            \n              k\n              ,\n              n\n            \n            \u2020\n          \n          \u2062\n          \n            h\n            \n              k\n              ,\n              m\n            \n          \n        \n        |\n        \n          -\n          \n            \n              \u2211\n              \n                j\n                \u2260\n                k\n              \n            \n            \u2062\n            \n              \u2211\n              m\n            \n          \n        \n        |\n        \n          \n            h\n            \n              k\n              ,\n              n\n            \n            \u2020\n          \n          \u2062\n          \n            h\n            \n              j\n              ,\n              m\n            \n          \n        \n        |\n      \n      )\n    \n  \n\n\n\n\nwhere the symbol \u2020 denotes the transposed conjugate, the first term corresponds to the power associated with user k, the second term corresponds to the contribution from the user and the third term to the contribution to intersymbol interference for all the other users.",
+        "This calculation involves correlations between the signals corresponding to the various symbols whether they are transmitted by the user k himself or by the others.",
+        "In fact, the method measures the existing distance, at least, between two opposed symbols at the output of a filter designed according to the impulse response hkn, whatever the values of the other symbols which interfere.",
+        "The users are arranged in a descending order before placing the steps of the method according to the invention."
+    ],
+    "citations": [
+        "5414699",
+        "5550810",
+        "5572548",
+        "6240099",
+        "6243415",
+        "6496543",
+        "6600729",
+        "6671338",
+        "7068743",
+        "2002/0110206",
+        "2004/0001561"
+    ],
+    "us_classification": "375346",
+    "international_classifications": [
+        {
+            "classification_level": "A",
+            "section": "H",
+            "classification_class": "04",
+            "subclass": "B",
+            "main_group": "1",
+            "subgroup": "10"
+        }
+    ]
+}

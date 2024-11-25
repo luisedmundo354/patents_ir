@@ -1,0 +1,191 @@
+{
+    "title": "Power reduction in microprocessor systems",
+    "abstract": "method of preventing an electronic file containing a computer virus from infecting a computer system using the Symbian\u2122 operating system, the method comprising the steps of scanning files using an anti-virus application, and if an infected file is identified, maintaining the file in an open non-sharing state, whereby other applications running on the computer system may not operate on an infected file.",
+    "inventors": [
+        "Webster",
+        "Endecott",
+        "Mycroft"
+    ],
+    "document_number": "07299369",
+    "publication_date": "20071120",
+    "assignees": [
+        "AT&T Corp."
+    ],
+    "claims": [
+        {
+            "claim_number": "CLM-00001",
+            "preamble": "1. A method of reducing the power consumption of a microprocessor system which comprises a microprocessor and a memory connected by at least one bus, the microprocessor being arranged to execute a program stored in said memory, wherein:",
+            "components": [
+                {
+                    "component": "a) said processor is pipelined in the sense that at least one subsequent instruction is fetched before the current instruction has been completely executed, and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "b) said program comprises at least one branch instruction, the execution of which can result in a non-consecutive instruction being fetched, and results in an instruction fetched immediately after the branch instruction being discarded;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "the method comprising replicating the binary representation of at least one branch instruction, the replica to be fetched immediately after the branch instruction being duplicated so as to reduce the number of transitions on said bus when the program is executed.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00002",
+            "preamble": "2. A method as claimed in claim 1 , wherein conditional branch instructions are only replicated if the number of times which the branch is taken, or is likely to be taken, during operation of the program exceeds a predetermined threshold.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00003",
+            "preamble": "3. A method as claimed in claim 2 , wherein the number of times which a conditional branch instruction is taken, or is likely to be taken, during operation of the program is determined by code profiling.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00004",
+            "preamble": "4. A method as claimed in claim 1 , wherein conditional branch instructions are replicated only if they satisfy one or more heuristic rules.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00005",
+            "preamble": "5. A method as claimed in claim 4 , wherein one of said heuristic rules is that backwards conditional branch instructions are replicated.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00006",
+            "preamble": "6. A method as claimed in claim 4 , wherein one of said heuristic rules is that forwards conditional branch instructions are not replicated.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00007",
+            "preamble": "7. A method as claimed in claim 1 , wherein all conditional branch instructions are replicated.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00008",
+            "preamble": "8. A method as claimed in claim 1 , wherein unconditional branch instructions are replicated if they satisfy one or more unconditional branch rules.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00009",
+            "preamble": "9. A method as claimed in claim 8 , wherein one of said unconditional branch rules is that an unconditional branch instruction is replicated if it forms an early exit instruction of a loop.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00010",
+            "preamble": "10. A method as claimed in claim 8 , wherein one of said unconditional branch rules is that an unconditional branch instruction is replicated if it forms the jump back to a saved return address from a function call.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00011",
+            "preamble": "11. A method as claimed in claim 1 , which further includes:",
+            "components": [
+                {
+                    "component": "determining which branch instructions, whether conditional or unconditional, are executed, or likely to be executed, more than a predetermined number of times during operation of the program, and can therefore be considered to lie on a \u201ccritical path\u201d through the program, and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "when carrying out the steps of the method, not allowing replication of any branch instructions which do not lie on said \u201ccritical path\u201d, so as to minimize the overall size of the program while at the same time achieving a reduction in power consumption by allowing replication of branch instructions on said \u201ccritical path\u201d.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00012",
+            "preamble": "12. A computer readable medium containing instructions that, when executed by a computer, perform a method of reducing power consumption of a microprocessor system which compromises a microprocessor and a memory connected by at least one bus, the microprocessor being arranged to execute a program stored in said memory, wherein:",
+            "components": [
+                {
+                    "component": "a) said processor is pipelined in the sense that at least one subsequent instruction is fetched before the current instruction has been completely executed, and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "b) said program comprises at least one branch instruction, the execution of which can result in a non-consecutive instruction being fetched, and results in an instruction fetched immediately after the branch instruction being discarded;",
+                    "subcomponents": [
+                        "the method comprising replicating the binary representation of at least one branch instruction, the replica to be fetched immediately after the branch instruction being duplicated so as to reduce the number of transitions on said bus when the program is executed."
+                    ]
+                },
+                {
+                    "component": "the method comprising replicating the binary representation of at least one branch instruction, the replica to be fetched immediately after the branch instruction being duplicated so as to reduce the number of transitions on said bus when the program is executed.",
+                    "subcomponents": []
+                }
+            ]
+        }
+    ],
+    "description": [
+        "This application claims the benefit of International Patent Application Number PCT/GB02/03637, filed Aug. 8, 2002, which claims priority to Great Britain Patent Application No. 0119501.5, filed Aug. 10, 2001.",
+        "The invention relates to power reduction in microprocessor systems comprising a microprocessor and a memory connected by at least one bus.",
+        "The methods described in this specification aim to improve the processor's average inter-instruction Hamming distance. The next few paragraphs describe this metric and explain its relation to power efficiency.",
+        "The Hamming distance between two binary numbers is the count of the number of bits that differ between them. For example:",
+        "Numbers in\nNumbers in binary\nHamming\n\n\ndecimal\n(inc. leading zeros)\ndistance\n\n\n\n\n\n\n\n4 and 5\u2002\n0100 and 0101\n1\n\n\n7 and 10\n0111 and 1010\n3\n\n\n0 and 15\n0000 and 1111\n4",
+        "Hamming distance is related to power efficiency because of the way that binary numbers are represented by electrical signals. Typically a steady low voltage on a wire represents a binary 0 bit and a steady high voltage represents a binary 1 bit. A number will be represented using these voltage levels on a group of wires, with one wire per bit. Such a group of wires is called a bus. Energy is used when the voltage on a wire is changed. The amount of energy depends on the magnitude of the voltage change and the capacitance of the wire. The capacitance depends to a large extent on the physical dimensions of the wire. So when the number represented by a bus changes, the energy consumed depends on the number of bits that have changed\u2014the Hamming distance\u2014between the old and new values, and on the capacitance of the wires.",
+        "If one can reduce the average Hamming distance between successive values on a high-capacitance bus, keeping all other aspects of the system the same, the system's power efficiency will have been increased.",
+        "The capacitance of wires internal to an integrated circuit is small compared to the capacitance of wires fabricated on a printed circuit board due to the larger physical dimensions of the latter. Many systems have memory and microprocessor in distinct integrated circuits, interconnected by a printed circuit board. Therefore we aim to reduce the average Hamming distance between successive values on the microprocessor-memory interface bus, as this will have a particularly significant influence on power efficiency.",
+        "Even in systems where microprocessor and memory are incorporated into the same integrated circuit the capacitance of the wires connecting them will be larger than average, so even in this case reduction of average Hamming distance on the microprocessor-memory interface is worthwhile.",
+        "Processor-memory communications perform two tasks. Firstly, the processor fetches its program from the memory, one instruction at a time. Secondly, the data that the program is operating on is transferred back and forth. Instruction fetch makes up the majority of the processor-memory communications.",
+        "The instruction fetch bus is the bus on which instructions are communicated from the memory to the processor. We aim to reduce the average Hamming distance on this bus, i.e. to reduce the average Hamming distance from one instruction to the next.",
+        "In a non-pipelined processor, each instruction is executed completely before the processor begins to execute the next one.",
+        "When a processor is pipelined, it will have a number of instructions in various states of simultaneous execution. Depending on the depth of the pipeline, one or more instructions will have been fetched from program memory before the current instruction is executed. For example, in a typical four-stage pipeline:",
+        "\u2192 Time\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInstr #1\nFetch\nDecode\nExecute\nWrite\n\n\n\n\n\nInstr #2\n\nFetch\nDecode\nExecute\nWrite\n\n\nInstr #3\n\n\nFetch\nDecode\nExecute\nWrite\n\n\nInstr #4\n\n\n\nFetch\nDecode\nExecute\nWrite",
+        "By the time instruction #1 reaches the execute stage, instruction #2 has already been fetched.",
+        "For sequential program execution, this parallelism helps increase the instruction throughput of the processor, as one instruction completes execution on every clock cycle. However, when the executed instruction causes a change in the flow of execution (such as a branch or a jump), there is an unwanted instruction from the location after the branch that will have been fetched prior to the time the branch instruction is executed. Some processors may simply execute this instruction; this is called a delayed branch.",
+        "This invention applies to those processors that choose to discard this instruction instead. When the branch is taken, the fetched instruction is cancelled, for example by internally converting it into a no-operation instruction.",
+        "\u2192 Time\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBranch:\nFetch\nDecode\nExecute\nWrite\n\n\n\n\n\nCancelled:\n\nFetch\n \n \n \n\n\nBranch\n\n\nFetch\nDecode\nExecute\nWrite\n\n\nTarget:\n\n\n\n\n\n\nFetch\nDecode\nExecute\nWrite",
+        "In a deeper pipeline, more than one instruction may be in the process of being decoded for execution, so more than one instruction may need to be cancelled.",
+        "According to the invention there is provided a method of reducing the power of a microprocessor system, a program, and a reduced power microprocessor system as set out in the accompanying claims.",
+        "FIG. 1 is a schematic diagram of a micropressor and memory in accordance with the invention.",
+        "FIG. 2 is a block diagram showing a method according to one embodiment of the invention.",
+        "The accompanying figure shows a microprocessor system 2 suitable for implementation of the invention. The microprocessor system 2 comprises a microprocessor 4 connected to a memory 6 by a bus 8. The microprocessor 4 and memory 6 may of course be incorporated into the same integrated circuit.",
+        "Consider the activity on the instruction bus for the branch example given above. When the second instruction is fetched, there will be a number of bit transitions, T1. Similarly, when the target of the branch is fetched, there will be a second set of transitions T2. When the branch is taken, the second instruction is thrown away, so no useful work is obtained for the bit transitions. We would like to eliminate the number of transitions \u2018wasted\u2019 when fetching the second instruction. We conclude that, in the cases when a branch is taken, it is better to fill the subsequent instruction in the program with a replicate copy of the branch instruction.",
+        "The second instruction will never be executed, as it will be cancelled internally. By duplicating the previous branch, the bit pattern will be identical to the previous one, so there will be no transitions on the instruction bus.",
+        "As well as these unconditional branches, there are also branches that are conditional on the result of a previous operation. In this case duplication is still possible, but the decision whether or not to replicate the branch depends on the relative frequency of when the branch is taken.",
+        "Both of these cases will now be considered in more detail, as described with reference to a method 200 shown in FIG. 2, which considers both conditional and unconditional branch instructions (step 210).",
+        "The unconditional branches that can be replicated (step 220) include the early exit portion of a loop, or the jump back to a saved return address from a function call. It does not include jumps to subroutines, as subroutines return to the point from which they were called and any duplication would cause them to be called multiple times.",
+        "Unconditional branches are always taken, so they should always be replicated (step 250) to minimise power. When generating the code, each instruction can be output \u2018n\u2019 times, where \u2018n\u2019 is the depth of the pre-fetch, or branch shadow, in the instruction pipeline. Care must be taken that the address or offset contained in the immediate field of the jump is the same in all cases.",
+        "Consider the following code fragment, complete with assembled bit patterns:",
+        "movi\n%0, #0\n00001000000000000000000000000000\n\n\n\nmovi\n%1, #1\n00001000000000010000000000000001\n\n\nL1:\nst.b\n(%2), %1\n01000100010000010000000000000000\n\n\n\nst.b\n(%2), %0\n01000100010000000000000000000000\n\n\n\njmp\nL1\n01111011111111111111111111110100\n\n\nL2:\naddi\n%0, %0, #\u221210\n00010000000000001111111111110110",
+        "For every iteration of the loop, the instruction at L2 will be fetched following the unconditional \u2018JMP\u2019 jump instruction. However, it will never be executed. Fetching the shadow instruction causes 15 transitions. This will then be followed by a further 19 transitions when the instruction at L1 is fetched.",
+        "Duplicating the JMP into the branch shadow produces the following code:",
+        "movi\n%0, #0\n00001000000000000000000000000000\n\n\n\nmovi\n%1, #1\n00001000000000010000000000000001\n\n\nL1:\nst.b\n(%2), %1\n01000100010000010000000000000000\n\n\n\nst.b\n(%2), %0\n01000100010000000000000000000000\n\n\n\njmp\nL1\n01111011111111111111111111110100\n\n\n\njmp\n(L1 + 4)\n01111011111111111111111111110100\n\n\nL2:\naddi\n%0, %0, #\u221210\n00010000000000001111111111110110",
+        "Because branch targets are specified as offsets relative to the current instruction address, the destination of the replicated branch is no longer L1 but is rather the instruction following L1 to ensure the branch offset is the same. This reduces the number of transitions by 9.",
+        "A conditional branch is not always taken, so deciding when to replicate it is harder. Conditional branches can always be replicated without affecting the overall program behaviour. If the conditional branch is taken, then the replicate instructions in the branch shadow will not be executed; if the branch is not taken, then the condition will be the same for all of the replicates and none of them will be taken. However, in this second case, every branch that is not taken will still pass through the pipeline, thereby reducing total instruction throughput.",
+        "Duplicating conditional branches will always reduce the number of transitions, albeit at the possible expense of instruction throughput.",
+        "Consider the following code:",
+        "L1:\nld.bu\n%0, (%1)\n01000000001000000000000000000000\n\n\n\nst.b\n(%1), %0\n01000100001000000000000000000000\n\n\n\nbnz\n%0, L1\n01101100000000001111111111110100\n\n\nL2:\naddi\n%0, %0, #\u221210\n00010000000000001111111111110110",
+        "The \u2018BNZ\u2019 instruction is a conditional branch that jumps to the destination label if the value in the source register (in this assembler notation, %0 represents register zero) contains a non-zero value. Hence the mnemonic BNZ\u2014Branch if Non-Zero.",
+        "When we take the branch, the number of \u2018wasted\u2019 transitions is 6, followed by a further 17 transitions to reach the target instruction. If we replicate the branch, then we would end up with the following code:",
+        "L1:\nld.bu\n%0, (%1)\n01000000001000000000000000000000\n\n\n\nst.b\n(%1), %0\n01000100001000000000000000000000\n\n\n\nbnz\n%0, L1\n01101100000000001111111111110100\n\n\n\nbnz\n%0, (L1 + 4)\n01101100000000001111111111110100\n\n\nL2:\naddi\n%0, %0, #\u221210\n00010000000000001111111111110110",
+        "In the cases where the branch is taken, the number of transitions is reduced by 6 transitions. When the branch is not taken, the number of transitions is identical to the original non-replicated program. However, the replicate branch is effectively a no-operation, so the \u2018exit\u2019 case of the loop will take an additional cycle to execute.",
+        "Depending on the relative frequency of the branch being taken compared to the branch not being taken, this additional execution overhead may be insignificant.",
+        "Given that duplicating infrequently taken branches will reduce instruction throughput for little power-saving benefit, some additional analysis to identify which branches should be replicated is beneficial (step 230). One way of achieving this is through the use of code profiling. Another is through the use of simple branch characteristic heuristics.",
+        "Code profiling will be discussed first.",
+        "Initially, the application is run without any branch duplication. For each conditional branch, a count is kept of the number of times the branch is taken verses when it is not taken. The code is then recompiled, but this time using the statistics from the profiler. Only the conditional branches that are taken more frequently than a threshold selected by the user can be replicated. This threshold value represents a trade-off between power saving and instruction throughput.",
+        "Branch heuristics will now be discussed.",
+        "Consider the following C code fragment:",
+        "int example(int size, int *flags, int *value) {\n\n\n\n\n\u2002int loop, result;\n\n\n\n1\n\u2002size= (size<0) ? \u2212size : size;\n\n\n\n2\n\u2002for (loop= 0; loop<size; loop++) {\n\n\n\n3\n\u2002\u2002if(*(flags++)) {\n\n\n\n4\n\u2002\u2002\u2002result += *(values++);\n\n\n\n\n\u2002\u2002}\n\n\n\n\n\u2002}\n\n\n\n5\n\u2002return result;\n\n\n\n\n}",
+        "Compiling this code for our example instruction set produces the following assembly code:",
+        "example:\n\n\n\n\n\n\n\n\n\n\n\n\n1\n\nbnn\n%0, L3\n01110100000000000000000000000100\n\n\n\n\nrsubi\n%0, %0,\n01100100000000000000000000000000\n\n\n\n\n\n#0\n\n\n\nL3:\ncmplti\n%7, %0,\n00011000000001110000000000000001\n\n\n\n\n\n#1\n\n\n2\n\nbnz\n%7, L5\n01101000111000000000000000100000\n\n\n\nL7:\nld.w\n%7, (%1)\n01010100001001110000000000000000\n\n\n\n\naddi\n%1, %1,\n00010000001000010000000000000100\n\n\n\n\n\n#4\n\n\n3\n\nbz\n%7, L6\n01101000111000000000000000001100\n\n\n\n\nld.w\n%7, (%2)\n01010100010001110000000000000000\n\n\n\n\nadd\n%6, %6,\n00000000110001110000000010000110\n\n\n\n\n\n%7\n\n\n\n\naddi\n%2, %2,\n00010000010000100000000000000100\n\n\n\n\n\n#4\n\n\n\nL6:\naddi\n%0, %0,\n00010000000000001111111111111111\n\n\n\n\n\n#\u22121\n\n\n4\n\nbnz\n%0, L7\n01101100000000001111111111100000\n\n\n\nL5:\nmov\n%0, %6\n00010000110000000000000000000000\n\n\n6\n\njmpr\n(% lr)\n00000011111000000000001111000000",
+        "All of the conditional and unconditional branch instructions have been numbered. The first branch, labelled #1, is a conditional branch that is taken when there is a non-negative value in its source register. Branches #2 and #4 are also conditional branches, but this time are taken when the value in the source register is non-zero. Branch #3 is another type of conditional branch, and is taken when the value in the source register is equal to zero. Finally, branch #6 is an unconditonal branch that always jumps to the destination address as specified in the source register.",
+        "The first heuristic is that branch #6 is unconditional, so it should always be replicated to save power.",
+        "A common compiler heuristic is that backward branches tend to be taken. Backward branches are branches that branch to an earlier instruction. Backward branch instructions occur in places such as the end of a loop, which is why they are often taken. This would imply branch #4 should be replicated. For an array of size \u2018n\u2019, branch #4 will be taken \u2018n-1\u2019 times. Therefore, the overhead of this optimisation is 1 wasted instruction in \u2018n\u2019. However, each time the branch is taken, there will be around 18 transitions saved by not pre-fetching the instruction that will not be executed.",
+        "Branch #3 is used to check a flag. Without knowledge of the data, it is not possible to predict when this branch will be taken. Again, a common compiler heuristic is that forward branches are taken less frequently. Therefore, it would be better not to replicate this branch. This heuristic also applies to branch #1 and #2.",
+        "With code profile information, the choice of which branches to replicate would be tailored for the particular execution pattern of the test data cases. Therefore, test data must be carefully chosen to reflect the typical behaviour expected when deployed.",
+        "Adding additional instructions that will never be executed will clearly result in an increase in code size. This can be a problem when compiling code for an embedded system that typically has more limited storage resources. The impact on code size can be minimised by identifying the critical path of the program (that is, the routines that are executed the most frequently) and then only applying the branch duplications to the routines on this path.",
+        "Once again, code profiling is a powerful tool. If the basic blocks making up a function are annotated with execution counts then only those branches that are executed more than a fixed threshold would be replicated. As these routines represent the bulk of the instruction fetches, the power saved will approach the maximal amount. Any code that is not executed as frequently will not be expanded, thereby keeping the total code size down."
+    ],
+    "citations": [
+        "5790874",
+        "5854935",
+        "0 926 596",
+        "1 065 591"
+    ],
+    "us_classification": "713320",
+    "international_classifications": [
+        {
+            "classification_level": "A",
+            "section": "G",
+            "classification_class": "06",
+            "subclass": "F",
+            "main_group": "1",
+            "subgroup": "32"
+        }
+    ]
+}

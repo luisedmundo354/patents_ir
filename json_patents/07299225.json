@@ -1,0 +1,497 @@
+{
+    "title": "High performance predicate push-down for non-matching predicate operands",
+    "abstract": "A method, apparatus, and article of manufacture for improving the performance of evaluating predicates with non-matching operands by aggressively casting the input value to the data type of the target column before the data of the target column is accessed.",
+    "inventors": [
+        "Tran",
+        "Cheng",
+        "Guo",
+        "Malone",
+        "Beavin",
+        "Wang",
+        "Li"
+    ],
+    "document_number": "07299225",
+    "publication_date": "20071120",
+    "assignees": [
+        "International Business Machines Corporation"
+    ],
+    "claims": [
+        {
+            "claim_number": "CLM-00001",
+            "preamble": "1. A method of optimizing a query in a computer system comprising the steps of:",
+            "components": [
+                {
+                    "component": "(a) evaluating the query, wherein the query is comprised of at least one predicate having a first operand comprising an input value, an operator and a second operand comprising a target column;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(b) casting down the input value to a data type of the target column before the target column is accessed, when the evaluated query has non-matching first and second operands in the predicate;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(c) detecting when an error occurs when the input value is cast-down, and then processing the predicate based on the detected error and the operator associated with the predicate; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(d) performing the query in the computer system to retrieve data from a database in order to present the data to a user.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00002",
+            "preamble": "2. The method of claim 1 , wherein the error is an overflow, underflow, or loss of precision error.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00003",
+            "preamble": "3. The method of claim 1 , wherein the processing step further comprises the step of not accessing the target column when the predicate is false.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00004",
+            "preamble": "4. The method of claim 1 , wherein the processing step further comprises the step of not evaluating the predicate when the predicate is true.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00005",
+            "preamble": "5. The method of claim 1 , wherein the processing step further comprises the step of pushing down the predicate when the predicate is neither true nor False.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00006",
+            "preamble": "6. The method of claim 1 , wherein the processing step further comprises the step of identifying the predicate as false, and nor accessing the target column, when the operator of the predicate is an \u201cequal\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00007",
+            "preamble": "7. The method of claim 1 , wherein the processing step further comprises the step of identifying the predicate as true, not evaluating the predicate, and fetching all rows of the target column, when the operator of the predicate is a \u201cnot equal\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00008",
+            "preamble": "8. The method of claim 1 , wherein the processing step further comprises the step of replacing the predicate with a revised predicate based on the error, when the operator of the predicate is a \u201cgreater than,\u201d \u201cgreater than or equal to,\u201d \u201cless tan\u201d or \u201cless than or equal to\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00009",
+            "preamble": "9. The method of claim 8 , wherein the processing step further comprises the step of identifying the predicate as false when the error is an overflow error and the operator of the predicate is a \u201cgreater than\u201d or \u201cgreater than or equal to\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00010",
+            "preamble": "10. The method of claim 8 , wherein the processing step further comprises the step of identifying the predicate as true when the error is an overflow error and the operator of the predicate is a \u201cless than\u201d or \u201cless than or equal to\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00011",
+            "preamble": "11. The method of claim 8 , wherein the processing step further comprises the step of identifying the predicate as true when the error as an underflow error and the operator of the predicate is a \u201cgreater than\u201d or \u201cgreater than or equal to\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00012",
+            "preamble": "12. The method of claim 8 , wherein the processing step further comprises the step of identifying the predicate as false when the error is an underflow error and the operator of the predicate is a \u201cless than\u201d or \u201cless than or equal to\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00013",
+            "preamble": "13. The method of claim 8 , wherein the processing step further comprises the step of rounding down the input value to a data type of the target column when the error is a loss of precision error and the operator of the predicate is a \u201cgreater than\u201d or \u201cless than or equal to\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00014",
+            "preamble": "14. The method of claim 13 , wherein the processing step further comprises the step of identifying the predicate as true when the rounding down causes an underflow error and the operator of the predicate is a \u201cgreater than\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00015",
+            "preamble": "15. The method of claim 13 , wherein the processing step further comprises the step of identifying the predicate as false when the rounding down causes an underflow error and the operator of the predicate is a \u201cless than or equal to\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00016",
+            "preamble": "16. The method of claim 8 , wherein the processing step further comprises the step of rounding up the input value to a data type of the target column when the error is a loss of precision error and the operator of the predicate is a \u201cless than\u201d or \u201cgreater than or equal to\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00017",
+            "preamble": "17. The method of claim 16 , wherein the processing step further comprises the step of identifying the predicate as true when the rounding up causes an underflow error and the operator of the predicate is a \u201cgreater than or equal to\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00018",
+            "preamble": "18. The method of claim 16 , wherein the processing step further comprises the step of identifying the predicate as false when the rounding up causes an underflow error and the operator of the predicate is a \u201cless than\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00019",
+            "preamble": "19. The method of claim 8 , wherein the processing step further comprises the step of adding a range predicate when casting down a \u201cfloat\u201d input value to a \u201cdecimal\u201d target column, when the \u201cdecimal\u201d target column has a precision greater than 15.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00020",
+            "preamble": "20. The method of claim 19 , wherein the range predicate is used to construct start and stop keys to restrict a range of rows to be retrieved, so that only a few of rows are fetched.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00021",
+            "preamble": "21. A computer-implemented apparatus for optimizing a query, comprising:",
+            "components": [
+                {
+                    "component": "(a) a computer system;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(b) logic, performed by the computer system, for;",
+                    "subcomponents": [
+                        "(1) evaluating the query, wherein the query is comprised of at least one predicate having a first operand comprising an input value, an operator and a second operand comprising a target column;",
+                        "(2) casting down the input value to a data type of the target column before the target column is accessed, when the evaluated query is has non-matching first and second operands in the predicate;",
+                        "(3) detecting when an error occurs when the input value is cast-down, and then processing the predicate based on the detected error and the operator associated with the predicate; and",
+                        "(4) performing the query to retrieve data from a database in order to present the data to a user."
+                    ]
+                },
+                {
+                    "component": "(1) evaluating the query, wherein the query is comprised of at least one predicate having a first operand comprising an input value, an operator and a second operand comprising a target column;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(2) casting down the input value to a data type of the target column before the target column is accessed, when the evaluated query is has non-matching first and second operands in the predicate;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(3) detecting when an error occurs when the input value is cast-down, and then processing the predicate based on the detected error and the operator associated with the predicate; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(4) performing the query to retrieve data from a database in order to present the data to a user.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00022",
+            "preamble": "22. The apparatus of claim 21 , wherein the error is an overflow, underflow, or loss of precision error.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00023",
+            "preamble": "23. The apparatus of claim 21 , wherein the logic for processing further comprises logic for not accessing the target column when the predicate is false.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00024",
+            "preamble": "24. The apparatus of claim 21 , wherein the logic for processing further comprises logic for not evaluating the predicate when the predicate is true.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00025",
+            "preamble": "25. The apparatus of claim 21 , wherein the logic for processing further comprises logic for pushing down the predicate when the predicate is neither true nor false.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00026",
+            "preamble": "26. The apparatus of claim 21 , wherein the logic for processing further comprises logic for identifying the predicate as false, and nor accessing the target column, when the operator of the predicate is an \u201cequal\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00027",
+            "preamble": "27. The apparatus of claim 21 , wherein the logic for processing further comprises logic for identifying the predicate as true, not evaluating the predicate, and fetching all rows of the target column, when the operator of the predicate is a \u201cnot equal\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00028",
+            "preamble": "28. The apparatus of claim 21 , wherein the logic for processing further comprises logic for replacing the predicate with a revised predicate based on the error, when the operator of the predicate is a \u201cgreater than,\u201d \u201cgreater than or equal to,\u201d l\u201cless than\u201d or \u201cless than or equal to\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00029",
+            "preamble": "29. The apparatus of claim 28 , wherein the logic for processing further comprises logic for identifying the predicate as false when the error is an overflow error and the operator of the predicate is a \u201cgreater than\u201d or \u201cgreater than or equal to\u201d Operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00030",
+            "preamble": "30. The apparatus of claim 28 , wherein the logic for processing further comprises logic for identifying the predicate as true when the error is an overflow error and the operator of the predicate is a \u201cless than\u201d or \u201cless than or equal to\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00031",
+            "preamble": "31. The apparatus of claim 28 , wherein the logic for processing further comprises logic for identifying the predicate as true when the error is an underflow error and the operator of the predicate is a \u201cgreater than\u201d or \u201cgreater than or equal to\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00032",
+            "preamble": "32. The apparatus of claim 28 , wherein the logic for processing further comprises logic for identifying the predicate as false when the error is an underflow error and the operator of the predicate is a \u201cless than\u201d or \u201cless than or equal\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00033",
+            "preamble": "33. The apparatus of claim 28 , wherein the logic for processing further comprises logic for rounding down the input value to a data type of the target column when the error is a loss of precision error and the operator of the predicate is a \u201cgreater than\u201d or \u201cless than or equal to\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00034",
+            "preamble": "34. The apparatus of claim 33 , wherein the logic for processing further comprises logic for identifying the predicate as true when the rounding down causes an underflow error and the operator of the predicate is a \u201cgreater than\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00035",
+            "preamble": "35. The apparatus of claim 33 , wherein the logic for processing further comprises logic for identifying the predicate as false when the rounding down causes an underflow error and the operator of the predicate is a \u201cless than or equal to\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00036",
+            "preamble": "36. The apparatus of claim 28 , wherein the logic for processing further comprises logic for rounding up the input value to a data type of the target column when the error is a loss of precision error and the operator of the predicate is a \u201cless than\u201d or \u201cgreater than or equal to\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00037",
+            "preamble": "37. The apparatus of claim 36 , wherein the logic for further comprises logic for identifying the predicate as true when the rounding up causes an underflow error and the operator of the predicate is a \u201cgreater than or equal to\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00038",
+            "preamble": "38. The apparatus of claim 36 , wherein the logic for processing further comprises logic for identifying the predicate as false when the rounding up causes an underflow error and the operator of the predicate is a \u201cless than\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00039",
+            "preamble": "39. The apparatus of claim 28 , wherein the logic for processing further comprises logic for adding a range predicate when casting down a \u201cfloat\u201d input value to a target column, when the \u201cdecimal\u201d target column has a precision greater than 15.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00040",
+            "preamble": "40. The apparatus of claim 39 , wherein the range predicate is used to construct start and stop keys to restrict a range of rows to be retrieved, so that only a few of rows are fetched.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00041",
+            "preamble": "41. An article of manufacture comprising a computer-readable media tangibly embodying instructions that, when read and executed by a computer system, results in the computer system performing a method for optimizing a query, the method comprising the steps of:",
+            "components": [
+                {
+                    "component": "(a) evaluating the query, wherein the query is comprised of at least one predicate having a first operand comprising an input value, an operator and a second operand comprising a target column;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(b) casting down the input value to a data type of the target column before the target column is accessed, when the evaluated query is has non-matching first and second operands in the predicate;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(c) detecting when an error occurs when the input value is cast-down, and then processing the predicate based on the detected error and the operator associated with the predicate; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(d) performing the query in the computer system to retrieve data from a database in order to present the data to a user.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00042",
+            "preamble": "42. The article of manufacture of claim 41 , wherein the error is an overflow, underflow, or loss of precision error.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00043",
+            "preamble": "43. The article of manufacture of claim 41 , wherein the processing step further comprises the step of not accessing the target column when the predicate is false.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00044",
+            "preamble": "44. The article of manufacture of claim 41 , wherein the processing step further comprises the step of not evaluating the predicate when the predicate is true.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00045",
+            "preamble": "45. The article of manufacture of claim 41 , wherein the processing step further comprises the step of pushing down the predicate when the predicate is neither true nor false.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00046",
+            "preamble": "46. The article of manufacture of claim 41 , wherein the processing step further comprises the step of identifying the predicate as false, and not accessing the target column, when the operator of the predicate is an \u201cequal\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00047",
+            "preamble": "47. The article of manufacture of claim 41 , wherein the processing step further comprises the step of identifying the predicate as true, not evaluating the predicate, and fetching all rows of the target column, when the operator of the predicate is a \u201cnot equal\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00048",
+            "preamble": "48. The article of manufacture of claim 41 , wherein the processing step further comprises the of replacing the predicate with a revised predicate based on the error, when the operator of the predicate is a \u201cgreater than,\u201d \u201cgreater than or equal to,\u201d \u201cless than\u201d or \u201cless than or equal to\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00049",
+            "preamble": "49. The article of manufacture of claim 48 , wherein the processing step further comprises the step of identifying the predicate as false when the error is an overflow error and the operator of the predicate is a \u201cgreater than\u201d or \u201cgreater than or equal to\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00050",
+            "preamble": "50. The article of manufacture of claim 48 , wherein die processing step further comprises the step of identifying the predicate as true when the error is an overflow error and the operator of the predicate is a \u201cless than\u201d or \u201cless than or equal to\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00051",
+            "preamble": "51. The article of manufacture of claim 48 , wherein the processing step further comprises the step of identifying the predicate as true when the error is an underflow error and the operator of the predicate is a \u201cgreater than\u201d or \u201cgreater than or equal to\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00052",
+            "preamble": "52. The article of manufacture of claim 48 , wherein the processing step further comprises the step of identifying the predicate as false when the error is an underflow error and the operator of the predicate is a \u201cless dun\u201d or \u201cless than or equal to\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00053",
+            "preamble": "53. The article of manufacture of claim 48 , wherein the processing step further comprises the step of rounding down the input value to a data type of the target column when the error is a loss of precision error and the operator of the predicate is a \u201cgreater than\u201d or \u201cless than or equal to\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00054",
+            "preamble": "54. The article of manufacture of claim 53 , wherein the processing step further comprises the step of identifying the predicate as true when the rounding down causes an underflow error and the operator of the predicate is a \u201cgreater than\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00055",
+            "preamble": "55. The article of manufacture of claim 53 , wherein the processing step further comprises the step of identifying the predicate as false when the rounding down causes an underflow error and the operator of the predicate is a \u201cless than or equal to\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00056",
+            "preamble": "56. The article of manufacture of claim 48 , wherein the processing step further comprises the step of rounding up the input value to a data type of the target column when the error is a loss of precision error and the operator of the predicate is a \u201cless than\u201d or \u201cgreater than or equal to\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00057",
+            "preamble": "57. The article of manufacture of claim 56 , wherein the processing step further comprises the step of identifying the predicate as true when the rounding up causes an underflow error and the operator of the predicate is a \u201cgreater than or equal to\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00058",
+            "preamble": "58. The article of manufacture of claim 56 , wherein the processing step further comprises the step of identifying the predicate as false when the rounding up causes an underflow error and the operator of the predicate is a \u201cless than\u201d operator.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00059",
+            "preamble": "59. The article of manufacture of claim 48 , wherein the processing step further comprises the step of adding a range predicate when casting down a \u201cfloat\u201d input value to a \u201cdecimal\u201d target column, when the \u201cdecimal\u201d target column has a precision greater than 15.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00060",
+            "preamble": "60. The article of manufacture of claim 59 , wherein the range predicate is used to construct start and stop keys to restrict a range of rows to be retrieved, so that only a few of rows are fetched.",
+            "components": []
+        }
+    ],
+    "description": [
+        "1. Field of the Invention",
+        "This invention relates in general to database management systems performed by computers, and in particular, to the optimization of queries using a high performance predicate push-down for non-matching predicate operands.",
+        "2. Description of Related Art",
+        "Computer systems incorporating a Relational DataBase Management System (RDBMS) using a Structured Query Language (SQL) interface are well known in the art. The SQL interface has evolved into a standard language for the RDBMS and has been adopted as such by both the American Nationals Standard Institute (ANSI) and the International Standards Organization (ISO).",
+        "In an RDBMS, predicates of SQL queries can be evaluated at various stages and the performance of the predicates can be significantly different depending on where and when they are evaluated. Generally speaking, better performance is obtained when the predicate is evaluated at an earlier stage.",
+        "Without loss of generality, assume that the predicates are of the form \u201ccolumn operator expression,\u201d which is abbreviated as \u201ccol op exp,\u201d where:\n\n    \n    \n        \u201ccol\u201d represents an inner table column, also known as a target column;\n        \u201cexp\u201d represents an input value, which could be a literal value, constant expression, column or column expression; and\n        \u201cop\u201d represents a comparison operator, such as =, <>, >, >=, <, <=, etc.",
+        "Most, if not all, RDBMS attempt to \u201cpush down\u201d predicates to a data manager or index manager for better performance. For example, consider a query against a 10,000 row table with predicate P1 whose filter factor is 1%. In the prior art, P1 may be evaluated only after all 10,000 rows are fetched, which results in P1 being evaluated 10,000 times, i.e., once for each row. Alternatively, P1 could be used to determine a search range in a B-tree index, which results in only 100 rows being fetched (i.e., 1% of the rows).",
+        "For predicates with non-matching operands, such as type, length, or CCSID (Coded Character Set ID), the operands are \u201ccast\u201d to a common data type, length and CCSID before the comparison takes place. The term \u201ccast\u201d in this context refers to a conversion between data types. In the prior art, depending on the data types of both operands in the predicate, either or both the target column and the input value may be \u201ccast-up\u201d to a common data type before the operator of the predicate is performed.",
+        "One prior art approach is to always cast-up the \u201csmaller\u201d operand to match the \u201clarger\u201d one. The cast-up could be performed on the input value, target column, or both. For example, in a predicate comprised of \u201cinteger_col op smallint_exp,\u201d the input value \u201csmallint_exp\u201d may be cast-up to \u201cinteger,\u201d the data type of the target column \u201cinteger_col.\u201d In another example, in a predicate comprised of \u201csmallint_col op integer_exp,\u201d each target column \u201csmallint_col\u201d may be cast-up to \u201cinteger,\u201d the data type of the input value \u201cinteger_exp.\u201d In yet another example, in a predicate comprised of \u201cdecimal(5,3)_col op decimal(7,1)_exp,\u201d both operands maybe cast-up to the data type \u201cdecimal(9,3).\u201d",
+        "Although this is easy to implement, always casting up the smaller operand may cause excessive data conversions, for example, when the operand being cast-up is a target column. In this situation, the system has to convert every row it retrieves from the inner table. This is an enormous amount of data conversion overhead, which could significantly slow down performance, especially when predicates involve a large number of table accesses.",
+        "This can be best described by means of an example. Assume that the SALARY column of the EMPLOYEE table is an \u201cinteger\u201d data type, and the following SQL query is executed:\n\nSELECT*FROM EMPLOYEE E WHERE E.SALARY>70000.00",
+        "Casting the SALARY column to \u201cfloat\u201d results in a data conversion for each row fetched. It would be desirable if, in this example, the data conversion takes place only once for the entire query. This requires that, instead of casting up the SALARY column, the input value \u201c70000.00\u201d be cast-down to \u201cinteger,\u201d which works since there is a corresponding value in the integer domain for 70000.00, i.e., 70000. However, this is not a safe conversion in general, since certain floating point numbers may not fall in the range of a 4-byte integer.",
+        "Thus, there is a need in the art for a technique that obtains aggressive predicate push down with reduced casts, which is accomplished by the present invention. Specifically, the present invention supports \u201ccast-down,\u201d which allows casts such as \u201cinteger\u201d to \u201csmallint,\u201d \u201cchar(32)\u201d to \u201cvarchar(16),\u201d etc., as well as cast-up. Using a cast-up or cast-down, the present invention always casts the input value to the data type of the target column, which significantly reduces the overhead involved in data conversions.",
+        "Moreover, instead of blindly making judgments that an attempt to cast \u201cinteger\u201d to \u201csmallint\u201d will fail, the present invention permits the RDBMS to perform the cast and then to determine from the result whether the cast will succeed or fail. For example, a cast of the string \u201cdatabase\u201d of type \u201cvarchar(15)\u201d to type \u201cchar(10)\u201d will succeed.",
+        "Further, even failed casts can improve the performance of the RDBMS. For example, in a predicate comprised of \u201cdecimal(2,1)_col=1234.5,\u201d a cast failure indicates that the predicate is always false, which leads the RDBMS to skip the table access. Thus, the RDBMS can properly identify and evaluate failed casts, which significantly reduces the overhead of data conversions.",
+        "To overcome the limitations in the prior art described above, and to overcome other limitations that will become apparent upon reading and understanding the present specification, the present invention discloses a method, apparatus, and article of manufacture for improving the performance of evaluating predicates with non-matching operands by aggressively casting the input value to the data type of the target column before the data of the target column is accessed.",
+        "Referring now to the drawings in which like reference numbers represent corresponding parts throughout:",
+        "FIG. 1 illustrates an exemplary computer hardware and software environment that could be used with an embodiment of the present invention; and",
+        "FIGS. 2 and 3 are flowcharts illustrating a method of optimizing a query in a computer system, the query being performed by the computer system to retrieve data from a database stored on the computer system, according to the preferred embodiment of the present invention.",
+        "In the following description of the preferred embodiment, reference is made to the accompanying drawings, which form a part hereof, and in which is shown by way of illustration a specific embodiment in which the invention may be practiced. It is to be understood that other embodiments may be utilized and structural and functional changes may be made without departing from the scope of the present invention.",
+        "FIG. 1 illustrates an exemplary computer hardware and software environment that could be used with an embodiment of the present invention. In the exemplary environment, a computer system 100 is comprised of one or more processors connected to one or more data storage devices 102 and 104, such as disk drives, that store one or more relational databases.",
+        "An interface 106, such as TCP/IP\u2122, IMS/DB/DC\u2122, CICS\u2122, TSO\u2122, WINDOWS\u2122 or other similar interface, is used to connect a client computer 108 to the computer 100, in order that client computer 108 may transmit electrical signals to and from the computer system 100 that represent commands for performing various search and retrieval functions, termed queries, against the databases. In the present invention, these queries conform to the Structured Query Language (SQL) standard, and invoke functions performed by a Relational DataBase Management System (RDBMS). In the preferred embodiment of the present invention, the RDBMS comprises the DB2\u2122 product offered by I.B.M. Corporation for the MVS\u2122, UNIX\u2122, or WINDOWS\u2122 operating systems. Those skilled in the art will recognize, however, that the present invention has application to any RDBMS.",
+        "As illustrated in FIG. 1, the RDBMS includes three major components: a Lock Manager module 110, Systems Services module 112, and Database Services module 114. The Lock Manager module 110 handles locking services, because the RDBMS treats data as a shared resource, thereby allowing any number of users to access the same data simultaneously, and thus concurrency control is required to isolate users and to maintain data integrity. The Systems Services module 112 controls the overall RDBMS execution environment, including managing log data sets 106, gathering statistics, handling startup and shutdown, and providing management support.",
+        "At the heart of the RDBMS architecture is the Database Services module 114. The Database Services module 114 contains several submodules, including the Relational Database System (RDS) 116, the Data Manager 118, and the Index Manager 120, as well as other components, such as an SQL compiler/interpreter 122. These submodules support the functions of the SQL language, i.e., definition, access control, retrieval, and update of user and system data.",
+        "Generally, each of the components, modules, and submodules of the RDBMS comprise instructions and/or data, and are embodied in or retrievable from a computer-readable device, medium, signal or carrier, e.g., a memory, a data storage device, a remote device coupled to the computer 100 by a data communications device, etc. Moreover, these instructions and/or data, when read, executed, and/or interpreted by the computer 100, cause the computer 100 to perform the steps necessary to implement and/or use the present invention.",
+        "Thus, the present invention may be implemented as a method, apparatus, or article of manufacture using standard programming and/or engineering techniques to produce software, firmware, hardware, or any combination thereof. The term \u201carticle of manufacture,\u201d or alternatively, \u201ccomputer program carrier,\u201d as used herein is intended to encompass a computer program accessible from any computer-readable device, carrier, or media. Of course, those skilled in the art will recognize many modifications may be made to this configuration without departing from the scope of the present invention.",
+        "Those skilled in the art will recognize that any combination of the above components, or any number of different components, including computer programs, peripherals, and other devices, may be used to implement the present invention, so long as similar functions are performed thereby.",
+        "The present invention improves the performance of evaluating predicates with non-matching operands by aggressively casting the input value to the data type of the target column before the data of the target column is accessed.",
+        "Consider the following example. Assume that the predicate of a two table join is comprised of \u201cTinner, Cinner=Touter, Couter\u201d wherein Tinner is an inner table, Cinner is a column of the inner table, Touter is an outer table, and Couter is a column of the outer table, and in which Cinner and Couter have different data types. Moreover, assume that Tinner has 10,000 rows and Touter has 3,000 rows.",
+        "In the prior art, if Couter can be cast to the data type of the target column Cinner, it will involve 3,000 casts (for each row of Touter). On the other hand, if Couter cannot be cast to the data type of the target column Cinner, then Cinner needs to be cast to the data type of the input value Couter (for each row of Tinner and Touter). This casting of the target column will result in 30,000,000 casts (10,000*3,000) only on Tinner and 30,003,000 casts (30,000,000+3,000) on both Tinner and Touter.",
+        "With the present invention, Couter is cast to the data type of Cinner only once before Tinner is accessed. Therefore, no cast is needed on Cinner. Consequently, the total number of casts (3000) is dramatically reduced, as compared to the prior art approach.",
+        "Generally, in the technique of the present invention, the input value is cast to the data type of the target column before accessing the target table. Depending on the data types of the input value and target column, the cast could be a cast-up or cast-down.",
+        "A cast-up should never fail. Therefore, no special handling is needed before the predicate is pushed down to the Data Manager 118 or Index Manager 120. Prior art implementations will suffice.",
+        "However, a cast-down is more complicated. In some cases, the cast-down could be successful, for example, a cast-down of a 4-byte \u201cinteger\u201d value of \u201c1\u201d to a 2-byte \u201csmallint\u201d value of \u201c1\u201d. In many other cases, however, a cast-down could be problematic, due to overflow, underflow, or loss of precision errors.",
+        "Consider an example that casts \u201cdecimal_col\u201d to \u201csmallint\u201d:\n\n    \n    \n        An overflow error occurs if the value of the decimal_col is larger than MAX_SMALLINT (\u201c32767\u201d).\n        An underflow error occurs if the value of the decimal_col is smaller than MIN_SMALLINT (\u201c\u221232768\u201d)\n        A loss of precision error occurs when the decimal digits are truncated when cast from \u201cdecimal_col\u201d to \u201csmallint.\u201d For example, a loss of precision results when a decimal \u201c123.65\u201d is truncated to \u201c123.\u201d",
+        "If the RDBMS detects any type of error during the cast, based on a comparison operator of the predicate and the error symptom, then the RDBMS pre-processes the predicate and replaces it with an appropriately revised predicate. If the revised predicate is \u201cFALSE,\u201d then the target table access is skipped, or if the revised predicate is \u201cTRUE,\u201d then the predicate evaluation is skipped; otherwise, the revised predicate is pushed down to the data manager or index manager.",
+        "The following describes how errors in the cast-down are handled by the RDBMS.\n\n    \n    \n        A. If the operator is \u201c=\u201d (EQUAL), then the predicate is replaced by \u201cFALSE,\u201d and table access is skipped. Example: the predicate comprises \u201csmallint_col=decimal_col,\u201d and the value of the decimal_col is larger than MAX_SMALLINT (\u201c32767\u201d).\n        B. If the operator is \u201c<>\u201d (NOT EQUAL), then the predicate is to be replaced by \u201cTRUE, \u201d predicate evaluation is skipped and all records of target table are fetched. Example: the predicate comprises \u201csmallint_col<>decimal_col,\u201d and the value of the decimal_col is larger than MAX_SMALLINT (\u201c32767\u201d).\n        C. If the operator is \u201c>\u201d (GREATER THAN), \u201c>=\u201d (GREATER THAN OR EQUAL TO), \u201c<\u201d (LESS THAN) or \u201c<=\u201d (LESS THAN OR EQUAL TO), then the predicate is replaced by a revised predicate based on the error symptom of the cast.\n        \n            1. Case 1: Overflow Error\n            \n                If the operator is \u201c>\u201d or \u201c>=,\u201d then the predicate is replaced by \u201cFALSE.\u201d Example: the predicate comprises \u201csmallint_col>decimal_col,\u201d and the value of decimal_col is larger than MAX_SMALLINT (\u201c32767\u201d).\n                If the operator is \u201c<\u201d or \u201c<=,\u201d then the predicate is replaced by \u201cTRUE.\u201d Example: the predicate comprises \u201csmallint_col>decimal_col,\u201d and the value of the decimal_col is larger than MAX_SMALLINT (\u201c32767\u201d).\n            \n            \n            2. Case 2: Underflow Error\n            \n                If the operator is \u201c>\u201d or \u201c>=,\u201d then the predicate is replaced by \u201cTRUE.\u201d Example: the predicate comprises \u201csmallint_col>decimal_col,\u201d and the value of decimal_col is smaller than MIN_SMALLINT (\u201c\u221232768\u201d).\n                If the operator is \u201c<\u201d or \u201c<=,\u201d then the predicate is replaced by \u201cFALSE.\u201d Example: the predicate comprises \u201csmallint_col<decimal_col,\u201d and the value of decimal_col is smaller than MIN_SMALLINT (\u201c\u221232768\u201d).\n            \n            \n            3. Case 3: Loss of Precision Error\n            \n                If the operator is \u201c>\u201d or \u201c<=,\u201d then the input value is rounded down to the data type of the target column. If an underflow error occurs during the round down, then the predicate is handled in the same way as Case 2 above. Instead of the original predicate, the revised predicate is pushed down to the data manager or index manager. Example: the predicate is comprised of \u201csmallint_col>decimal_col(10,2),\u201d and the \u201cdecimal\u201d value is cast to \u201csmallint.\u201d\n                If the input decimal value is \u201c123.65,\u201d then a loss of precision error occurs due to truncation. In this case, the input value is rounded down to \u201c123,\u201d and the \u201csmallint\u201d value \u201c123\u201d is used as the input value to compare with \u201csmallint_col.\u201d\n                If the input decimal value is \u201c\u221232768.3,\u201d then it is rounded down to \u201c\u221232769,\u201d which is smaller than MIN_SMALLINT (\u221232768). The predicate is replaced by \u201cTRUE\u201d if the operator is \u201c>,\u201d or \u201cFALSE\u201d if the operator is \u201c<=.\u201d\n                If the operator is \u201c<\u201d or \u201c>=,\u201d then the input value is rounded up to the data type of the target column. If an overflow error occurs during the round up, then the predicate is handled in the same way as Case 1 above. Instead of the original predicate, the revised predicate is pushed down to the data manager or index manager. Example: the predicate is comprised of \u201csmallint_col<decimal_col,\u201d and the \u201cdecimal\u201d value is cast to \u201csmallint.\u201d\n                If the input decimal value is \u201c123.65,\u201d then a loss of precision error occurs due to truncation. In this case, the input value is rounded up to \u201c124\u201d and the \u201csmallint\u201d value \u201c124\u201d is used as the input value to compare with the \u201csmallint_col.\u201d\n                If the input decimal value is \u201c32767.3,\u201d then it is rounded up to \u201c32768,\u201d which is larger than MAX_SMALLINT (32767). The predicate is replaced by \u201cTRUE\u201d if operator is \u201c<\u201d or \u201cFALSE\u201d if operator is \u201c>=.\u201d",
+        "With the support of cast-down, input values of all data types can be aggressively cast to the data type of the target column, except for one case: when the input value is \u201cfloat\u201d and the target column is \u201cdecimal(p,s)\u201d with p>15. The imprecise representation of the \u201cfloat\u201d data type makes the mapping between \u201cfloat\u201d data and \u201cdecimal\u201d data be 1-to-n if the precision of the \u201cdecimal\u201d data is beyond what the \u201cfloat\u201d type can represent (i.e., p>15). That is, when mapping from \u201cfloat\u201d type to \u201cdecimal\u201d type, the digits after the 15th digit of \u201cdecimal\u201d data become insignificant. For example, a \u201cfloat\u201d value of 1.0e+0 is considered to be \u201cequal\u201d to \u201cdecimal\u201d value 1.000 . . . 0001, 1.000 . . . 0002, . . . , or 1.000 . . . 0009, if the last digit of the \u201cdecimal\u201d value in this example is beyond the 15th digit.",
+        "The approach to solve this problem is to add an extra range predicate that can be pushed down to the Data Manager 118 or Index Manager 120 to screen out the rows of the inner column table before evaluating the original predicate. This extra range predicate is indexable, sargable, and highly selective. As a result, the Index Manager 120 is able to use it to construct very narrow start and stop keys to restrict the range of rows to be retrieved, so that only a few of rows are fetched. The evaluation time of the original predicate would be significantly reduced.",
+        "Consider the following example, where is the predicate is comprised of \u201cdecimal_col=float_col\u201d and the \u201cdecimal_col\u201d is defined as \u201cdecimal (17,16).\u201d In addition to the original predicate, an indexable and sargable range predicate is added as:\n\ndecimal_col BETWEEN (CAST (float_col AS DECIMAL)\u2212\u03b4) AND\n\n(CAST (float_col AS DECIMAL)+\u03b4)",
+        "Where \u03b4 is a small constant in the \u201cdecimal_col\u201d data type. Since a cast from \u201cfloat\u201d to \u201cdecimal\u201d is a problematic cast, an overflow or underflow error can occur. If an overflow or underflow error occurs, the predicate is handled in the same way, as either Case 1 or Case 2 above.",
+        "FIGS. 2 and 3 are flowcharts illustrating a method of optimizing a query in a computer system, the query being performed by the computer system to retrieve data from a database stored on the computer system, according to the preferred embodiment of the present invention.",
+        "Referring to FIG. 2, Block 200 represents the RDBMS evaluating the query, wherein the query is comprised of at least one predicate having a first operand comprising an input value, an operator and a second operand comprising a target column.",
+        "Block 202 is a decision block that represents the RDBMS determining whether an attempt is being made to cast-down a \u201cfloat\u201d input to a \u201cdecimal\u201d target column, when the \u201cdecimal\u201d target column has a precision greater than 15. If so, control transfers to Block 204; otherwise, control transfers to Block 206.",
+        "Block 204 represents the RDBMS adding a range predicate when casting down a \u201cfloat\u201d input value to a \u201cdecimal\u201d target column, when the \u201cdecimal\u201d target column has a precision greater than 15. The range predicate is used to construct start and stop keys to restrict a range of rows to be retrieved, so that only a few of the rows are fetched. Thereafter, control transfers to Block 218.",
+        "Block 206 represents the RDBMS casting down the input value to a data type of the target column before the target column is accessed, when the evaluated query has non-matching first and second operands in the predicate.",
+        "Block 208 is a decision block that represents the RDBMS determining whether an error occurred when the input value is cast-down, wherein the error is selected from a group comprising overflow, underflow, or loss of precision errors. If so, control transfers to Block 206; otherwise, control transfers to Block 218.",
+        "The logic in the following Blocks comprises detecting the error during the cast-down, based on the operator of the predicate and the error, and then processing the predicate, i.e., not accessing the target column when the predicate is false, not evaluating the predicate when the predicate is true, and pushing down the predicate when the predicate is neither true nor false. This logic is described in more detail below.",
+        "Block 210 is a decision block that represents the RDBMS determining whether an operator of the predicate is an \u201cEQUAL\u201d (=) operator. If so, control transfers to Block 212; otherwise, control transfers to Block 214.",
+        "Block 212 represents the RDBMS identifying the predicate as false, and not accessing the target column, when an operator of the predicate is an \u201cEQUAL\u201d operator. Thereafter, control transfers to Block 218.",
+        "Block 214 is a decision block that represents the RDBMS determining whether an operator of the predicate is a \u201cNOT EQUAL\u201d (<>) operator. If so, control transfers to Block 216; otherwise, control transfers to FIG. 3.",
+        "Block 216 represents the RDBMS identifying the predicate as true, not evaluating the predicate, and fetching all rows of the target column, when an operator of the predicate is a \u201cNOT EQUAL\u201d operator. Thereafter, control transfers to Block 218.",
+        "Block 218 represents the RDBMS executing the query.",
+        "Referring to FIG. 3, this logic is performed when an operator of the predicate is a \u201cGREATER THAN\u201d (>), \u201cGREATER THAN OR EQUAL TO\u201d (>=), \u201cLESS THAN\u201d (<) or \u201cLESS THAN OR EQUAL TO\u201d (<=) operator.",
+        "Block 300 is a decision block that represents the RDBMS determining whether an overflow error occurred. If so, control transfers to Block 302; otherwise, control transfers to Block 310.",
+        "Block 302 is a decision block that represents the RDBMS determining whether an operator of the predicate is a \u201cGREATER THAN\u201d (>), or \u201cGREATER THAN OR EQUAL TO\u201d (>=) operator. If so, control transfers to Block 304; otherwise, control transfers to Block 306.",
+        "Block 304 represents the RDBMS identifying the predicate as false when the error is an overflow error and the operator of the predicate is a \u201cGREATER THAN\u201d or \u201cGREATER THAN OR EQUAL TO\u201d operator. Thereafter, control returns to FIG. 2.",
+        "Block 306 is a decision block that represents the RDBMS determining whether an operator of the predicate is a \u201cLESS THAN\u201d (<) or \u201cLESS THAN OR EQUAL TO\u201d (<=) operator. If so, control transfers to Block 308; otherwise, control transfers to Block 310.",
+        "Block 308 represents the RDBMS identifying the predicate as true when the error is an overflow error and the operator of the predicate is a \u201cLESS THAN\u201d or \u201cLESS THAN OR EQUAL TO\u201d operator. Thereafter, control returns to FIG. 2.",
+        "Block 310 is a decision block that represents the RDBMS determining whether an underflow error occurred. If so, control transfers to Block 312; otherwise, control transfers to Block 320.",
+        "Block 312 is a decision block that represents the RDBMS determining whether an operator of the predicate is a \u201cGREATER THAN\u201d (>) or \u201cGREATER THAN OR EQUAL TO\u201d (>=) operator. If so, control transfers to Block 314; otherwise, control transfers to Block 316.",
+        "Block 314 represents the RDBMS identifying the predicate as true when the error is an underflow error and the operator of the predicate is a \u201cGREATER THAN\u201d or \u201cGREATER THAN OR EQUAL TO\u201d operator. Thereafter, control returns to FIG. 2.",
+        "Block 316 is a decision block that represents the RDBMS determining whether an operator of the predicate is a \u201cLESS THAN\u201d (<) or \u201cLESS THAN OR EQUAL TO\u201d (<=) operator. If so, control transfers to Block 318; otherwise, control transfers to Block 320.",
+        "Block 318 represents the RDBMS identifying the predicate as false when the error is an underflow error and the operator of the predicate is a \u201cLESS THAN\u201d or \u201cLESS THAN OR EQUAL TO\u201d operator. Thereafter, control returns to FIG. 2.",
+        "Block 320 is a decision block that represents the RDBMS determining whether a loss of precision error occurred. If so, control transfers to Block 322; otherwise, control returns to FIG. 2.",
+        "Block 322 is a decision block that represents the RDBMS determining whether an operator of the predicate is a \u201cGREATER THAN\u201d (>) or \u201cLESS THAN OR EQUAL TO\u201d (<=) operator. If so, control transfers to Block 324; otherwise, control transfers to Block 326.",
+        "Block 324 represents the RDBMS rounding down the input value to a data type of the target column when the error is a loss of precision error and the operator of the predicate is a \u201cGREATER THAN\u201d or \u201cLESS THAN OR EQUAL TO\u201d operator. Moreover, this Block represents the RDBMS identifying the predicate as true when the rounding down causes an underflow error and the operator of the predicate is a \u201cGREATER THAN\u201d operator. Further, this Block represents the RDBMS identifying the predicate as false when the rounding down causes an underflow error and the operator of the predicate is a \u201cLESS THAN OR EQUAL TO\u201d operator. Thereafter, control returns to FIG. 2.",
+        "Block 326 is a decision block that represents the RDBMS determining whether an operator of the predicate is a \u201cLESS THAN\u201d (<) or \u201cGREATER THAN OR EQUAL TO\u201d (>=) operator. If so, control transfers to Block 328; otherwise, control returns to FIG. 2.",
+        "Block 328 represents the RDBMS rounding up the input value to a data type of the target column when the error is a loss of precision error and the operator of the predicate is a \u201cLESS THAN\u201d or \u201cGREATER THAN OR EQUAL TO\u201d operator. Moreover, this Block represents the RDBMS identifying the predicate as true when the rounding up causes an underflow error and the operator of the predicate is a \u201cGREATER THAN OR EQUAL TO\u201d operator. Further, this Block represents the RDBMS identifying the predicate as false when the rounding up causes an underflow error and the operator of the predicate is a \u201cLESS THAN\u201d operator. Thereafter, control returns to FIG. 2.",
+        "This concludes the description of the preferred embodiment of the invention. The following describes some alternative embodiments for accomplishing the present invention. For example, any type of computer, such as a mainframe, minicomputer, or personal computer, could be used with the present invention. In addition, any software program using predicates could benefit from the present invention.",
+        "In summary, the present invention discloses a method, apparatus, and article of manufacture for improving the performance of evaluating predicates with non-matching operands by aggressively casting the input value to the data type of the target column before the data of the target column is accessed.",
+        "The foregoing description of the preferred embodiment of the invention has been presented for the purposes of illustration and description. It is not intended to be exhaustive or to limit the invention to the precise form disclosed. Many modifications and variations are possible in light of the above teaching."
+    ],
+    "citations": [
+        "5386568",
+        "6032143",
+        "6088524",
+        "6345266",
+        "6381616",
+        "6385603",
+        "6438541",
+        "6578090",
+        "6622138",
+        "6748377",
+        "2001/0037322",
+        "2001/0051949",
+        "2002/0016907",
+        "2002/0069193",
+        "2002/0078015",
+        "2002/0112148",
+        "2002/0120620",
+        "2003/0135758",
+        "2003/0187858",
+        "2004/0111713",
+        "2004/0128657",
+        "2004/0268309",
+        "2005/0015673",
+        "2005/0039124",
+        "2005/0097084",
+        "2005/0097523"
+    ],
+    "us_classification": "707  5",
+    "international_classifications": [
+        {
+            "classification_level": "A",
+            "section": "G",
+            "classification_class": "06",
+            "subclass": "F",
+            "main_group": "17",
+            "subgroup": "30"
+        }
+    ]
+}

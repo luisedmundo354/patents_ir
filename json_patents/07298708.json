@@ -1,0 +1,100 @@
+{
+    "title": "IP device registration",
+    "abstract": "In a method of registering an IP device in a network where one of a plurality of servers in the network has provided to the IP device an IP address for a controller for which the IP device has not been programmed, the improvement comprising accessing a database to obtain a further IP address for a designated controller for which the IP device has been programmed.",
+    "inventors": [
+        "Nasiri",
+        "Zellerer"
+    ],
+    "document_number": "07298708",
+    "publication_date": "20071120",
+    "assignees": [
+        "Mitel Knowledge Corporation"
+    ],
+    "claims": [
+        {
+            "claim_number": "CLM-00001",
+            "preamble": "1. A method of registering an IP device programmed for a particular PBX in a network of multiple PBXs connected in clusters, said PBXs including respective servers and controllers, where one of said servers has provided to the IP device an IP address for one of said controllers in a further PBX for which the IP device has not been programmed, the method comprising:",
+            "components": [
+                {
+                    "component": "receiving a software ID from said IP device and in response accessing a database to obtain a further IP address for a designated controller in said particular PBX for which the IP device has been programmed, and redirecting said IP device to establish a connection with said designated controller for registering said IP device therewith;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "wherein said accessing said database includes reading a first ID from said database using said software ID as a key to identify one of said clusters within said network containing said designated controller; reading a second ID from said database using said first ID as a key to identify one of said multiple PBXs within said one of said clusters containing said designated controller; and reading said further IP address for said designated controller from said database using said second ID as a key.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00002",
+            "preamble": "2. A method of registering an IP device programmed for a particular PBX in a network of multiple PBXs connected in clusters, said PBXs including respective servers and controllers, where one of said servers has provided to the IP device an IP address for one of said controllers in a further PBX for which the IP device has not been programmed, the method comprising:",
+            "components": [
+                {
+                    "component": "accessing a database to obtain a further IP address for a designated controller in said particular PBX for which the IP device has been programmed, and redirecting said IP device to establish a connection with said designated controller for registering said IP device therewith;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "wherein said accessing said database includes: reading a cluster element ID from a remote directory number (DN) table in said database using a software ID supplied by said IP device as a key, wherein said cluster ID identifies one of said clusters within said network containing said designated controller; reading a PBX signalling ID from a cluster table using said cluster element ID as a key, wherein said PBX signalling ID identifies one of said multiple PBXs within said one of said clusters containing said designated controller; and reading said further IP address for said designated controller from a PBX controller table using said PBX signalling ID as a key.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00003",
+            "preamble": "3. The improvement of claim 1 , wherein said database is replicated in each of said multiple PBXs.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00004",
+            "preamble": "4. The improvement of claim 2 , wherein said database is replicated in each of said multiple PBXs.",
+            "components": []
+        }
+    ],
+    "description": [
+        "The present invention relates generally to TCP/IP networks, and more specifically to a method of handling device registration in a TCP/IP network.",
+        "A DHCP server is a component that uses the Dynamic Host Configuration Protocol (DHCP) to provide configuration information to IP hosts on a TCP/IP network. For example, in IP telephone systems such as the Mitel Networks MN3300 telephone system, DHCP servers are used to provide IP addresses to IP devices that connect to the system. Each MN3300 has its own DHCP server, such that when multiple DHCP servers are connected in clusters (e.g. networked MN3300 systems), problems can occur when registering newly connected IP devices.",
+        "When an IP device to be controlled by such a system first connects to the network, it must request configuration information (at a minimum, its own IP address and that of its controller) from a DHCP server. It does so by broadcasting a message referred to as DHCP Discovery. The IP device accepts the first response to its request and ignores any others. Once the device receives the required information from the responding DHCP server, it receives a software download from a TFTP server associated with the responding DHCP server and attempts to communicate with its controller using the DHCP-specified IP address. The TFTP server is a component that uses the Trivial File Transfer Protocol (TFTP) to transfer files (e.g. device software loads) from a storage area to a client (e.g. the device 1).",
+        "The DHCP server in a MN3300 system is typically configured to provide the IP address of its co-resident controller as part of the configuration information requested from it by an IP device. The DHCP server has no way of determining whether, in fact, a device making the request \u2018belongs\u2019 to the controller associated with the server. In a multiple or clustered MN3300 network, any DHCP server may respond to any IP device that broadcasts a Discovery request within the network. This results in the IP device being programmed via a software download from the responding MN3300 system. If an IP device receives an IP address for a controller other than the one on which it has been programmed via the software download to be controlled, its attempt to receive service fails.",
+        "One approach to overcoming this problem is to turn off all but one DHCP server in a cluster or network. This requires that the DHCP server be configured to use a unique identifier for the device (typically a Media Access Control or MAC address) to map the appropriate configuration information. It further requires that this identifier be pre-programmed (i.e. mapped to one of multiple controllers) in a database accessible to the DHCP server.",
+        "A second approach is to provide one MN3300 (hence, one DHCP) per subnet within a network. However, that requires more complex network architecture.",
+        "According to the present invention a method is provided by which a controller (such as a MN3300 controller) is able to determine the designated controller for any IP device that attempts to receive service from it. The method also includes a step of redirecting any such IP device to its appropriate controller.",
+        "A detailed description of the prior art and the preferred embodiment is set forth herein below having regard to the following drawings, in which:",
+        "FIG. 1 is a system block diagram of a TCP/IP network in connection with which the method of the invention may be implemented.",
+        "FIG. 2 is a message flow diagram showing IP device registration according to the prior art.",
+        "FIG. 3 is a message flow diagram showing IP device registration according to the method of the present invention.",
+        "FIG. 1 shows a system for registering and controlling an IP device 1 in a network, such as a MN3300-based system. When initially connected, the device 1 must obtain configuration information from a DHCP server 3, including the IP address for the device 1, the IP address of a TFTP server 5 from which the device obtains its software load, and the IP address of its controller 7.",
+        "Thus, as shown in FIG. 2, the device 1 periodically broadcasts a DHCP Discovery request until it receives a response. It accepts the first response received and ignores any subsequent responses from other DHCP servers in the network. The IP device 1 then obtains its software load from the TFTP server 5, including MAC address, and execution of its software begins.",
+        "The IP device 1 then attempts to \u2018register\u2019 with the controller 7 for which it has received an IP address. This involves establishing a TCP/IP link with the controller and providing it with the programmed MAC address for the device. If the MAC address supplied by an IP device upon registration has not been preprogrammed against a directory number (DN) in the database, then the user of the IP device is prompted to supply a PIN (e.g. the DN preceded by a unique code). The PIN associates the user with a line of service (e.g. DN), programmed in the database 9 of the controller 7. The controller 7 checks to determine whether the DN device \u201cbelongs\u201d to it (i.e. the database 9 for the controller 7 contains an entry (DN) for the device 1). If not, the registration attempt is rejected (Neg_Ack requesting re-entry of PIN) and the device does not receive service. The foregoing device registration process is in accordance with the prior art.",
+        "According to the present invention, as shown in FIG. 3, in the event that the controller 7 determines that it is not the assigned controller for the IP device 1, it calls a \u201csend_redirect_reg_req\u201d procedure, as discussed in detail below. This procedure is used to determine whether the device belongs to any other controller in the cluster or network based on the PIN (with the pre-pended code removed). It then obtains the address of the designated (i.e. programmed) controller for that device from its local database 9. Specifically, remote DNs (i.e. DNs programmed for devices on a MN3300 system connected to the same network cluster) may be programmed into the database 9 from the controller 7 using forms accessible via a graphical user interface (GUI). The remote DNs stored on database 9 include a number to identify the designated MN3300 followed by the actual DN. The controller 7 then accesses another locally stored form to map the remote DN to an IP address for the designated controller.",
+        "OPS Manager may be used to propagate changes to any DN in the database 9 to all MN3300s in the network, as described in co-owned Canadian Patent No. 2197517 issued Jan. 15, 2002.",
+        "If, in fact, the device belongs to the originally designated controller, registration completes and the device receives service (i.e. the device 1 receives a Pos_Ack message, as in FIG. 2). If not, the controller 7 provides the new controller IP address to the device 1 in order to redirect the device to the designated (i.e. programmed) controller. A person of skill in the art will understand the sequence by which the device handles the redirection (i.e. closing the link with the current controller, and opening a new link with the appropriate controller using the new IP address that is received from the current controller). Once a TCP/IP link has been established with the appropriate controller the registration process is repeated and, if successful, the device 1 receives service.",
+        "The pseudo-code reproduced below describes the process that accesses database 9 to obtain the remote DNs and sends that information to the IP device 1 for redirecting the device to the designated controller:",
+        "The following new routines are used in this process:\n\n    \n    \n        get_pbx_ip_address: this routine finds the IP address of the designated controller in the cluster.\n        format_save_pin_request_to_set\n        send_redirect_reg_req: upon finding the designated controller, this routine sends the IP address to the telephone set (e.g. via a Mitel Viper virtual \u201ccard\u201d for mapping IP addresses to devices in legacy systems made prior to the advent of IP addresses.\n        format_redirect_reg_request_to_set: this routine formats the redirect message.",
+        "Prior to calling the Get_pbx_ip address routine, the swid (software id object that includes the DN) is sent by the IP device 1 to the controller 7, as follows:",
+        "IF((map DN to swid(dn_of_set,device_swid)=success)\n\n\n\n\n\n\n\n\n\nAND\n\n\n\n(device_swid.sw_slctr = sws_remote_dn))\n\n\n\n\n\n\n\n\n\nTHEN\n\n\n\n\n\n\n\n\n\nsend_redirect_reg_req(new_msg,device_swid);",
+        "Then, the send_redirect_reg_req procedure is executed. This procedure fulfils two functions. First, it calls the get_pbx_ip_address routine for collecting the IP address of the correct controller. Secondly, it sends a message to the IP device 1 along with the correct controller IP address, for redirecting the device 1 to establish a TCP/IP connection with the correct controller, as discussed above.",
+        "send_redirect_reg_req\n\n\n\n\n\n\n\n\n\n{\n\n\n\n\n\n\n\n\n\n.\n\n\n\n.\n\n\n\n.\n\n\n\nget_pbx_ip_address(device_swid, pbx_ip_address);\n\n\n\n.\n\n\n\n.\n\n\n\n.\n\n\n\n\n\n\n\n\n\n}\n\n\n\n\n\n\n\nget_pbx_ip_address(device_swid, pbx_ip_address)\n\n\n\n\n\n\n\n\n\n{\n\n\n\n\n\n\n\n\n\n.\n\n\n\n.\n\n\n\n.\n\n\n\nIF the device_swid.sw_slctr is pointing to a remote_DN THEN\n\n\n\n\n\n\n\n\n\n//Access the Remote DN Table in the database 9 and read the specific\n\n\n\nrecord //using as key the DN contained by the device_swid:\n\n\n\nIF read_table_record(device_swid, rdn_table_entry) = success THEN\n\n\n\n\n\n\n\n\n\n//Create a temporary swid using the cluster element ID in the record\n\n\n\nobtained //from the Remote DN Table above; Access the Cluster Table in\n\n\n\nthe //database 9 and read the specific record using as key the cluster\n\n\n\nelement //ID:\n\n\n\ntemp_swid.sw_slctr := sws_cluster_element;\n\n\n\ntemp_swid.cluster_element_id := dn_table_entry.ceid_table_index;\n\n\n\nIF read_table_record(temp_swid, cluster_table_entry) = success THEN\n\n\n\n\n\n\n\n\n\n//Create a temporary swid using the sws_pbx_signalling ID in the\n\n\n\nrecord //obtained from the Cluster Table above; Access the PBX\n\n\n\n(Controller) //Table in the database 9 and read the specific record using\n\n\n\nas key the //sws_pbx_signalling ID:\n\n\n\ntemp_swid.sw_slctr := sws_pbx_signalling;\n\n\n\ntemp_swid.pbx_signalling_id:=cluster_table_entry.cluster_element_index-1;\n\n\n\nIF read_table_record(temp_swid, pbx_entry) = success THEN\n\n\n\n\n\n\n\n\n\n//Set the pbx_ip_address to the IP address in the record obtained\n\n\n\nfrom //the PBX (Controller) Table above:\n\n\n\npbx_ip_address := pbx_entry.ip_netwk_sig_ip_address;\n\n\n\n\n\n\n\n\n\nENDIF;\n\n\n\n\n\n\n\n\n\nENDIF;\n\n\n\n\n\n\n\n\n\nENDIF;\n\n\n\n\n\n\n\n\n\nENDIF;\n\n\n\n.\n\n\n\n.\n\n\n\n.\n\n\n\n\n\n\n\n\n\n}",
+        "All the tables exist in the local database and they must get filled through user interfaces (e.g. CDE, ESM, OPS).",
+        "Modifications and alternatives of the invention are possible. For example, although the method of the present invention has been described in terms of a networked MN3300 telephone system, it will be appreciated that the method may be applied to any controller capable of handling registration of IP devices. This, and all other such modifications and variations are believed to be within the sphere and scope of the invention as defined by the claims appended hereto."
+    ],
+    "citations": [
+        "6775273",
+        "6798767",
+        "7016675",
+        "7110393",
+        "2001/0026545",
+        "WO 00/31933",
+        "WO 02/052827"
+    ],
+    "us_classification": "370254",
+    "international_classifications": [
+        {
+            "classification_level": "A",
+            "section": "H",
+            "classification_class": "04",
+            "subclass": "L",
+            "main_group": "12",
+            "subgroup": "28"
+        }
+    ]
+}

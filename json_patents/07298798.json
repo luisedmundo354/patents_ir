@@ -1,0 +1,639 @@
+{
+    "title": "Method and system for decoding block codes",
+    "abstract": "A method and system are disclosed for decoding block codes using a single decoder and trellis diagram. The signal can include at least one block code, and the block code can be modulated using at least one of a plurality of modulation modes. The block code contained in the signal can be selectively decoded based on the modulation mode for the block code using a trellis diagram corresponding to the modulation mode for the block code, for example, a low and high-rate CCK modulation mode or a differential quadrature phase shift keying (DQPSK) Baker sequence modulation mode and a differential binary phase shift keying (DBPSK) Barker sequence modulation mode. The trellis diagram can have multiple embedded subtrellis diagrams in the trellis diagram. In this manner, multiple types of block codes and be decoded using a single decoder and trellis diagram.",
+    "inventors": [
+        "Chao",
+        "Chiu"
+    ],
+    "document_number": "07298798",
+    "publication_date": "20071120",
+    "assignees": [
+        "Mediatek, Inc."
+    ],
+    "claims": [
+        {
+            "claim_number": "CLM-00001",
+            "preamble": "1. An apparatus for decoding a received signal being modulated using one of a plurality of modulation based on a trellis diagram to output an decoded code, comprising:",
+            "components": [
+                {
+                    "component": "a plurality of subdecoding units, each receiving a plurality of symbols of received signal, and an estimate of the channel impulse response for decoding the received signal to output a local minimum metric and a code corresponding to the local minimum metric based on a corresponding subtrellis in the trellis diagram,",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a selector for selecting one of the codes from the plurality of subdecoding units as the decoded code based on an index signal,",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a minimum value determining unit for receiving the local minimum metrics from the plurality of subdecoding units, and generating the index signal that indicates which local minimum metric is the minimum one among the local minimum metrics,",
+                    "subcomponents": []
+                },
+                {
+                    "component": "an actuating unit for receiving a mode indicating signal and determining states and branches in the subtrellis corresponding to each subdecoding unit, and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a branch label generating unit for receiving the mode indicating signal and generating a plurality of branch labels of the subtrellis corresponding to each subdecoding unit,",
+                    "subcomponents": []
+                },
+                {
+                    "component": "wherein the received signal contains at least one block code.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00002",
+            "preamble": "2. The apparatus of claim 1 , wherein the mode indicating signals is used to indicate the modulation mode that can be one of a high-rate complementary code keying (CCK) modulation mode, low-rate CCK modulation mode, differential quadrature phase shift keying (DQPSK) Barker sequence modulation mode, and differential binary phase shift keying (DBPSK) Barker sequence modulation mode.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00003",
+            "preamble": "3. The apparatus of claim 2 , wherein the number of the plurality of subdecoding units is 4.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00004",
+            "preamble": "4. The apparatus of claim 1 , wherein each subdecoding unit comprises:",
+            "components": [
+                {
+                    "component": "a plurality of submodules, each generating a delayed path metric, comprising:",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a plurality of adders each adding a selected one of a plurality of branch metrics and a selected one of the delayed path metrics to generate a sum value;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a minimum value selector for selecting the sum values from the plurality of adders as a path metric and generating a label index that indicates the branch label corresponding to the path metric that is selected;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a delay unit for receiving and storing the path metric and outputting a delayed path metric;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a branch label table containing a plurality of label indexes and the corresponding branch labels; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a surviving path updating unit for receiving the label index, the surviving path in each submodules, and the branch label corresponding to the label index obtained from the branch level table to update the surviving path of the present submodule; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a metric calculator for receiving previously decoded codes, at least one symbols of received signal, the estimate of the channel impulse response, the surviving path of each submodule, and branch labels obtained from the branch label table in each submodule to generate the plurality of branch metrics respectively corresponding to a plurality of branches in the subtrellis;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "wherein after the surviving path is updated for N iterations with N being an integer, the delayed path metric of a specific submodule is outputted as the local minimum metric and the surviving path of the specific submodule is outputted as the code corresponding to the local minimum metric.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00005",
+            "preamble": "5. The apparatus of claim 4 , wherein the mode indicating signal is used to indicate the modulation mode that can be one of a high-rate complementary code keying (CCK) modulation mode, low-rate CCK modulation mode, differential quadrature phase shift keying (DQPSK) Barker sequence modulation mode, and differential binary phase shift keying (DBPSK) Barker sequence modulation mode.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00006",
+            "preamble": "6. The apparatus of claim 5 , wherein the number of the plurality of submodules is 4.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00007",
+            "preamble": "7. The apparatus of claim 5 , wherein if the mode indicating signal indicates the high-rate CCK modulation mode, the number N=4, the actuating unit activates 4 subdecoding units and determines states s",
+            "components": [
+                {
+                    "component": "s",
+                    "subcomponents": []
+                },
+                {
+                    "component": "where a",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a",
+                    "subcomponents": []
+                },
+                {
+                    "component": "where the set of number u",
+                    "subcomponents": []
+                },
+                {
+                    "component": "and the branch label generating unit generates the branch labels sequentially from the initial state to the final state as",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(p",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(p",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(p",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(p",
+                    "subcomponents": []
+                },
+                {
+                    "component": "where all additions are modulo-4 additions.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00008",
+            "preamble": "8. The apparatus of claim 5 , wherein if the mode indicating signal indicates the low-rate CCK modulation mode, the number N=4, the actuating unit activates 4 subdecoding units and determines states s",
+            "components": [
+                {
+                    "component": "s",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a",
+                    "subcomponents": []
+                },
+                {
+                    "component": "and the branch label generating unit generates the branch labels sequentially from the initial state of the final state as",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(p",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(p",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(p",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(p",
+                    "subcomponents": []
+                },
+                {
+                    "component": "where all additions are modulo-4 additions.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00009",
+            "preamble": "9. The apparatus of claim 5 , wherein if the mode indicating signal indicates the DQPSK Barker sequence modulation mode, the number N=6, the actuating unit actives 4 subdecoding units, the branch label generating unit generates the branch labels sequentially from the initial state to the final state in the four subtrellises corresponding to the 4 subdecoding units respectively as",
+            "components": [
+                {
+                    "component": "(p",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(p",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(p",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(p",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00010",
+            "preamble": "10. The apparatus of claim 5 , wherein if the mode indicating signal indicates the DBPSK Barker sequence modulation mode, the number N=6, actuating unit activates two subdecoding units, and the branch label generating unit generates the branch labels sequentially from the initial state to the final state in the two subtrellises corresponding to the two subdecoding units respectively as",
+            "components": [
+                {
+                    "component": "(p",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(p",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00011",
+            "preamble": "11. The apparatus of claim 1 , wherein:",
+            "components": [
+                {
+                    "component": "the received signal is received on at least one of an additive white Gaussian noise channel, flat fading channel, and intersymbol interference channel; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "the timing and phase of the received signal are tracked before decoding.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00012",
+            "preamble": "12. The apparatus of claim 1 , further comprising a timing and phase tracking module to track timing and phase of the received signal.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00013",
+            "preamble": "13. A communication system, comprising:",
+            "components": [
+                {
+                    "component": "a receiver, receiving a signal containing at least one block code of a fixed length,",
+                    "subcomponents": []
+                },
+                {
+                    "component": "wherein the block code is modulated in a mode selected from a plurality of modulation modes;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a decoder for decoding the signal using a trellis diagram comprising a plurality of subtrellises to output a decoded code, comprising:",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a plurality of subdecoding units each corresponding to a subtrellis, decoding the signal based on an estimate of the channel impulse response to output a plurality of local minimum metrics and codes correspondingly;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a minimum value determining unit, coupled to the subdecoding units, determining a minimum local minimum metric among the local minimum metrics;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a selector, coupled to the subdecoding units, selecting a code associated with the minimum local minimum metric as the decoded code;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "an actuating unit, determining states and branches in the trellis diagram based on the selected mode, and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a branch label generating unit, determining branch labels on the branches.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00014",
+            "preamble": "14. The communication system of claim 13 , wherein the mode is one of high-rate CCK modulation mode, low-rate CCK modulation mode, DQPSK Barker sequence modulation mode, and DBPSK Barker sequence modulation mode.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00015",
+            "preamble": "15. The communication system of claim 14 , wherein the selector further selects at least one among a high-rate CCK trellis diagram, a low-rate CCK trellis diagram, a DQPSK Barker sequence trellis diagram, and a DBPSK Barker sequence trellis diagram as the trellis diagram based on the mode.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00016",
+            "preamble": "16. The communication system of claim 14 , wherein the subdecoding units decode the block code using a high-rate CCK trellis diagram, in which at least one of the low-rate CCK trellis diagram, DQPSK Barker sequence trellis diagram, and DBPSK Barker sequence trellis diagrams are embedded as part of the states and branches.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00017",
+            "preamble": "17. The communication system of claim 13 , wherein the receiver receives the signal on at least one of an additive white Gaussian noise channel, flat fading channel, and intersymbol interference channel.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00018",
+            "preamble": "18. The communication system of claim 13 , further comprising a timing and phase tracking module to track timing and phase of the signal.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00019",
+            "preamble": "19. The communication system of claim 13 , further comprising an encoder, encoding input data in a high-rate CCK modulation mode to generate the signal, comprising:",
+            "components": [
+                {
+                    "component": "a phase mapper to map input data into phase representations u",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a converter to convert the phase representations u",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a data processor to output the variables in a selective order; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a processor logic to determine odd-phase and even-phase representations of a codeword required to modulate the signal based on the variables outputted from the data processor.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00020",
+            "preamble": "20. The communication system of claim 19 , wherein the variables are defined as:",
+            "components": [
+                {
+                    "component": "a",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00021",
+            "preamble": "21. A communication method, comprising:",
+            "components": [
+                {
+                    "component": "receiving a signal containing at least one block code of a fixed length modulated in a mode selected from a plurality of modulation modes;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "decoding the signal by a trellis diagram comprising a plurality of subtrellises to output a decoded code, comprising:",
+                    "subcomponents": [
+                        "receiving an estimate of the channel impulse response;",
+                        "determining whether to enable the subtrellises according to the selected mode;",
+                        "decoding the signal by the enabled subtrellises to output a plurality of local minimum metrics and codes based on the estimate of the channel impulse response;",
+                        "determining a minimum local minimum metric among the local minimum metrics;",
+                        "determining states and branches in the trellis diagram based on the selected mode; and",
+                        "determining branch labels on the branches."
+                    ]
+                },
+                {
+                    "component": "receiving an estimate of the channel impulse response;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "determining whether to enable the subtrellises according to the selected mode;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "decoding the signal by the enabled subtrellises to output a plurality of local minimum metrics and codes based on the estimate of the channel impulse response;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "determining a minimum local minimum metric among the local minimum metrics;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "determining states and branches in the trellis diagram based on the selected mode; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "determining branch labels on the branches.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00022",
+            "preamble": "22. The communication method as claimed in claim 21 , wherein the mode is selected from at least one among a high-rate CCK modulation mode, a low-rate CCK modulation mode, a DQPSK Barker sequence modulation mode, and a DBPSK Barker sequence modulation mode.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00023",
+            "preamble": "23. The communication method as claimed in claim 22 , wherein the trellis diagram is selected from at least one among a high-rate CCK trellis diagram, a low-rate CCK trellis diagram, a DQPSK Barker sequence trellis diagram, and a DBPSK Barker sequence trellis diagram.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00024",
+            "preamble": "24. The communication method as claimed in claim 23 , wherein the trellis diagram is a high-rate CCK trellis diagram, in which at least one of the low-rate CCK trellis diagram DQPSK Barker sequence trellis diagram, and DBPSK Barker sequence trellis diagrams are embedded as part of the states and branches in the trellis diagram.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00025",
+            "preamble": "25. The communication method as claimed in claim 21 , wherein reception of the signal comprises receiving the signal on at least one of an additive white Gaussian noise channel, flat fading channel, and intersymbol interference channel.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00026",
+            "preamble": "26. The communication method as claimed in claim 21 , further comprising tracking timing and phase of the signal.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00027",
+            "preamble": "27. The communication method as carried in claim 21 , further comprising to generating the signal by encoding an input data in a high-rate CCK modulation mode, and the encoding comprising:",
+            "components": [
+                {
+                    "component": "mapping the input data into phase representations u",
+                    "subcomponents": []
+                },
+                {
+                    "component": "converting the phase representations u",
+                    "subcomponents": []
+                },
+                {
+                    "component": "outputting the variables in a selective order to determine odd-phase and even-phase representations of a codeword required to modulate the signal.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00028",
+            "preamble": "28. The communication method as claimed in claim 27 , wherein the variables are defined as:",
+            "components": [
+                {
+                    "component": "a",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a",
+                    "subcomponents": []
+                }
+            ]
+        }
+    ],
+    "description": [
+        "This application claims priority to U.S. Provisional Application No. 60/314,757, entitled \u201cMETHOD AND APPARATUS FOR A COMMUNICATION SYSTEM USING COMPLEMENTARY CODE KEYING AND BARKER SEQUENCE MODULATION,\u201d filed on Aug. 24, 2001, and to U.S. Provisional Application No. 60/395,288, entitled \u201cMETHOD AND SYSTEM FOR DECODING CCK CODEWORDS BY CALCULATING A BRANCH METRIC ACCORDING TO A DECISION FEEDBACK SEQUENCE ESTIMATION ALGORITHM,\u201d filed on Jul. 12, 2002, which are hereby expressly incorporated by reference. This application is also related to U.S. Patent Application Ser. No. 10/227,093, entitled \u201cMETHOD AND SYSTEM FOR DECODING BLOCK CODES BY CALCULATING A PATH METRIC ACCORDING TO A DECISION FEEDBACK SEQUENCE ALGORITHM,\u201d filed on Aug. 21, 2002, which is hereby expressly incorporated herein by reference and commonly owned by the same assignee of this application.",
+        "This invention relates generally to wireless communications and, more particularly, to a method and system for decoding block codes.",
+        "The wide spread use of wireless devices in a network environment has increased the demand for wireless local area networks (\u201cWLANs\u201d) to provide high data rates at low cost. Complementary Code Keying (CCK) is one communication technique that can be used to meet this demand. CCK uses complementary polyphase codes for modulating digital information, which has been adopted by IEEE 802.11b as the modulation scheme for WLANs operating at 5.5 Mbit/s and 11 Mbit/s data rates in a 2.4 GHz band. These types of codes provide complementary sequences (\u201csymbols\u201d) having phase parameters, and possess symmetry ideal for transmitting digital information. Typically, at a high data rate of 11 Mbit/s, the codes are grouped as \u201ccodewords\u201d having 8-chips or a code length of 8. These codewords are a type of block code (\u201cblock codewords\u201d). In this case, 256 possible combinations of codewords may be used. Communication systems can thus extract digital information from a received signal modulated with CCK codewords by decoding the CCK codewords.",
+        "One prior complementary code decoder is described in U.S. Pat. Nos. 5,841,813 to van Nee and 5,862,182 to Awater et al., which extracts information data of a CCK codeword by correlating different samples of the received signal. For such a decoder, the signal-to-noise ratios degrade significantly after the differential correlators. Additionally, the decoder is not applicable for transmission of CCK codes in multipath environments.",
+        "One possible decoding scheme for block codes is to match the received signal with all possible code patterns by correlators. A disadvantage of such a decoding scheme is that its complexity increases if the size of the block code is too large. Furthermore, this is an inefficient manner of decoding block codes such as CCK code. A low-complexity decoder for CCK was introduced by M. Webster and C. Andren, Harris/Lucent CCK description: additional cover code and fast transform detail, IEEE 802.11-98/331, September 1998, in which only a subset of CCK codewords are required to be correlated with the received signal by using a fast Walsh transform. However, this type of low-complexity decoder does not adequately address the problems caused by interference in multipath environments when decoding CCK codes.",
+        "For instance, in multipath environments such as inside an office building, the delay spread of a received signal can cause interference during decoding of CCK codes and symbols within each CCK codeword contained in the received signal. In particular, multipath distortion caused by signals being reflected off of walls within the building can result in propagation delay of the received signal. This type of distortion or interference regarding CCK codewords is referred to as inter-symbol interference (ISI). Two types of ISI can occur: inter-codeword interference and intra-codeword interference. Inter-codeword interference is signal interference between codewords. Intra-codeword interference is signal interference between symbols within a codeword.",
+        "One prior receiver is described in U.S. Pat. No. 6,233,273 to Webster et al. that deals with inter-codeword and intra-codeword interference. This receiver is a channel-matched correlation receiver (\u201cRAKE\u201d) that uses a decision feedback equalizer to mitigate the effects of multipath distortion. A disadvantage of this receiver is that it requires high signal-to-noise ratios, but a low-signal-to-noise ratios error propagation in the decision feedback equalizer causes chip errors to occur in bursts. This degrades the reliability of decoding CCK codewords. Thus, to handle low signal-to-noise ratios, the RAKE receiver is required to examine all received codeword chips prior to making a codeword decision, which is an inefficient manner of decoding CCK codewords.",
+        "One prior decoding technique has been introduced to decode and correct errors found in a signal encoded by a convolutional code. Convolutional code, unlike CCK codewords, is a continuous stream of data such as satellite data. This technique is commonly referred to as \u201cViterbi Decoding\u201d that uses a trellis diagram to find a maximum-likelihood path recursively over the trellis diagram to decode convolutional data, as described in A. J. Viterbi, Error bounds for convolutional codes and an asymptotically optimum decoding algorithm, IEEE Transactions on Information Theory, vol. IT-13, pp. 260-269, April 1967.",
+        "Thus, what is needed is a block code decoder that can use Viterbi decoding techniques in order to reduce the computational complexity for decoding block codes and to handle multipath distortion in multipath environments or on multiple types of channels.",
+        "According to one aspect of the invention, a method is disclosed for processing a signal containing at least one block code. The block code is modulated using at least one of a plurality of modulation modes in the received signal. The block code contained in the signal is selectively decoded based on the modulation mode for the block code using a trellis diagram corresponding to the modulation mode for the block code.",
+        "According to another aspect of the invention, a communication system is disclosed comprising a receiver and a decoder. The receiver receives a signal containing at least one block code. The block code is modulated using at least one of a plurality of modulation modes. The decoder selectively decodes the block code contained in the signal based on the modulation mode for the block code using a trellis diagram corresponding to the modulation mode of the block code.",
+        "According to another aspect of the invention, a method for processing a signal is disclosed in which a signal is received. The signal includes at least one codeword modulated therein. The codeword is decoded by using a trellis diagram having a plurality of subtrellis diagrams, wherein the decoding includes deriving a codeword candidate for each of the subtrellis diagrams, and selecting one of the derived codeword candidates as the decoded codeword.",
+        "According to another aspect of the invention, a communication device is disclosed for processing a signal comprising a receiver and a decoder. The receiver receives the signal including at least one codeword modulated therein. The decoder decodes the codeword by using a trellis diagram having a plurality of subtrellis diagrams. The decoder includes a plurality of subdecoding units to derive a codeword candidate for each of the subtrellis diagrams and to select one of the derived codeword candidates as the decoded codeword.",
+        "According to another aspect of the invention, a method is disclosed for processing a signal in which a signal is received that includes at least one codeword modulated therein. A decoding mode is selected for the codeword. The decoding mode is based on a plurality of modulation modes for the codeword. The codeword is decoded based on the selected decoding mode using a trellis diagram based on the selected decoding mode.",
+        "According to another aspect of the invention, an apparatus is disclosed comprising a receiver and a decoder. The receiver codeword data. The decoder is selectively configurable to decode the codeword data in at least one of a low-rate CCK modulation mode, high-rate CCK modulation mode, differential quadrature phase shift (DQPSK) Barker sequence modulation mode, and differential binary phase shift keying (DBPSK) Barker sequence modulation mode.",
+        "According to another aspect of the invention, a receiver is disclosed for processing a signal in a CCK modulation mode comprising a plurality of processing structures for receiving codeword data contained in the signal and deriving from the codeword data a plurality of respective codewords from respective subtrellis diagrams within a single trellis diagram. The receiver also includes a selecting circuit for selecting one of the plurality of the respective codewords as a decoded codeword output.",
+        "According to another aspect of the invention, a method of processing data in a system employing a CCK modulation scheme is disclosed. For the method, a first plurality of codewords is produced in a high-rate CCK modulation mode. A second plurality of codewords is produced in a low-rate CCK modulation mode, and a codeword output is obtained from at least one of the first and the second plurality of codewords.",
+        "According to another aspect of the invention, an apparatus for processing data in a system employing a CCK modulation scheme is disclosed comprising a first circuit, second circuit, and a selector. The first circuit produces a first plurality of codewords in a high-rate CCK modulation mode. The second circuit produces a plurality of codewords in a low-rate CCK modulation mode. The selector obtains a desired codeword output in response to at least one of: 1) the first plurality of codewords and 2) the second plurality of codewords.",
+        "According to another aspect of the invention, a method of processing a signal in a selected CCK modulation mode is disclosed. For the method, a signal is received to be processed. The received signal is processed in the selected CCK modulation mode utilizing a CCK trellis diagram for representing a plurality of associated CCK codewords of the signal, and wherein a selected one of the plurality of associated CCK codewords is represented as a path in the CCK trellis.",
+        "Other features and advantages of the invention will be apparent from the accompanying drawings, and from the detailed description, which follows below.",
+        "The accompanying drawings, which are incorporated in, and constitute a part of, this specification illustrate exemplary implementations of the invention and, together with the detailed description, server to explain the principles of the invention. In the drawings,",
+        "FIG. 1 illustrates an exemplary block diagram of a transmitter and receiver in which the invention can be implemented;",
+        "FIG. 2 illustrates one example detailed block diagram of the receiver in FIG. 1;",
+        "FIG. 3 illustrates an exemplary high-rate CCK trellis diagram;",
+        "FIG. 4 illustrates an exemplary low-rate CCK trellis diagram;",
+        "FIGS. 5A and 5B illustrate exemplary Barker sequence trellis diagram for DQPSK and DBPSK modulation, respectively;",
+        "FIG. 6 illustrates exemplary concatenated trellis diagrams;",
+        "FIG. 7 illustrates an exemplary subtrellis diagram;",
+        "FIG. 8 illustrates one example detailed block diagram of the block code encoder of FIG. 1;",
+        "FIG. 9 illustrates an exemplary block diagram of a subdecoding unit for the subtrellis diagram of FIG. 7;",
+        "FIG. 10 illustrates an exemplary block diagram of the decoder in FIG. 1 for decoding CCK codewords over multiple subtrellis diagrams;",
+        "FIG. 11 illustrates an exemplary block diagram of the decoder of FIG. 1 for decoding CCK codewords and Barker sequence codewords over multiple subtrellis diagrams; and",
+        "FIG. 12 illustrates one example block diagram of the timing/phase tracking module in FIG. 1.",
+        "Reference will now be made in detail to implementations of the invention, examples of which are illustrated in the accompanying drawings. Wherever possible, the same reference numbers will be used throughout the drawings to refer to the same or like parts.",
+        "The following implementations allow block codes contained in signal to be decoded using a single decoder and trellis diagram. The signal can include at least one block code, and the block code can be modulated using at least one of a plurality modulation modes. The block code contained in the signal can be selectively decoded based on the modulation mode for the block code using a trellis diagram corresponding to the modulation mode for the block code. For example, the modulation mode can be a low and high-rate CCK modulation mode or a DQPSK Barker sequence modulation mode and a DBPSK Barker sequence modulation mode. In this manner, multiple types of block codes can be decoded using a single decoder and trellis diagram.",
+        "In the following description, a \u201cblock code\u201d can refer to any type of block code having a collection of codewords of a fixed length. For example, a CCK codeword can be one type of block code of length 8 thereby providing 256 possible combinations of codewords for high-rate CCK modulation. Other types of codewords are described below. Additionally, source information bits can be mapped to one codeword within a specific block code. For example, 8 bits of source information can be mapped to a high-rate CCK codeword, which can have up to 256 distinct codewords for high-rate CCK modulated codes.",
+        "The following implementations and examples are described for decoding block codes such as CCK codes and Barker sequence codes using a trellis diagram for each type of code. However, any type of block code can be decoded using a trellis diagram representing all possible combinations of codewords for that type of block code.",
+        "In the following description, a CCK codeword can be a block codeword having a code length of eight (8) at a chip rate of fchip, and can be denoted as c=(c1, c2, c3, c4, c5, c6, c7, c8) where cl represents the ith symbol of the CCK codeword c. Each symbol can represent a complex number. Nevertheless, the following implementations are not limited to a block codeword length of 8 and can be implemented for codewords having any block codeword length such that a trellis diagram is provided with a path for each possible combination of the codeword. The following formula can be used to derive the CCK codeword c at a 5.5 Mbit/s low-rate modulation and a 11 Mbit/s high-rate modulation:\n\nc=(ej(\u03c61+\u03c62+\u03c63+\u03c64), ej(\u03c61+\u03c63+\u03c64), ej(\u03c61+\u03c62+\u03c64),\u2212ej(\u03c61+\u03c64), ej(\u03c61+\u03c62+\u03c63), ej(\u03c61+\u03c63),\u2212ej(\u03c61+\u03c62), ej\u03c61)\n\nwhere \u03c6i for i=1,2,3,4 belong to quadrature phase-shift keying (QPSK) phases, i.e., \u03c6i\u03b5{0,\u03c0/2,\u03c0,3\u03c0/2} for i=1,2,3,4. Thus, there are two types of CCK modulation modes or types: high-rate CCK modulation and low-rate CCK modulation.",
+        "For high-rate CCK modulation, 8 information bits (d0 to d7) are carried by each transmitted codeword. In this manner, 256 possible codeword combinations can be modulated in a signal. The codewords can be generated by having \u03c61, \u03c62, \u03c63, and \u03c64 range over all possible QPSK phases, i.e.,\u03c61\u03b5{0,\u03c0/2,\u03c0, 3\u03c0/2{, for i=1,2,3,4. The four phases \u03c61, \u03c62, \u03c63, and \u03c64 can be encoded by the 8 information bits d0 to d7. For example, \u03c61 may be encoded from (d0,d1) based on the DQPSK modulation scheme, and \u03c62, \u03c63, and \u03c64 may be encoded from (d2,d3), (d4,d5), and (d6,d7), respectively, based on the QPSK modulation scheme.",
+        "For the low-rate CCK modulation, 4 information bits (d0 to d3) can be carried by each transmitted codeword. In this manner, 16 codeword combinations can be provided for low-rate CCK modulation. The 16 possible codewords can be generated with \u03c61, \u03c62, \u03c63, and \u03c64 ranging the possible phases specified by the following phase values:\n\n\u03c61 \u03b5{0,\u03c0/2,\u03c0,3\u03c0/2}\n\n\u03c62 \u03b5{\u03c0/2,3\u03c0/2}\n\n\u03c63 =0\n\n\u03c64 \u03b5{0,\u03c0}",
+        "The four phases \u03c61, \u03c62, \u03c63, and \u03c64 are encoded by the 4 information bits d0 to d3. For example, \u03c61 may be encoded from (d0,d1) based on DQPSK modulation, and \u03c62, \u03c63, and \u03c64 can be encoded from (d2,d3) based on the following equations:\n\n\u03c62 =(d2\u00d7\u03c0)+\u03c0/2\n\n\u03c63 =0\n\n\u03c64 =d3\u00d7\u03c0",
+        "Thus, each CCK codeword can include 8 complex pulses (\u201cchips\u201d) to carry 8 bits of information at a high-rate of 11 Mbit/s for transmitting the source data. At a low-rate of 5.5 Mbit/s, 4 bits of information can be mapped to the CCK codeword for transmitting the source data.",
+        "The set of all possible phases \u03a9={0,\u03c0/2,\u03c0,3\u03c0/2} for a CCK codeword can be represented as a set of integers Z4={0,1,2,3}. The mapping from Z4 to \u03a9 can then be defined as \u03bb(u)=u\u03c0/2, for u \u03b5 Z4. A phase addition is then equivalent to a modulo-4 addition in Z4. If the following is set for u1 to u4,\n\nu1=2\u03c61/\u03c0\n\nu2=2\u03c62/\u03c0\n\nu3=2\u03c63/\u03c0\n\nu4=2\u03c64/\u03c0\n\nthen u1,u2, u3, u4 \u03b5 Z4. In such a manner, a CCK codeword can be represented as:\n\nc=(ejp1\u03c0/2, ejp2\u03c0/2, ejp3\u03c0/2, ejp4\u03c0/2, ejp5\u03c0/2, ejp6\u03c0/2, ejp7\u03c0/2, ejp8\u03c0/2)\n\nwhere p=(p1,p2,p3,p4,p5,p6,p7,p8) is the phase representation of the codeword and can be determined by:",
+        "p\n  =\n  \n    \n      \n        (\n        \n          \n            u\n            1\n          \n          ,\n          \n            u\n            2\n          \n          ,\n          \n            u\n            3\n          \n          ,\n          \n            u\n            4\n          \n        \n        )\n      \n      \u2061\n      \n        [\n        \n          \n            \n              11111111\n            \n          \n          \n            \n              10101010\n            \n          \n          \n            \n              11001100\n            \n          \n          \n            \n              11110000\n            \n          \n        \n        ]\n      \n    \n    +\n    \n      (\n      \n        0\n        ,\n        0\n        ,\n        0\n        ,\n        2\n        ,\n        0\n        ,\n        0\n        ,\n        2\n        ,\n        0\n      \n      )\n    \n  \n\n\n\n\nwhere all the additions are modulo-4 additions.",
+        "The following implementations can be used to modulate codes using a Direct Sequence Spread Spectrum (DS-SS) modulation technique in which user data can be represented by a sequence of pulses or \u201cchips\u201d at a much higher chip rate than the original data bits. For DS-SS, and 11-chip Barker sequence can be used according to DQPSK and DBPSK modulation techniques. The Barker sequence can be formed using the following sequence codes:\n\n+1, \u22121, +1, +1, \u22121, +1, +1, +1, \u22121, \u22121, \u22121",
+        "The leftmost chip \u201c+1\u201d can be outputted first in time. For example, the first chip can be aligned at the start of a transmitted DQPSK or DBPSK signal in which the signal period is 11 chips. The modulated Barker sequence can represent a \u201cBarker codeword.\u201d For DQPSK modulation, there are four possible Barker codeword combinations, which are as follows:\n\n(+1, \u22121, +1, +1, \u22121, +1, +1, +1, \u22121, \u22121, \u22121)\n\n(+j, \u2212j, +j, +j, \u2212j, +j, +j, +j, \u2212j, \u2212j, \u2212j)\n\n(\u22121, +1, \u22121, \u22121, +1, \u22121, \u22121, \u22121, +1, +1, +1)\n\nand for DBPSK modulation there are two possible Barker codeword combinations, which are the first and third codewords as shown above.",
+        "The above block codes for CCK codewords and Barker codewords can be represented in separate or combined trellis diagrams, which is described in further detail below. The decoder described herein can decode CCK codewords and Barker codewords contained or embedded in a received signal using one or more trellis diagrams.",
+        "FIG. 1 illustrates an exemplary block diagram of a transmitter 50 and a receiver 100 in which the invention can be implemented. The transmitter 50 and receiver 100 can be implemented for CCK codes and Barker sequence modulated codes. The transmitter 50 includes a block code encoder 20, signal processing logic 30, and radio frequency (RF) transmitter 40.",
+        "Referring to FIG 1. the block code encoder 20 receives data bits from a message source 10 and can encode the data bits into a low or high-rate CCK codeword or a DQPSK or DBPSK Barker sequence codeword for modulation in a carrier signal. The encoder 20 can use, e.g., the above formulas to encode the data bits into a CCK codeword c having eighty symbols (i.e., complex numbers) represented as (c1, c2, c3, c4, c5, c6, c7, c8} for low and high-rate CCK codewords, or into one of the four Barker sequence codewords for DQPSK modulation or one of the two Barker sequence codewords for BBPSK modulation.",
+        "The encoder 20 can output two symbols (c2k\u22121 and c2k) of a codeword, which can by symbols for even and odd phases of the codeword. The encoder 20 is described in further detail regarding FIG. 8. The signal processing logic 30 can include any number of processing logic to convert the individual symbols into an analog component and to generate a carrier signal for modulating the block codeword having signal properties derived from the analog components. The RF transmitter 40 amplifies the carrier signal for transmitting the signal to the receiver 100. For a CCK codeword, the carrier signal can be modulated and transmitted, e.g., at a high-rate of 11 Mbit/s or a low-rate 5 Mbit/s in accordance with the requirements of IEEE 802.11b for WLANs.",
+        "FIG. 2 illustrates a detailed block diagram of the receiver 100 of FIG. 1. The receiver 100 includes a RF receiver 101, analog-to-digital (A/D) converter 102, interpolator 103, phase compensator 104, chip matched filter 105, down sampler 106, block code decoder 108, channel estimator 109, and timing/phase tracking module 110.",
+        "Referring to FIG. 2, the RF receiver 101 receives the modulated carrier signal from the RF transmitter 40 of the transmitter 50. The receiver 101 can receive a carrier signal being modulated with CCK codes or Barker sequence codes, as described above. The received signal from RF receiver 101 can be sampled by a free running clock (not shown). Each sampled received signal can include an in-phase (I) component and a quadrature (Q) component, which can be represented by a complex number. For example, a received signal rn can be denoted as a sampled signal of r(t). The received signal rn can then be represented mathematically as rn=Re{rn}+jIm{rn}, where the real part of rn represents the I component and the imaginary part represents the Q component.",
+        "The A/D converter 102 converts the received signal into a discrete-time digital signal for processing by interpolator 103. The interpolator 103 can compensate for timing drifts between a local sampling clock and a transmitted clock, and can operate at a rate fsample. For example, if the timing difference between the two clocks is larger than a certain value, the interpolator 103 can adjust the sampling phase of the received signal so that the sampled point can be at proper positions. The resolution of the interpolator 103 can be configured for Tres=Tsample/\u03bc, where \u03bc is a positive interger and Tsample=1/fsample. The output from interpolator 103 can be expressed approximately as r(nTsample+mTres), where m is an integer which is controlled by the timing/phase tracking module 110.",
+        "The phase compensator 104 compensates for a phase error \u0394\u03b8. The phase compensator 104 can operate at a rate fsample. The phase error \u0394\u03b7 can be obtained from the timing/phase tracking 110, which is described in further detail below. In one example, a complex-number multiplier can be used to remove the phase error \u0394\u03b8 by multiplying the received signal e\u2212j\u0394\u03b8. The chip matched filter 105 operates as a finite-impulse response (FIR) filter for filtering the signal from the phase compensator 104, and can operate at rate fsample. The down sampler 106, which can operate at a rate fchip, down samples the signal from the chip matched filter 105 by a factor of R. This results in a signal with a sampling rate fchip.",
+        "The block code decoder 108 receives the down sampled signal from the down sampler 106 for decoding codewords contained in the down sampled signal or received signal. The decoder 108, which can operate at a rate of fchip, can decode CCK codewords and Barker codewords contained in the down sampled signal using a trellis diagram. As described in further detail below, a single trellis diagram can have embedded a plurality of trellis diagrams wherein each trellis diagram can be used for decoding a particular type of block code, e.g., low and high-rate CCK codes and DQPSK and DBPSK Barker codes. Accordingly, a single decoder 108 can be configured or a mode selected for decoding high-rate CCK codes, low-rate CCK codes, DQPSK Barker sequence codes, and DBPSK Barker sequence codes.",
+        "The timing/phase tracking module 110, which can operate at rate fsample, tracks variations of both timing and phase errors. That is, because a sampling clock frequency is determined from a free running clock (not shown), timing drifts can occur between remote and local clocks during decoding or detection of blocks codes. Furthermore, due to frequency offset and random phase error, a received signal can suffer from a phase rotation in both constant and random fashions. The timing/phase tracking module 110 outputs a decision of the timing error back to the interpolator 103, which can cause the sampling phase of the interpolator 103 to move forward the sampling point m (e.g., increase m by 1) or move backward the sampling point m (e.g., decrease m by 1) or stay at the current point (e.g., m remains unchanged) with the resolution of Tres. The timing/phase tracking module 110 outputs a decision of the phase error back to the phase compensator 104, which can cause the current compensating phase to increase \u03940, decrease \u0394\u03b8, or remain the same. To make such decisions, the timing/phase tracking module 110 uses decoded codewords from the block codeword decoder 108 and the output of the channel estimator 109, which provides the estimate of the channel impulse response.",
+        "The following exemplary trellis diagrams represent trellis diagram for CCK codes and Barker sequence codes. Such exemplary trellis diagrams can be used to represent the set of all possible codeword combinations for a particular type of code. Data relating to the following trellis diagrams can be stored in one or more memory devices and used by decoder 108 to perform the decoding techniques described herein.",
+        "Each trellis diagram includes a plurality of paths traversing any number of branches between states in the trellis diagram. Each path from an initial state to a final state can represent a codeword combination. Thus, a trellis diagram can be provided for any number of paths to represent any number of codeword combinations. The trellis diagrams can also depict state transitions of a finite state machine with its state sk displayed at each time k. Each possible state transition from sk\u22121 to sk is represented by a branch in the trellis diagram. As a result, a trellis diagram can provide a one-to-one correspondence between a path in the trellis diagram and a possible codeword combination.",
+        "FIG. 3 illustrates an exemplary high-rate CCK trellis diagram. This diagram represents possible high-rate CCK codeword combinations. In the example of FIG. 3, the values of u1,u2, u3, and u4 can take all four possible values in Z4 in which 256 codeword combinations are possible for high-rate CCK modulation.",
+        "Referring to FIG. 3, the high-rate CCK trellis diagram contains four sections 302, 304, 306, 308 and each section can contain pairs of symbols of the CCK codeword. The first section 302 correspond to the phase representation (p1, p2) of the codeword. The second section 304 corresponds to the phase representation (p3, p4) of the codeword. The third section 306 corresponds to the phase representation (p5, p6) of the codeword. The fourth section 308 corresponds to the phase representation (p7, p8) of the codeword. Each branch in each section can represent two CCK codeword symbols. Thus, all paths starting from the left zero state 301 (\u201cinitial state 301\u201d) and terminating at the right zero state 309 (\u201cfinal state 309\u201d) correspond to all the possible CCK codeword combinations. The trellis diagram in FIG. 3 can represent 256 distinct paths that start from the initial state 301 and terminate at the final state 309 for each possible high-rate CCK codeword combination.",
+        "The three intermediate states, s1, s2, and s3, (303, 305, and 307) can be represented as s1=(a1, a2), s2=(a3, a2), and s3=(a4, a2). The variables a1, a2, a3, and a4 can be functions of u1, u2, u3, and u4 and defined by:\n\na1=u1+u2+u3+u4\n\na2=u2\n\na3=u3\n\na4=u1\n\nwhere all the additions are modulo-4 additions. There can be 16 possible values for each sk, k=1,2,3, as indicated in FIG. 3. The initial state 301 is defined as s0=0 (301) and the final state is defined as s4=0 (309).",
+        "As shown in FIG. 3, each branch is labeled by two CCK symbols. For example, the branch between s0 and s1 is labeled by (p1, p2) or equivalently (c1, c2)=(ejp,\u03c0/2,ejp2\u03c0/2). In this example, each branch is labeled by using phase representation. The branch label (p2k\u22121,p2k) on the branch between two states sk\u22121 and state sk is a function of sk\u22121 and sk for k=1,2,3,4. In particular, the functions can be represented as follows:\n\n(p1,p2)=(a1,a1+3a2)\n\n(p3,p4)=(a1+3a3,a1+3a2+3a3+2)\n\n(p5,p6)=(a2+a3+a4,a3+a4)\n\nwhere all the additions are modulo-4 additions.",
+        "FIG. 4 illustrates an exemplary low-rate CCK trellis diagram. This diagram represents possible low-rate CCK codeword combinations. In the example of FIG. 4, the values for u1, u2, u3, and u4, can be represented as u1\u03b5{0,1,2,3}, u2\u03b5 {1, 3}, u3=0, and u4 \u03b5 {0,2}. This provides for 4\u00d72\u00d72=16 possible low-rate CCK codeword combinations. The three intermediate states, s1, s2, and s3 can be defined as s1=(a1, a2), s2=(a5, a2), s3=(a4, a2), where a1, a2, a4, and a5 are functions of u1, u2, u3, and u4, defined as:\n\na1=u1+u2+u3+u4\n\na2=u2\n\na4=u1\n\na5=(u1+u3+u4) mode 2",
+        "Referring to FIG. 4, a low-rate CCK trellis diagram can be embedded in a high-rate trellis diagram as shown by the solid lines, which represent paths for the low-rate CCK codeword combinations. The branch label (p2k\u22121, p2k) on the branch between state sk\u22121 and state sk is a function of sk\u22121 and sk for k=1,2,3,4. For example, the branch labels can be determined as follows:\n\n(p1,p2)=(a1,a1+3a2)\n\n(p3,p4)=(aa,a1+3a2+2)\n\n(p5,p6)=(a2+a4,a4)\n\n(p7,p8)=(a2+a4+2,a4).",
+        "As shown in FIG. 4, because the low-rate CCK trellis diagram can be embedded in the high-rate CCK trellis diagram, multi-mode decoding of codewords of different modulation modes can be implemented, as described in further detail below. For example, depending on the modulation mode for the codewords, certain states or branches can be disabled during decoding of the codeword. Thus, a decoder for decoding high-rate CCK codewords can also decode low-rate CCK codewords. The decoder can further be configured or a mode selected for decoding Barker codewords, as will be further described below.",
+        "FIGS. 5A and 5B illustrate exemplary Barker sequence trellis diagrams for DQPSK and DBPSK modulation, respectively. The trellis diagrams shown in FIGS. 5A and 5B can also be embedded in a high-rate CCK trellis diagram such as that shown in FIG. 3 or 4. Accordingly, a single trellis diagram can be used for multiple types of codes in which the label on the branches for such a trellis diagram may correspond to different trellis diagrams for different types of codes. In the decoder, for example, a metric calculation can be performed for determining paths in the trellis diagram. This metric calculation can be the same for all types of codes.",
+        "As described above, the 11-chip Barker sequence used for DQPSK and DBPSK modulation are: +1, \u22121, +1, +1, \u22121, +1, +1, +1, \u22121, \u22121, \u22121. The four possible Barker codewords for DQPSK modulation is: (+1, \u22121, +1, +1, \u22121, +1, +1, +1, \u22121, \u22121, \u22121); (+j, \u2212j, +j, +j, \u2212j, +j, +j, +j, \u2212j, \u2212j, \u2212j); (\u22121, +1, \u22121, \u22121, +1, \u22121, \u22121, \u22121, +1, +1, +1) and (\u2212j, +j, \u2212j, \u2212j, +j, \u2212j, \u2212j, \u2212j, +j, +j, +j). The two possible Barker codewords for DBPSK modulation are the first and third codewords of the possible codeword combination noted above.",
+        "The DQPSK and DBPSK Barker sequence trellis diagrams contain six sections. Each section can have two symbols and the last section can have one symbol. These Barker sequence trellis diagrams can be embedded in a high-rate CCK trellis diagram. As will be described in further detail below, a single decoder can be used to decode the different types of block codes using a single trellis diagram having paths for high and low-rate CCK codewords and Barker sequence codewords.",
+        "For the Barker sequence trellis diagrams, there are four disjoint paths for DQPSK modulation (FIG. 5A) and two disjoint paths for DBPSK modulation (FIG. 5B) that start from the left zero state (\u201cinitial state\u201d) and terminate at the right zero state (\u201cfinal state\u201d) for DQPSK and DBPSK modulation, respectively. By extending the length of the high-rate CCK trellis diagram, the DQPSK and DBPSK Barker sequence trellis diagrams can be embedded into the high-rate CCK trellis diagram of FIG. 3 or 4.",
+        "The following exemplary decoding algorithms can be implemented by decoder 108 in FIG. 1. As described in further detail below, the decoder 108 can decode CCK codes and Barker codes on additive white Gaussian noise (AWGN) channels, flat fading channels, and ISI channels. For purposes of explanation, the following algorithms are described with respect to CCK codes. Nevertheless, the following algorithms can be implemented for Barker sequence codes in the same manner.",
+        "The set of all possible CCK codewords can be denoted as C in which c=( c1, c2, . . . , c8) can represent a transmitted CCK codeword. For AWGN channels, the received signal yn from the chip matched filter 105 can be expressed as yn= cn+\u03b7n where \u03b7n is the additive white Gaussian noise.",
+        "To decode C, the decoder 108 can find a codeword c\u2032 in C that is \u201cnearest\u201d to the received signal yn based on a distance measurement such as, for example, the squared Euclidean distance of",
+        "c\n    \u2032\n  \n  =\n  \n    \n      arg\n      c\n    \n    \u2062\n    \n      \n    \n    \u2062\n    \n      \n        min\n        \n          c\n          \u2208\n          C\n        \n      \n      \u2062\n      \n        \n          \u2211\n          \n            n\n            =\n            1\n          \n          8\n        \n        \u2062\n        \n          \n        \n        \u2062\n        \n          \n            \n              \uf603\n              \n                \n                  y\n                  n\n                \n                -\n                \n                  c\n                  n\n                \n              \n              \uf604\n            \n            2\n          \n          .\n        \n      \n    \n  \n\n\n\n\nIn one example, the computation complexity for determining c\u2032 is approximately equal to |C|, where |C| denotes the number of codewords in C. This, however, requires evaluating 256 possible CCK codewords for high-rate CCK modulation by computing, e.g., the squared Euclidean distance between each CCK codeword and the received signal.",
+        "Such a process can be avoided by using a trellis diagram, e.g., the trellis diagram as shown in FIG. 3, and finding the minimum-distance path in the trellis diagram using Viterbi decoding techniques. For example, referring to FIG. 3, the variable Sk can represent the set of all possible states sk in kth section of the CCK trellis diagram. Associated with each state sk\u03b5 Sk, is a path metric Mk(sk) that is stored in a memory. This path metric can represent the minimum distance of the path and can be referred to as the \u201csurviving path.\u201d The surviving path terminates at sk with the initial condition M0(s0)=0. In addition, for each state sk\u03b5 Sk, the path information for the surviving path can be stored, which contains the labels associated with the branches on the surviving path. Then, for k=0,1,2,3, the path metric of state sk+1 can be obtained as:",
+        "M\n      \n        k\n        +\n        1\n      \n    \n    \u2061\n    \n      (\n      \n        s\n        \n          k\n          +\n          1\n        \n      \n      )\n    \n  \n  =\n  \n    \n      \n        min\n        \n          \n            {\n            \n              s\n              k\n            \n            }\n          \n          ->\n          \n            s\n            \n              k\n              +\n              1\n            \n          \n        \n      \n      \u2062\n      \n        \n          (\n          \n            \n              \n                M\n                k\n              \n              \u2061\n              \n                (\n                \n                  s\n                  k\n                \n                )\n              \n            \n            +\n            \n              \n                B\n                k\n              \n              \u2061\n              \n                (\n                \n                  \n                    s\n                    k\n                  \n                  ,\n                  \n                    s\n                    \n                      k\n                      +\n                      1\n                    \n                  \n                \n                )\n              \n            \n          \n          )\n        \n        \u2062\n        \n          \n        \n        \u2062\n        for\n        \u2062\n        \n          \n        \n        \u2062\n        all\n        \u2062\n        \n          \n        \n        \u2062\n        \n          s\n          \n            k\n            +\n            1\n          \n        \n      \n    \n    \u2208\n    \n      S\n      \n        k\n        +\n        1",
+        "The minimization determination is taken over all the possible proceeding states {sk} that connect to state sk+1, and Bk(sk, sk+1) denotes the branch metric of the branch between state sk and state sk+1 and is formed by summing a square of a magnitude of a first term and a square of a magnitude of a second term. The first term is the summation of a first received signal and a minus value of the first element of the branch label on the branch between sk and sk+1. The second term is the summation of a second received signal and a minus value of the second element of the branch label on the branch between sk and sk+1. Such an algorithm or process outputs the decoded block codeword stored in the surviving path that terminates at the right zero state s4 in the CCK trellis diagram.",
+        "For flat fading channels, c=( c1, c2, . . . , c8) represents the transmitted CCK codeword, and the received signal the chip matched filter 105 can be expressed as:\n\nyn=h* cn+\u03b7n\n\nwhere h is a complex-value fading gain for the flat fading channel and \u03b7n is the additive white Gaussian noise, and \u201c*\u201d denotes a complex conjugate operator.",
+        "Referring to the trellis diagram of FIG. 3, the path metric of state sk+1 can be obtained as:",
+        "M\n      \n        k\n        +\n        1\n      \n    \n    \u2061\n    \n      (\n      \n        s\n        \n          k\n          +\n          1\n        \n      \n      )\n    \n  \n  =\n  \n    \n      \n        min\n        \n          \n            {\n            \n              s\n              k\n            \n            }\n          \n          ->\n          \n            s\n            \n              k\n              +\n              1\n            \n          \n        \n      \n      \u2062\n      \n        \n          (\n          \n            \n              \n                M\n                k\n              \n              \u2061\n              \n                (\n                \n                  s\n                  k\n                \n                )\n              \n            \n            +\n            \n              \n                B\n                k\n              \n              \u2061\n              \n                (\n                \n                  \n                    s\n                    k\n                  \n                  ,\n                  \n                    s\n                    \n                      k\n                      +\n                      1\n                    \n                  \n                \n                )\n              \n            \n          \n          )\n        \n        \u2062\n        \n          \n        \n        \u2062\n        for\n        \u2062\n        \n          \n        \n        \u2062\n        all\n        \u2062\n        \n          \n        \n        \u2062\n        \n          s\n          \n            k\n            +\n            1\n          \n        \n      \n    \n    \u2208\n    \n      S\n      \n        k\n        +\n        1",
+        "The minimization determination can be taken over all the possible proceeding states {sk} that connect to state sk+1, and Bk(sk,sk+1) denotes the branch metric of the branch between state sk and state sk+1 and is formed by summing a square of a magnitude of a first term and a square of a magnitude of a second term. The first term is the summation of the following items: a first received signal and a minus product of the first element of the branch label on the branch between sk and sk+1 and an estimated fading gain. The second term is the summation of the following items: a second received signal and a minus product of the second element of the branch label on the branch between sk and sk+1 and an estimated fading gain. This algorithm or process can output the CCK codeword stored in the surviving path that terminates at the right zero state s4 in the CCK trellis diagram.",
+        "For ISI channels, which can have intersymbol interference, the channel impulse response of the ISI channel can be represented as h=(ho,h1, . . . , hk). The transmitted CCK code sequence can be represented as x=( c1, c2, . . . , cQ) and each CCK codeword can be represented as c1=( c1,1, c1,2, . . . , c1,8) for l=1, . . . , Q, where Q denotes the number of consecutive CCK codewords. For ISI channels, the received signal can be expressed as:",
+        "y\n    n\n  \n  =\n  \n    \n      \n        \u2211\n        \n          i\n          =\n          0\n        \n        K\n      \n      \u2062\n      \n        \n      \n      \u2062\n      \n        \n          \n            x\n            _\n          \n          \n            n\n            -\n            i\n          \n        \n        \u2062\n        \n          h\n          i\n          *\n        \n      \n    \n    +\n    \n      \u03b7\n      n\n    \n  \n\n\n\n\nwhere \u03b7n represents the additive white Gaussian noise.",
+        "Since CCK codewords are transmitted consecutively, all possible super codewords x=(c1,c2, . . . ,cQ) can be determined from concatenated CCK trellis diagrams such as that shown in FIG. 6 using the decoding techniques described herein for each CCK trellis diagram.",
+        "Let \u03be1,\u03be1, . . . , \u03be4Q be the state sequence of the concatenated trellis. It is obvious that \u03bek \u03b5 S(k mod 4). Then, for k=0,1, . . . ,4Q=1, the path metric at the (k+1)th step can be updated as:",
+        "M\n      \n        k\n        +\n        1\n      \n    \n    \u2061\n    \n      (\n      \n        \u03be\n        \n          k\n          +\n          1\n        \n      \n      )\n    \n  \n  =\n  \n    \n      \n        min\n        \n          \n            {\n            \n              \u03be\n              k\n            \n            }\n          \n          ->\n          \n            \u03be\n            \n              k\n              +\n              1\n            \n          \n        \n      \n      \u2062\n      \n        \n          (\n          \n            \n              \n                M\n                k\n              \n              \u2061\n              \n                (\n                \n                  \u03be\n                  k\n                \n                )\n              \n            \n            +\n            \n              \n                B\n                k\n              \n              \u2061\n              \n                (\n                \n                  \n                    \u03be\n                    k\n                  \n                  ,\n                  \n                    \u03be\n                    \n                      k\n                      +\n                      1\n                    \n                  \n                \n                )\n              \n            \n          \n          )\n        \n        \u2062\n        \n          \n        \n        \u2062\n        for\n        \u2062\n        \n          \n        \n        \u2062\n        all\n        \u2062\n        \n          \n            \n          \n          \u2062\n          \n            \n          \n        \n        \u2062\n        \n          \u03be\n          \n            k\n            +\n            1\n          \n        \n      \n    \n    \u2208\n    \n      S\n      \n        (\n        \n          k\n          +\n          \n            1\n            \u2062\n            \n              mod\n              \u2062\n              4\n            \n          \n        \n        )",
+        "The minimization determination can be taken over all the possible proceeding states {\u03bek} that connect to \u03bek+1, and Bk(\u03bek,\u03bek+1) denotes the branch metric of the branch between state \u03bek and state \u03bek+1 and is formed by summing a square of a magnitude of a first term and a square of a magnitude of a second term. The first term is the summation of the following items: a first received signal; a minus product of the first element of the branch label on the branch between \u03bek and \u03bek+1 and a most recent channel estimation from the channel estimator; a minus sum of the products of the labels stored in the surviving path for the state \u03bek and the channel estimation from the channel estimator. The second term is the summation of the following items: a second received signal and a minus product of the second element of the branch label on the branch between \u03bek and \u03bek+1 and a most recent channel estimation from the channel estimator; a minus sum of the products of the labels stored in the surviving path and the channel estimation from the channel estimator 109.",
+        "For alternative implementations, the path and branch metrics for the above decoding algorithms can be obtained using path and branch metric algorithms described in issued U.S. Patent Application No. 10/227093, entitled \u201cMETHOD AND SYSTEM FOR DECODING BLOCK CODES BY CALCULATING A PATH METRIC ACCORDING TO A DECISION FEEDBACK SEQUENCE ALGORITHM,\u201d filed on Aug. 21, 2002.",
+        "FIG. 8 illustrates one example detailed block diagram of the block code encoder 20 in FIG. 1. In the example of FIG. 8, the encoder 20 can represent a finite state machine to output two symbol components c2k\u22121 and c2k that can be modulated in a carrier signal. These symbol components can be used with the trellis diagrams described above for decoder 108 to decode codewords contained in a received signal. The encoder 20 includes a phase mapper 801, converter 802, data processor 803, first and second delay elements 804 and 805, first and second coefficient operators 806 and 807, first and second adders 808 and 809, and first and second exponential operators 810 and 811.",
+        "The phase mapper 801 receives data bits d0, . . . , d7 and maps the data bits into four phase representations u1, u2, u3, and u4, based on values for \u03c61, \u03c62, \u03c63, and \u03c64. The phase representations u1, u2, u3, and u4 can be determined as described above. The phase mapper 801 outputs the phase representations u1, u2, u3, and u4 to converter 802. The converter 802 converts the phase representations u1, u2, u3, and u4 into variables a1, a2, a3, and a4, which are outputted to the data processor 803.",
+        "The data processor 803 receives the variables a1, a2, a3, and a4 and processes them to output the variables in a selective order. For example, the data processor 803 can output a first sequence of variables in the order (a1,a3,a4,0) to a first delay element 804 and first coefficient operator 806 and a second sequence of variables in the order (a2,a2,a2,0) to a second delay element 805 and second coefficient operator 807. As described above, these variables describe intermediate states of a trellis diagram and be functions of u1, u2, u3, and u4, which are used to determine odd-phase and even-phase representations p2k\u22121 and p2k, respectively, of an encoded codeword.",
+        "The first delay element 804 receives and delays the first sequence of variables (a1,a3,a4,0). Initially, the output of the first delay element 804 is set to zero. The second delay element 805 receives and delays the second sequence of variables (a2,a2,a2,0). Initially, the output of the second delay element 805 is set to zero. The first coefficient operator 806 receives the delayed first sequence of variables from the first delay element 804 and the first undelayed sequence of variables from the data processor 803. The first coefficient operator 806 performs a mapping function to transfer the first delayed sequence of variables and the first undelyaed sequence of variables into a first delayed coefficient sequence and a first undelayed coefficient sequence based on the timing order of elements in the first delayed sequence of variables and first undelayed sequence of variables.",
+        "The second coefficient operator 807 operates in the same manner as the first coefficient operator 806 except for processing the second delayed and undelayed sequence variables to perform a mapping function to transfer the second delayed sequence of variables and the second undelayed sequence of variables into a second delayed coefficient sequence and a second undelayed coefficient sequence based on the timing order of element sin the second delayed sequence of variables and the second undelayed sequence of variables.",
+        "The first adder 808 sequentially adds the first delayed coefficient sequence with the second delayed coefficient sequence to produce and output the odd-phase representations p2k\u22121 of an encoded codeword. The second adder 809 sequentially adds the first undelayed coefficient sequence with the second undelayed coefficient sequence to produce and output even-phase representations p2k of the encoded codeword. The phase representations (p2k+1,p2k) can be transformed to the signal format using the transformation of (c2k\u22121,c2k)=(ejpsk\u22121\u03c0/2,ejpsk\u03c0/2). The first exponential operator 810 receives the odd-phase representation p2k\u22121 from the first adder 808 and generates exponential values of each of the odd-phase representations as odd elements c2k\u22121 for the encoded codeword. The second exponential operator 811 receives even-phase representation p2k and generates exponential values of each of the even-phase representations as even elements c2k for the encoded codeword.",
+        "FIG. 9 illustrates an exemplary block diagram of a subdecoding unit for the subtrellis diagram of FIG. 7. The subdecoding unit can represent the internal components for a decoder over a subtrellis #N as shown in FIG. 10 or 11. The subdecoding unit can determine a path within a subtrellis diagram, which can be used for providing a codeword for the subtrellis diagram. Referring to FIG. 10, for example, the subdecoding unit of FIG. 9 can be implemented within each of the decoder over a CCK subtrellis #1 (1001) to decoder over CCK subtrellis #4 (1004). Furthermore, the subtrellis diagram of FIG. 7 can be embedded in a trellis diagram such as that shown in FIG. 3.",
+        "Referring back to FIG. 3, the CCK trellis diagram can have four disjoint subtrellis diagrams for decoding CCK codewords using the algorithms noted above. Regarding the disjoint subtrellis diagrams, there is no connection between the subtrellis diagrams except for the initial state and the final state. The four subtrellis diagrams are identical to the subtrellis diagram shown in FIG. 7 except for the labels on the branches. Thus, each of the decoder over a CCK subtrellis #1 (1001) to decoder over CCK subtrellis #4 (1004) in FIG. 10 can be used to decode a codeword over a respective subtrellis diagram that can be embedded within a single trellis diagram.",
+        "Referring to FIG. 9, a decoder over a CCK subtrellis #N (representing any of the decoders in FIG. 10) includes four submodules 925, 926, 927, and 928. Each of these submodules can be identical to perform algorithms described herein with respect to a respective subtrellis diagram. Additionally, each of the submodules can output a codeword or codeword candidate. In one example, one of the outputs from the submodules can be chosen as the decoded for a respective subtrellis diagram. The four states in the subtrellis diagrams are indexed by integers 0, 1, 2, and 3. The surviving paths are stored in a bank of registers and register exchanges are performed for surviving path updating. Since a codeword decision is made whenever a zero state is reached, i.e., whenever k=0 (mod 4), the tails of all the surviving paths are exactly the same as they first cross the zero state. This part of the surviving paths is called state-independent surviving path.",
+        "As shown in FIG. 9, a register bank 905 stores the state-independent surviving path and a plurality of register banks 901, 902, 903, and 904 store a path representing a codeword in the CCK trellis diagram. The metric calculator 920 receives previously decoded codewords from a state-independent register bank 905, received signals 910 from the chip matched filter 105, fading gains \u0125 906 from channel estimator 109, surviving paths 921 from register banks 901, 902, 903, and 904, and symbol labels 908 from symbol label tables 915, 916, 917, and 918.",
+        "In the case of k=0 (mod 4), the decoder 1001 delivers the surviving path stored in the zero state as the decoded codeword 923 and outputs the corresponding branch metric 924 in the zero state. The metric calculator 920 outputs sixteen branch metrics 922, Bk(0,0), Bk(1,0), Bk(2,0), Bk(3,0), . . . , for the branches in the trellis section from k to k+1.",
+        "There are four submodules 925, 926, 927, and 928, and can be state processing units (\u201cstate processing units 925 to 928\u201d). Each state processing unit includes four adders. For example, state processing unit 925 includes adders 912-1, 912-2 912-3 and 912-4. Each adder (e.g., 912-n) receives a selected one of the sixteen branch metrics, and selected one of the four path metrics of the previous states. Each adder adds the selected branch metric and selected path metric for generating a sum value of the two input items and outputs a sum value. The minimum value selector (e.g., selector 913) receives the sum values from the four adders and determines a minimum value from the inputs as the path metric for the state in question. The selector 913 also determines a symbol index 929 indicating the branch label having the minimum value.",
+        "The delay element (e.g, 914) receives the path metric from the minimum value selector 913 and stores the path metric. The delay element 914 also outputs the delayed path metric. The symbol label table (e.g., 915) receives the symbol index from the minimum value selector 913 and determines the first element and second element of the branch label on the specified branch. The path selector (e.g., 930) receives a plurality of surviving paths from the plurality of register banks 901, 902, 903, and 904 and the symbol index 929 from the minimum value selector 913 for updating the surviving path for the state in question. The state-independent register bank 905 receives the decoded codewords for storing decoded codewords and outputs the decoded codewords.",
+        "FIG. 10 illustrates an exemplary block digram of the decoder 108 in FIG. 1 for decoding codewords over multiple subtrellis diagrams. In the example, decoder 108 includes four decoders 1001, 1002, 1003, and 1004. For of these decoders corresponds to an individual subtrellis diagram. For example, decoder 1001 uses a first trellis diagram (CCK subtrellis #1) for decoding CCK codewords. The subtrellis diagrams can be a subtrellis diagram as shown in FIG. 7. The outputs from the decoders 1001 to 1004 can be selected as the decoded CCK codeword base don a smallest metric value.",
+        "Referring to FIG. 10, each of the decoders 1001 through 1004 (\u201cCCK subtrellis decoders\u201d) receive signal 1013 and estimated channel impulse value \u0125 1012 from a channel estimator 109. Each of the CCK subtrellis decoders 1001 to 1004 outputs a local minimum metric and a CCK codeword corresponding to local minimum metric measurement calculated by the minimum value determining unit 1008. The minimum value determining unit 1008 receives the local minimum metrics 1014 from the four CCK subtrellis decodes 1001 to 1004 and determines a global minimum metric. The global minimum metric is a minimum value of the local minimum metrics 1014. The minimum value determining unit 1008 outputs the corresponding codeword index 1015 to a selector of multiplexer 1007. The selector 1007 receives the CCK codewords 1016 corresponding to the local minimum metrics from the four CCK subtrellis decoders 1001 to 1004 and selects a CCK codeword 1009 based on the CCK codeword index 1015, which is outputted as the decoded CCK codeword.",
+        "FIG. 11 illustrates an exemplary block diagram of the decoder in FIG. 1 for decoding CCK codes and Barker sequence codes over multiple subtrellis diagrams. In the example of FIG. 11, a high-rate CCK trellis diagram is embedded with a low-rate CCK trellis diagram (e.g., as shown in FIG. 4), a DQPSK Barker sequence trellis diagram, and a DBPSK Barker sequence trellis diagram, as described above. For Barker sequence trellis diagrams as shown in FIGS. 5A and 5B, the length of the high-rate CCK trellis diagram of FIG. 3 can be extended such that the Barker sequence trellis diagrams can be embedded in it. For such a single trellis diagram with embedded trellis diagrams, the label on the branches may differ for different trellis diagrams. Additionally, the lengths of the CCK and the Barker trellis diagrams can be different. The metric calculations and updated can be the same for the different trellis diagrams.",
+        "Referring to FIG. 11, the decoder 108 includes four decoders over subtrellis #1 (1105) to subtrellis #4 (1120). The decoders 1105, 1110, 1115, and 1120 can be designated for decoding high-rate CCK codes, low-rate CCK codes, DQPSK Barker sequence codes, and DBPSK Barker sequence codes. These decoders can operate for different types of subtrellis diagrams by selectively enabling or disabling branches in the high-rate CCK trellis diagram corresponding to its associated subtrellis diagram embedded in the trellis diagram. For example, the decoders 1110 1120 can be designated for the low-rate CCK subtrellis diagram such that some state and branch operations are disabled.",
+        "As shown, the actuating table 1101 receives designating or selected decoding modes for determining states and branches with respect to the designated modes. The actuating table 1001 outputs actuating signals to actuate the states and branches for the designated mode. The branch label table 1102 receives the designated decoding modes and generates branch labels corresponding to different designated modes and outputs the appropriate branch labels. The decoders 1105 to 1120, selector 1125, and minimum value determining unit 1130 can operate as the same in FIG. 10.",
+        "FIG. 12 illustrates one example block diagram of the timing/phase tracking module 110 in FIG. 1. The timing/phase tracking module 110 operates as a device that performs metric tests on the received samples with the decoded codewords from the decoder 108. This testing function can be based on the metric calculations.",
+        "The metric tests requires \u250cL/8\u2510 decoded CCK codewords or \u250cL/11\u2510 decoded Barker codewords, where L is the length of the estimated channel impulse response. For purposes of explanation, the CCK modulation scheme is used, but the Barker sequence modulation scheme can also be used. If v=\u250cL/8\u2510 and at some k with k=0 (mod 4) and l=k/4, lth decoded CCK codeword is delivered from the decoder 108. The most recent v decoded codewords can be represented as b=(b1, b2, . . . , b8v)=(\u01091\u2212v+1, . . . , \u01091), where bi\u03b5{+1, \u22121, +j, \u2212j} and \u0109l is a decoded codeword. Let \u03b2=2Rk and R is an over sampling factor. The received samples can have a sampling rate Tsample, which can be observed from the chip matched filter 105 up to z1,z2, . . . , z\u03b2,z\u03b1+1. The chip-rate sampled sequence up to \u03b2, denoted as zr,z2R, . . . , z\u03b2\u2212r,z\u03b2, is the input of the decoder 108 when the lth decoded block codeword is delivered.",
+        "The input samples to the decoder 108 should be estimated if the sampled timing is shifted by +Tres and \u2212Tres, respectively, where Tres=Tsample|\u03bc is the resolution of timing tracking. Three 8-tuple test vectors y(+1), y(0), and y(\u22121) are formed by interpolating the received samples, with the qth elements as follows:\n\nyq(+1)=W2\u00b7Zb\u2212(8\u2212q)R\u22121+w1\u00b7Z\u03b2\u2212(8\u2212q)R \n\nyq(0)=Z\u03b2\u2212(8\u2212q)R \n\nyq(\u22121)=W1\u00b7Z62 \u2212(8\u2212q)R\u22121+W2\u00b7Z\u03b2\u2212(8\u2212q)R+1 \n\nfor\n\nq=1, . . . , 8,\n\nand where w1 and w2 are the interpolation coefficients. The interpolated results\n\ny(+1)\n\nand\n\ny(\u22121)\n\nare simply the estimations of the input samples to the decoder 108 if the sampled timing are shifted by\n\n+Tres and \u2212Tres, respectively.",
+        "The estimated signals can be formed when the phases are shifted by +\u0394\u03b8 or \u2212\u0394\u03b8. Therefore, the nine vectors that are generated are:\n\ny\u2032(+1,+1)=y(+1)e+j\u0394\u03b8\n\ny\u2032(0,+1)=y)0)e+j\u0394\u03b8\n\ny\u2032(\u22121,+1)=y(\u22121)e+j\u0394\u03b8\n\ny\u2032(+1,0)=y(+1)\n\ny\u2032(0,0)=y)0)\n\ny\u2032(\u22121,0)=y(\u22121)\n\ny\u2032(+1,\u22121)=y(+1)e\u2212\u0394\u03b8\n\ny\u2032(0,\u22121)=y(0)e\u2212j\u0394\u03b8\n\ny\u2032(\u22121,\u22121)=y)\u22121)e\u2212j\u0394\u03b8",
+        "The nine vectors represent the estimates of the received signal to the decoder 108 with all the possible cases of timing and phase shifts. The metrics of all the received estimates are then evaluated. The metric of a received 8-tuple vector is given by:",
+        "T\n    \u2061\n    \n      (\n      \n        y\n        ,\n        b\n      \n      )\n    \n  \n  =\n  \n    \n      \u2211\n      \n        q\n        =\n        1\n      \n      8\n    \n    \u2062\n    \n      \n        \uf603\n        \n          \n        \n        \u2062\n        \n          \n            y\n            q\n          \n          -\n          \n            \n              \u2211\n              \n                i\n                =\n                0\n              \n              L\n            \n            \u2062\n            \n              \n            \n            \u2062\n            \n              \n                b\n                \n                  \n                    8\n                    \u2062\n                    \n                      (\n                      \n                        v\n                        -\n                        1\n                      \n                      )\n                    \n                  \n                  +\n                  q\n                  -\n                  i\n                \n              \n              \u2062\n              \n                \n                  h\n                  ^\n                \n                i\n                *\n              \n            \n          \n        \n        \uf604\n      \n      2\n    \n  \n\n\n\n\nwhere \u0125 is the estimated channel impulse response. Substituting all the nine test vectors into the above equation, nine metrics T(y\u2032(m1,m2),b) for all m1, m2\u03b5{\u22121,0+1} are generated.",
+        "The timing/phase tracking module 110 makes a decision on timing adjustment after observing J metrics and makes a decision on phase adjustment after observing P metrics by accumulating the metric consecutively J and P times, respectively. The updating of the accumulated metrics can be expressed as:\n\n\u039bi(t) (m1, m2) \u2190 \u039bi-1(t)(m1, m2)+T(y1(m1, m2),b) for i=1, . . . , J\n\n\u039bi(p)(m1, m2) \u2190 \u039bi-1(p)(m1, m2)+T(y1(m1, m2),b) for i=1, . . . , P\n\nfor all m1,m2 \u03b5{\u22121,0+1}. The final accumulated results of metrics for timing tracking and phase tracking are represented by \u039b(l)j(m1,m2) and \u039b(p)p)m1,m2), respectively.",
+        "For timing tracking, the timing/phase tracking module 110 finds one of the minimum value among \u039b(t)j(m1,m2) for all m1,m2\u03b5{\u22121,0\u22121}. The result is then fed back to the interpolator 104 for adjusting the sample timing. For example, if \u039b(t)j(\u22121,*) attains the minimum, the timing/phase tracking module 110 sends a signal to the interpolator 103 to move the sample point one step backward. Denoting the output of the timing decision as \u03c4; the timing decision can be represented as:",
+        "\u03c4\n  =\n  \n    arg\n    \u2062\n    \n      \n    \n    \u2062\n    \n      \n        min\n        \n          m\n          1\n        \n      \n      \u2062\n      \n        \n          (\n          \n            \n              min\n              \n                m\n                2\n              \n            \n            \u2062\n            \n              \n                \u039b\n                J\n                \n                  (\n                  t\n                  )\n                \n              \n              \u2061\n              \n                (\n                \n                  \n                    m\n                    1\n                  \n                  ,\n                  \n                    m\n                    2\n                  \n                \n                )\n              \n            \n          \n          )\n        \n        .",
+        "For phase tracking, the timing/phase tracking module 110 finds the one of the minimum values among \u039b(p)p(m1,m2) for all m1,m2 \u03b5{\u22121,0\u22121}. The result is then fed back to the phase compensator 104 to remove the phase error. For example, if \u039b(p)p(*, +1) attains the minimum, the timing/phase tracking module 110 sends a signal to the phase compensator 104 to increase the compensating phase by +\u0394\u03b8. Denoting the output of the phase decision as \u03c8, the phase decision can be represented as:",
+        "\u03c8\n  =\n  \n    arg\n    \u2062\n    \n      \n    \n    \u2062\n    \n      \n        min\n        \n          m\n          2\n        \n      \n      \u2062\n      \n        (\n        \n          \n            min\n            \n              m\n              1\n            \n          \n          \u2062\n          \n            \n              \u039b\n              P\n              \n                (\n                p\n                )\n              \n            \n            \u2061\n            \n              (\n              \n                \n                  m\n                  1\n                \n                ,\n                \n                  m\n                  2\n                \n              \n              )\n            \n          \n        \n        )",
+        "It should be noted that all the values of \u039b(l)j(m1,m2) should be reset to zero whenever a timing decision is made, and all the values of \u039b(p)P(m1,m2) should be reset to zero whenever a phase decision is made.",
+        "The timing/phase tracking module 110 includes a buffer 1201 to account for the decoding delay of the decoder 108 for buffering data at the input of the received sample. Additionally, the buffer 1201 output is multiplied by e+j\u0394\u03b8 and e\u2212j\u0394\u03b8, forming the estimated received samples with phase shifts +\u0394\u03b8 and \u2212\u0394\u03b8, respectively. Generally, the three samples are fed into linear interpolators, forming the estimated samples of timing shift. At this stage, nine estimated samples are constructed as descried in further detail. The codeword is fed into a codeword buffer whenever the decoder 108 delivers a new decoded codeword. A reconstructed signal of the channel output is generated by passing the decoded codeword into FIR filter with coefficients \u0125. Finally, the reconstructed signal is subtracted from the nine estimated samples. The results are then squared and accumulated in the registers for final decisions of phase and timing adjustment.",
+        "Referring to FIG. 12, the timing/phase tracking module 110 includes a buffer 1201 that receives the received samples 1202 and a codeword buffer 1203 that receives the decoded codeword 1204 for buffering the decoded codeword and outputting the buffered decoded codeword to the summing processor 1210. A first multiplier 1205 receives the buffered received samples for positive rotating of received samples with a predetermined phase as positive rotated samples and outputs positive phase rotated samples. A second multiplier 1206 receives the buffered received samples for negative rotating of received samples with a predetermined phase as negative phase rotated samples and outputs the negative phase rotated samples.",
+        "First linear interpolators 1207 receives the positive phase rotated samples for forming three positive phase rotated timing/drift samples by interpolating from three selected consecutive positive phase rotated samples of the plurality of positive phase rotated samples, and outputs the positive phase timing-drift samples. Second linear interpolators 1208 receives the plurality of received samples for forming three phase non-rotated timing-drift samples by interpolating from three selected consecutive samples of the plurality of received samples, and outputs the three phase non-rotated timing-drift samples. Third linear interpolators 1209 receives the negative phase rotated samples for forming three negative phase rotated timing-drift samples by interpolating from three selected consecutive negative phase rotated samples of the plurality of negative phase rotated samples, and outputs the negative phase rotated timing-drift samples.",
+        "The summing processor 120 receives the previously decoded codewords and an estimated channel impulse response for summing the products of the decoded codewords and the estimated channel impulse response, and outputs a reconstructed signal 1215. Nine adding and squaring processors 1211 subtract the reconstructed signal from predetermined test vectors of three positive phase rotated timing-drift samples, three phase non-rotated timing-drift samples, and three negative phase rotated timing-drift samples from the first, second and third interpolators 1207, 1208, and 1209, respectively, and then square the magnitude of the subtracting result as a squared magnitude value. An accumulation and decision processor 1212 receives the squared magnitude values from the adding and squaring processor 1211 for accumulating the squared magnitude values, determining a timing shift responsive to a minimum of said accumulation, outputting said timing shift 1213. The accumulation and decision processor 1212 further determines a phase shift responsive to a minimum of said accumulation, and outputs the phase shift 1214.",
+        "In the above examples, the components for the above decoders can be implemented in hardware such as, for example, an application specific integrated circuit (ASIC) or a field programmable gate array (FPGA) to perform the block code decoding techniques described herein. Alternatively, the above components can be implemented in software in which a digital signal processor (DSP) and one or more memory devices can be used to implement the block code decoding techniques described herein. Additionally, the above decoders can be configured or programmed using a combination of hardware and software to implement the block code decoding techniques described herein.",
+        "Thus, a method and system for decoding block codes have been described. In the foregoing specification, the invention has been described with reference to specific exemplary implementations. It will, however, be evident that various modifications and changes may be made thereto without departing from the broader spirit and scope of the invention as set forth in the appended claims. The specification and drawings are, accordingly, to be regarded in an illustrative rather than a restrictive sense."
+    ],
+    "citations": [
+        "5014275",
+        "5301209",
+        "5323424",
+        "5434886",
+        "5497384",
+        "5717471",
+        "5841813",
+        "5862182",
+        "5875001",
+        "6005840",
+        "6141384",
+        "6233273",
+        "6233286",
+        "6269129",
+        "6301209",
+        "6324224",
+        "6327317",
+        "6734920",
+        "6907084",
+        "2003/0231709",
+        "0413 505",
+        "1148 677"
+    ],
+    "us_classification": "375341",
+    "international_classifications": [
+        {
+            "classification_level": "A",
+            "section": "H",
+            "classification_class": "03",
+            "subclass": "D",
+            "main_group": "1",
+            "subgroup": "00"
+        }
+    ]
+}

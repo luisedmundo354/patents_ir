@@ -1,0 +1,218 @@
+{
+    "title": "Testing measurements",
+    "abstract": "Embodiments of the invention include a testing measurement which output a non-binary test result for one or more steps or processes performed during execution of a test of a subject. The non-binary test result, which may be output by a verification point or a test script, provides a developer with an improved gauge of the subject under test. In embodiments of the present invention, a test script or verification point will, rather than simply generate a \u201cpass\u201d or \u201cfail\u201d (i.e., \u201csuccessful\u201d or \u201cunsuccessful\u201d) output, generate a non-boolean value providing data with improved correlation between the test output and the relative success of a test script. In some embodiments, each verification point or test script can be associated with a rule for determining the test output which can be easily modified. This aspect provides users with an ability to carefully develop and implement a test result rule which provides output which enhances test output data analysis.",
+    "inventors": [
+        "Sluiman",
+        "Paternostro"
+    ],
+    "document_number": "07299453",
+    "publication_date": "20071120",
+    "assignees": [
+        "International Business Machines Corporation"
+    ],
+    "claims": [
+        {
+            "claim_number": "CLM-00001",
+            "preamble": "1. A verification point for use in a test script, said verification point tangibly embodied in a tangible computer readable medium and adapted to output a non-binary value which indicates an actual result resulting from execution of a test command within the test scrip that is associated with the verification point, wherein the verification point comprises a verification rule, said verification rule generating said non-binary value from calculations performed by the verification rule on input received from at least one process; wherein said verification rule defines (i) how output from said verification point is generated, (ii) at least one input used to generate said non-binary value, and (iii) a data type, wherein said non-binary value output by said verification point is defined by said data type.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00002",
+            "preamble": "2. A method for generating a test script, said method comprising:",
+            "components": [
+                {
+                    "component": "creating a verification point for receiving data responsive to execution of an instruction, wherein said verification point is adapted to output a non-binary value representative of actual execution results of said instruction; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "inserting said verification point in said test script, wherein said verification point comprises a verification rule, said verification rule generating said non-binary value from calculations performed by said verification rule on input received from at least one process, wherein said verification rule defines (i) how output from said verification point is generated, (ii) at least one input used to generate said non-binary value, and (iii) a data type, wherein said non-binary value output by said verification point is defined by said data type.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00003",
+            "preamble": "3. A computer program product containing data and instructions tangibly embodied in a tangible computer readable medium, said data and instructions when executed by a computer system adapt said computer system to:",
+            "components": [
+                {
+                    "component": "generate a test script for testing a computer application in whole or in part, wherein said test script comprises one or more verification points, wherein at least one of said one or more verification points is adapted to output a non-binary value which indicates an actual result resulting from execution of a test command within the test script that is associated with the at least one of said one or more verification points, wherein said test script outputs a plurality of non-boolean values, and wherein the at least one of said one or more verification points comprises a verification rule that defines (i) how output from said verification point is generated, (ii) at least one input used to generate said non-binary value, and (iii) at least one data type, wherein at least one of said plurality of non-binary values output by said verification point is defined by said at least one data type.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00004",
+            "preamble": "4. A computer program product containing data and instructions tangibly embodied in a tangible computer readable medium, said data and instructions when executed by a computer system adapt said computer system to:",
+            "components": [
+                {
+                    "component": "create a verification point for receiving data responsive to execution of an instruction, wherein said verification point is adapted to output a non-binary value representative of actual execution results of said instruction; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "insert said verification point in said test script, wherein said verification point comprises a verification rule is further adapted to output a plurality of non-binary values as specified by the verification rule, said verification rule generating said non-binary value from calculations performed by said verification rule on input received from at least one process, wherein said verification rule defines (i) how output from said verification point is generated, (ii) at least one input used to generate said non-binary value, and (iii) a data type, wherein said non-binary value output by said verification point is defined by said data type.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00005",
+            "preamble": "5. A verification point for use in a test script, said verification point tangibly embodied in a tangible computer readable medium and comprising a means for output a non-binary value which indicates an actual result resulting from execution of a test command within the test scrip that is associated with the verification point, wherein the verification point further comprises a verification rule, said verification rule generating said non-binary value from calculations performed by the verification rule on input received from at least one process; wherein said verification rule defines (i) how output from said verification point is generated, (ii) at least one input used to generate said non-binary value, and (iii) a data type, wherein means for outputting said non-binary value outputs data conforming to said data type.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00006",
+            "preamble": "6. A data processing apparatus, including a processor, for generating a test script for testing a computer application in whole or in part, said data processing apparatus adapted to generate a test script, wherein said test script comprises one or more verification points, wherein at least one of said one or more verification points comprises means for outputting a non-binary value which indicates an actual result resulting from execution of a test command within the test script that is associated with the at least one of said one or more verification points, wherein the at least one of said one or more verification points comprises means for outputting a plurality of non-binary values, and wherein the at least one of said one or more verification points comprises a verification rule that defines (i) how output from said verification point is generated, (ii) at least one input used to generate said non-binary value, and (iii) at least one data type, wherein at least one of said plurality of non-binary values output by said verification point is defined by said at least one data type.",
+            "components": []
+        }
+    ],
+    "description": [
+        "The present application is related to copending commonly assigned U.S. patent application Ser. No. 10/294,994, entitled: Organization of Test Cases and U.S. patent application Ser. No. 10/294,248, entitled: Testing Measurements, which are hereby incorporated by reference.",
+        "The present invention general relates to the testing of computer applications and, more particularly to testing measurements.",
+        "Most computer applications (hereinafter \u201capplications\u201d) are very complex systems that, due to their complexity, require significant testing to ensure that the application will execute as desired.",
+        "To facilitate the testing of applications, test cases or test suites (essentially a collection of test cases) are designed, implemented and used to test a portion or the whole of an application (often referred to as the subject under test). In many applications, these test cases manipulate the external facade or interface of the subject under test. The results of these test cases are then analyzed and evaluated. As many applications are quite complex, several, sometimes hundreds, of test cases are used for the testing of a single application.",
+        "For example, a database application may need to be tested to determine whether data can be added to the database (this is the test case). A test script would need to be created to implement the test case. The exemplary test script could include several steps, instructions or processes to test this aspect of the application including: gaining access to update the database, transmitting the update request; receiving confirmation that the update request has been executed; reading from the database to determine if the data in the update request was stored successfully; and then logging off from the database.",
+        "Presently, testing enables a tester to insert a verification point at all, some or none of the steps that are performed in the test script that implements a test case. A verification point, when inserted into the test script, will issue or output a binary value (usually a single bit of data\u2014e.g., a boolean value) that indicates whether a step(s) with which the verification point is associated was successfully or unsuccessfully completed. The output of the test script execution, which includes the values output by the verification points, is typically stored in a test case execution script log.",
+        "The verification points enable testers to analyze the test case execution log to ascertain which processes in the test case failed and, thus, which portions of the subject under test need to be investigated to rectify any problems (i.e., solve any bugs in the application, if necessary).",
+        "Some testing tools presently on the market will terminate the execution of a test script as soon as a single verification point is reached which indicates that an associated step was not performed successfully. Other testing tools will attempt, if possible, to continue processing the test script execution and outputting data from the verification points.",
+        "As a result of the data output by the verification points, a test script execution will generate an output which indicates whether the application successfully or unsuccessfully performed the test case (the test output). The test output of the test script execution (which is in addition to test logs that are typically generated) is, like the output of a verification point, a binary value. If even a single step in the test script failed then the entire test script execution will output a value also indicating failure of the execution of test script (i.e., the application failed in performing the test case). Only when all steps are successfully performed will the test script output indicate successful completion.",
+        "It will be appreciated that when a deadline for release of an important application draws near, the application developers (the development team) are under considerable stress to have the application ready for release with a minimum number of bugs or quality or stability related issues. At this time, review of the test output data generated by the test scripts executions is often at its highest. During this review, much effort and time is spent attempting to ascertain the reason certain test scripts execution have failed to complete successfully indicating a likely problem with the subject under test. It is common in the industry, especially as deadlines loom, to disregard the test results from some test scripts execution for a variety of reasons. For example, a test script may be considered by the development team as testing an \u201cunimportant\u201d or \u201cinconsequential\u201d aspect of the subject under test. Other test scripts may be disregarded on an ad hoc basis because of a developer's intuition or experience indicating that the unsuccessful result from the execution of a test script was not as a result of a failure of the subject under test but rather another application or component (e.g., the operating system, memory management, etc.). Unfortunately, this analysis is often inaccurate or misguided and potentially results in the release of an unacceptable application. Moreover, the rationale for ignoring some test results while relying on others is not documented which may prove unfortunate after a product has been released.",
+        "In a further shortcoming of known systems, significant time may be spent analyzing the unsuccessful results issued by a test script execution in an attempt to ascertain the cause(s) of the failure. This analysis is premised on the possibility that all failures should be determined and that most or sometimes all of the failures are the result of flaws or bugs in the subject under test. However, in some instances, the failure may be the result of a failure in another portion of the computer system(s) on which the subject under test is relying. In such an instance, a developer or tester may have misspent significant time and energy investigating a flaw which is not caused by the subject under test.",
+        "For example, returning to the database example described above, suppose that the test script process for logging off from the database required transmitting to the database a \u201clogoff\u201d command. Further assume that the database itself (and not the application/subject under test) had a slight bug that issued an error message despite properly logging off a user. In this scenario, the verification point associated with the portion of the test script for logging off would output indication of a failure and the test script, even if every other process completed successfully, would, as a result of the reported logoff failure, also generate test output indicating a failure of the subject under test. Moreover, unfortunately while this failing result may be technically accurate (i.e., the test script did not successfully complete each of the processes contained therein) it is misleading and inaccurate in substance (i.e., the subject under test actually successfully performed all of its processes and only another element relied upon by the subject under test failed). This situation could lead to significant time and energy being spent by a developer attempting to eradicate a bug in the subject under test which does not exist (the bug exists in the database).",
+        "Accordingly, a testing measurement which addresses, at least in part, some of the shortcomings described above is desired.",
+        "The present invention is directed to a testing measurement, and related methods, apparatus, systems and tools which address, at least in part, some the various described shortcomings.",
+        "Aspects of the invention include a testing measurement which output a non-binary test result for one or more steps or processes performed during execution of a test of a subject. The non-binary test result, which may be output by a verification point or a test script, provides a developer with an improved gauge of the subject under test. In embodiments of the present invention, a test script or verification point will, rather than simply generate a \u201cpass\u201d or \u201cfail\u201d (i.e., \u201csuccessful\u201d or \u201cunsuccessful\u201d) output, generate a non-boolean value providing data with improved correlation between the test output and the relative success of a test script.",
+        "In some embodiments, each verification point or test script can be associated with a rule for determining the test output which can be easily modified. This aspect provides users with an ability to carefully develop and implement a test result rule which provides output which enhances test output data analysis.",
+        "A non-boolean test result can provide a tester with data that enables a more informed decision to be made as to the status of an application under development. Moreover, in many circumstances, focus on development of a rule for determining the test output for a verification point or test script can eliminate the need to ignore test results an ad hoc basis based on an undocumented rationale.",
+        "In accordance with an aspect of the present invention there is provided a verification point for use in a test script, said verification point adapted to output a non-binary value.",
+        "In accordance with another aspect of the present invention there is provided a test script for testing a computer application in whole or in part, said test script comprising a verification point, said verification point outputting a non-binary value.",
+        "In accordance with still another aspect of the present invention there is provided a script for testing a computer application, said test script adapted to output at least one non-binary value.",
+        "In accordance with still another aspect of the present invention there is provided a test tool for generating a test script for testing a computer application in whole or in part, said test tool adapted to generate a test script which outputs a non-binary value.",
+        "In accordance with still another aspect of the present invention there is provided a method for generating a test script said method comprising: creating a verification point for receiving data responsive to execution of an instruction, wherein said verification point is adapted to output a non-binary value representative of execution of said instruction.",
+        "In accordance with still another aspect of the present invention there is provided a computer readable media containing data and instructions, said data and instructions when executed by a computer system adapt said computer system to: generate a test script for testing a computer application in whole or in part, which outputs a non-boolean value.",
+        "In accordance with still another aspect of the present invention there is provided a computer readable media containing data and instructions, said data and instructions when executed by a computer system adapt said computer system to: create a verification point for receiving data responsive to execution of an instruction, wherein said verification point is adapted to output a non-binary value representative of execution of said instruction.",
+        "In accordance with still another aspect of the present invention there is provided a verification point for use in a test script, said verification point comprising a means for outputting a non-binary value.",
+        "In accordance with still another aspect of the present invention there is provided a test tool for generating a test script for testing a computer application in whole or in part, said test tool adapted to generate a test script comprising means for outputting a non-binary value.",
+        "Other aspects and features of the present invention will become apparent to those ordinarily skilled in the art upon review of the following description of specific embodiments of the invention in conjunction with the accompanying figures.",
+        "In the figures which illustrate an example embodiment of this invention:",
+        "FIG. 1 schematically illustrates a computer system embodying aspects of the invention;",
+        "FIG. 2 schematically illustrates, in greater detail, a portion of the computer system of FIG. 1;",
+        "FIG. 3 illustrates, in functional block form, a portion of FIG. 2;",
+        "FIG. 4 is an exemplary embodiment of a test script of FIG. 3 embodying aspects of the invention;",
+        "FIG. 5 is a first exemplary verification point embodying aspects of the invention which may form part of the test script of FIG. 3; and",
+        "FIG. 6 is a second exemplary verification point embodying aspects of the invention which may form part of the test script of FIG. 3.",
+        "An embodiment of the invention, computer system 100, is illustrated in FIG. 1. Computer system 100, illustrated for exemplary purposes as a networked computing device, is in communication with other networked computing devices (not shown) via network 108. As will be appreciated by those of ordinary skill in the art, network 108 may be embodied using conventional networking technologies and may include one or more of the following: local area networks, wide area networks, intranets, public Internet and the like. Computer system 100 may interact with other networked computer systems (not shown) providing application testing and analysis of a distributed application.",
+        "Throughout the description herein, an embodiment of the invention is illustrated with aspects of the invention embodied solely on computer system 100. As will be appreciated by those of ordinary skill in the art, aspects of the invention may be distributed amongst one or more networked computing devices which interact with computer system 100 via one or more data networks such as, for example, network 108. However, for ease of understanding, aspects of the invention have been embodied in a single computing device\u2014computer system 100.",
+        "Computer system 100 includes processing system 102 which communicates with various input devices 104, output devices 106 and network 108. Input devices 104, two of which are shown, may include, for example, a keyboard, a mouse, a scanner, an imaging system (e.g., a camera, etc.) or the like. Similarly, output devices 106 (only one of which is illustrated) may include displays, information display unit printers and the like. Additionally, combination input/output (I/O) devices may also be in communication with processing system 102. Examples of conventional I/O devices include removable and fixed recordable media (e.g., floppy disk drives, tape drives, CD-ROM drives, DVD-RW drives, etc.), touch screen displays and the like.",
+        "Exemplary processing system 102 is illustrated in greater detail in FIG. 2. As illustrated, processing system 102 includes several components\u2014central processing unit (CPU) 202, memory 204, network interface (I/F) 208 and I/O I/F 210. Each component is in communication with the other components via a suitable communications bus 206 as required.",
+        "CPU 202 is a processing unit, such as an Intel Pentium\u2122, IBM PowerPC\u2122, Sun Microsystems UltraSparc\u2122 processor or the like, suitable for the operations described herein. As will be appreciated by those of ordinary skill in the art, other embodiments of processing system 102 could use alternative CPUs and may include embodiments in which one or more CPUs are employed. CPU 202 may include various support circuits to enable communication between itself and the other components of processing system 102.",
+        "Memory 204 includes both volatile and persistent memory for the storage of: operational instructions for execution by CPU 202, data registers, application storage and the like. Memory 204 preferably includes a combination of random access memory (RAM), read only memory (ROM) and persistent memory such as that provided by a hard disk drive.",
+        "Network I/F 208 enables communication between computer system 100 and other network computing devices (not shown) via network 108. Network I/F 208 may be embodied in one or more conventional communication devices. Examples of a conventional communication device include an Ethernet card, a token ring card, a modem or the like. Network I/F 208 may also enable the retrieval or transmission of instructions for execution by CPU 202 from or to a remote storage media or device via network 108.",
+        "I/O I/F 210 enables communication between processing system 102 and the various I/O devices 104, 106. 1/O I/F 210 may include, for example, a video card for interfacing with an external display such as output device 106. Additionally, I/O I/F 210 may enable communication between processing system 102 and a removable media 212. Although removable media 212 is illustrated as a conventional diskette other removable memory devices such as Zip\u2122 drives, flash cards, CD-ROMs, static memory devices and the like may also be employed. Removable media 212 may be used to provide instructions for execution by CPU 202 or as a removable data storage device.",
+        "The computer instructions/applications stored in memory 204 and executed by CPU 202 (thus adapting the operation of computer system 100 as described herein) are illustrated in functional block form in FIG. 3. As will be appreciated by those of ordinary skill in the art, the delineation between aspects of the applications illustrated as functional blocks in FIG. 3 is somewhat arbitrary as the various operations attributed to a particular application as described herein may, in alternative embodiments, be subsumed by another application.",
+        "As illustrated, for exemplary purposes only, memory 202 stores operating system (OS) 302, communications suite 304, test tool 306, test script 308, test output file 310 and the application under test 312 (hereinafter \u201capplication 312\u201d).",
+        "OS 302 is an operating system suitable for operation with a selected CPU 202 and the operations described herein. Multitasking, multithreaded OSes such as, for example, IBM AIX\u2122, Microsoft Windows NT\u2122, Linux or the like, are expected in many embodiments to be preferred.",
+        "Communication suite 304 provides, through, interaction with OS 302 and network I/F 208 (FIG. 2), suitable communication protocols to enable communication with other networked computing devices via network 108 (FIG. 1). Communication suite 304 may include one or more of such protocols such as TCP/IP, ethernet, token ring and the like.",
+        "Test tool 306 is used by testers and developers to generate test scripts 308 which, when executed, test aspects of application 312 and generate test output file 310. Test tool 306 may be adapted from conventional or known test tools to perform the functions described herein. Test tool 306 may be used to: partially automate the entire testing process from generating test script 308; test application 312 using test script 308; and present the data in test output file 310 output by test script 308.",
+        "An exemplary test script 308, illustrated in logical organization, illustrates the various components contained therein and the relationships therebetween. Generally, a test script 308 includes a start 402, one or more instructions or processes 404, one or more verification points 406 and an end 408. Executing the test script 308 which will exercise a function of application 312 (FIG. 3) and will result in output file 310.",
+        "Start 402 provides opportunity for the initialization and/or configuration of: test script 308; the environment in which application 312 will tested; and application 312.",
+        "Processes 404 (processes 404a-404h are illustrated) are the various steps or processes that are performed to test application 312. This may include, for example, transmitting data used as input to a user interface of application 312, issuing commands to application 312 and the like.",
+        "Embedded within test script 308 are one or more verification points 406 each which is used to assess the performance of one or more processes 404. Several verification points 406 (verification points 406a-406d) are illustrated for exemplary purposes.",
+        "A single verification point 406 may be associated with one or more processes. Additionally, a single verification may generate an output based on one or more inputs. An input into a single verification point 406 may be a binary or non-binary value which the verification point 406 uses to generate an output indicative of the relative success of the process(es) with which the verification point is associated.",
+        "Two exemplary verification points 406a and 406b are illustrated in FIGS. 5 and 6, respectively. The exemplary verification points are both related to the test script 308 implementing a test case designed to test an application 312 which could be used for certifying that a photographic darkroom satisfies certain requirements based on light intrusion. That is, the exemplary photography related application 312 is designed to simply certify a darkroom (based on light sensor inputs) or deny certification.",
+        "A test script 308 may be implemented to assess whether the data inputs from each light sensor (one per door into the darkroom) to application 312 used to determine whether certification is to be granted are operating properly. Such a test script 308 could include exemplary verification points 406a and 406b (FIGS. 5 and 6).",
+        "As will be appreciated, no room used for photography is ever completely without light (i.e., there is always some degree of light intrusion). In conventional test scripts, the output testing the same function (proper operation of light sensor inputs) as verification point 406a would simply indicate \u201cPASS\u201d (i.e., receiving data indicating a small amount of light is reaching each light sensor and therefore each sensor was working properly) or \u201cFAIL\u201d (i.e., one or more light sensor inputs not working properly by failing to provide a non-zero positive reading). However, these simple test results may be unsatisfactory since one or more light sensor may be indicating that it is receiving an unexpected and incorrect amount of light. Use of exemplary verification point 406a could be used to provide additional data.",
+        "As illustrated in FIG. 5, verification point 406a is designed to test and report to test script 308 the amount of light received by a particular light sensor associated with a door for entering/exiting the darkroom which is being certified by application 312. Conventional verification points would simply test to determine whether data was being received by application 312 from a light sensor. If data was being received, a conventional verification point would generate output indicating that that portion of the test script 308 was successful. If data was not being received by application 312, a conventional verification point would generate output indicating that that portion of test script 308 was not successful. In contrast, verification point 406a, which outputs an integer value (in contrast to the binary values provided by conventional verification points) provides additional data for analysis by the user, the test script or a test suite. Moreover, the verification rule used to generate the output is explicitly defined by verification point 406a in instructions 502, 504 and 506. This rule explicitly defines how output from verification point 406a is generated, the inputs used to generate this output and the type of output which is generated by verification point 406a. If, for whatever reason it is necessary to modify the verification rule, the rule is easily identified and modified. For example, the inputs received from application 312 and used by verification point 406a of test script 308 may change as application 312 is developed. Accordingly, the verification rule of verification point 406a may require modification to handle such a change. Alternatively, the test case (which is implemented by test script 308) may change impacting the type, kind or substance of output required from verification point 406a. Modification of the verification rule can quickly be made to react to this scenario.",
+        "As illustrated, verification point 406a, which is part of a test script 308 written in the computer language JAVA, includes an instance of the class \u201cDoorVP\u201d (502) and then, for a particular door (identified by the get DoorNumber method\u2014504), sets the output of verification point 406a to the required output which in the exemplary embodiment is a data representative of the amount of light (in foot candles) received by application 312.",
+        "In FIG. 6 a second exemplary verification point 406b is illustrated. Verification point 406b would, like a conventional verification point, be used to test the overall output of application 312 which determines whether a darkroom meets a particular standard and can, therefore, be certified. However, unlike conventional verification point which would only indicate whether certain processes or operations were performed successfully, verification point 406b provides enhanced performance information. Exemplary verification point 406b is designed to receive as input the data output by each of the light sensors which have been collected by application 312 and stored in an array. The output of verification point 406a (which is an instance of class \u201cDoorVP\u201d-502) is a sum of the data representative of the light measured by each of the light sensors (604). The output of verification point 406a is set by instruction 606 and is an integer (i.e., a non-binary value). The integer output of verification point 406a may be a digital output (i.e., comprising bits of data) but the output itself does not represent a binary (i.e., TRUE/FALSE, PASS/FAIL, ON/OFF, etc.) value but rather a value which provides more information.",
+        "Similar to verification point 406a, verification point 406b also includes a verification rule (instructions 602, 604 and 606) which define the verification point's properties (i.e., the output generated, the calculation or computation to calculate the output and the inputs used).",
+        "While the exemplary verification points 406a and 406b (FIGS. 5 and 6) both output scalar integers, other non-binary outputs could be equally be employed. For example, a success rate indicative of the ratio of successful versus unsuccessful processes could be generated and output by a verification point 406. Similarly, a verification point 406 could output data which indicates a value representative of relative success in a given range. For example, a verification point 406 could output \u201c100\u201d if all associated processes were performed successfully, \u201c0\u201d if all associated processes were performed unsuccessfully and a value between \u201c0\u201d and \u201c100\u201d to indicate a relative rate of success for instances where some processes were performed successfully and others were performed unsuccessfully. Raw values could be output by a verification point indicative of an operation performed by application 312. For example, data collected by application 312 from a light sensor could be the output of a verification point. Other data types could also be output by a verification point 406 (e.g., a string, a floating point number, a boolean, etc.)",
+        "In addition to different types of output possible from a verification point embodying aspects of the present invention, alternative embodiments could include multiple outputs from a single verification point. For example, if processes performed by application 312 could be tested in more than one way, a verification point could be implemented which outputs multiple test results each calculating test results or verifying the performance of processes in a different manner. For example, verification point 406a (FIG. 5) outputs an integer value indicative of the data received by application 312 from a light sensor. In an alternative embodiment verification point 406a could, for example, additionally output a value indicative of standard deviation of input received by application 312 from a light sensor. This latter test output could be used to provide insight into the relative stability of input received by application 312 from a light sensor. Significant deviation output by this alternative embodiment of verification point 406a could indicate a malfunction of or bug in application 312.",
+        "As will be appreciated, the non-binary output and multiple outputs from a single verification point can easily be extended to a test script 308 or a test suite. That is, a test script 308 may output a non-binary value, one or more outputs and the like.",
+        "As will be appreciated by those skilled in the art, modifications to the above-described embodiment can be made without departing from the essence of the invention.",
+        "While one (or more) embodiment(s) of this invention has been illustrated in the accompanying drawings and described above, it will be evident to those skilled in the art that changes and modifications may be made therein without departing from the essence of this invention. All such modifications or variations are believed to be within the sphere and scope of the invention as defined by the claims appended hereto. Other modifications will be apparent to those skilled in the art and, therefore, the invention is defined in the claims."
+    ],
+    "citations": [
+        "4689338",
+        "4698348",
+        "4929624",
+        "4988815",
+        "5037986",
+        "5175296",
+        "5238944",
+        "5266575",
+        "5268376",
+        "5346905",
+        "5352784",
+        "5367076",
+        "5376501",
+        "5389640",
+        "5395937",
+        "5482936",
+        "5494916",
+        "5659547",
+        "5693811",
+        "5741908",
+        "5756747",
+        "5939090",
+        "5991537",
+        "6002871",
+        "6028076",
+        "6039969",
+        "6052694",
+        "6069149",
+        "6083505",
+        "6110929",
+        "6148277",
+        "6194338",
+        "6194425",
+        "6200592",
+        "6207646",
+        "6239116",
+        "6245776",
+        "6329381",
+        "6331539",
+        "6339068",
+        "6376669",
+        "6406705",
+        "6426334",
+        "6451810",
+        "6476000",
+        "6525064",
+        "6587969",
+        "6738933",
+        "2002/0055517",
+        "2002/0058674",
+        "0 394 026",
+        "1 104 764",
+        "9-208584",
+        "9-255926",
+        "11-222432",
+        "2000-247884",
+        "WO 00/47719",
+        "WO 00/75304",
+        "WO 00/76505",
+        "WO 00/76518",
+        "WO 01/74343",
+        "WO 02/36592",
+        "WO 02/46188",
+        "WO 02/46189",
+        "WO 02/46190",
+        "WO 02/46191",
+        "WO 02/46192",
+        "WO 02/46193",
+        "WO 02/46194",
+        "WO 02/46749",
+        "WO 02/102377"
+    ],
+    "us_classification": "717124",
+    "international_classifications": [
+        {
+            "classification_level": "A",
+            "section": "G",
+            "classification_class": "06",
+            "subclass": "F",
+            "main_group": "9",
+            "subgroup": "44"
+        }
+    ]
+}

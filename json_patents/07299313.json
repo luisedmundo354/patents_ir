@@ -1,0 +1,471 @@
+{
+    "title": "System, method and storage medium for a memory subsystem command interface",
+    "abstract": "A system for implementing a memory subsystem command interface, the system including a cascaded interconnect system including one or more memory modules, a memory controller and a memory bus. The memory controller generates a data frame that includes a plurality of commands. The memory controller and the memory module are interconnected by a packetized multi-transfer interface via the memory bus and the frame is transmitted to the memory modules via the memory bus.",
+    "inventors": [
+        "Gower",
+        "Maule"
+    ],
+    "document_number": "07299313",
+    "publication_date": "20071120",
+    "assignees": [
+        "International Business Machines Corporation"
+    ],
+    "claims": [
+        {
+            "claim_number": "CLM-00001",
+            "preamble": "1. A cascaded interconnect system comprising:",
+            "components": [
+                {
+                    "component": "one or more memory modules;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a memory controller for generating data frames that include one or more plurality of commands, each data frame comprised of the same number of transfers;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a memory bus, wherein the memory controller and the memory modules are interconnected by a packetized multi-transfer interface via the memory bus and wherein the frames are transmitted to the memory modules via the memory bus; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a command decode matrix specifying command decodes and one or more associated transfers for locating the commands in the data frames.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00002",
+            "preamble": "2. The system of claim 1 wherein the commands are directed to two or more memory modules.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00003",
+            "preamble": "3. The system of claim 1 wherein the commands are directed to the same memory module.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00004",
+            "preamble": "4. The system of claim 1 wherein each frame is transmitted within a single memory clock cycle.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00005",
+            "preamble": "5. The system of claim 1 wherein the memory bus includes a downstream memory bus.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00006",
+            "preamble": "6. The system of claim 1 wherein each frame includes eight transfers, each transfer includes eight command bits and the commands are stored in the command bits in the frame.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00007",
+            "preamble": "7. The system of claim 1 wherein each frame includes one to four memory commands and seventy-two bits of write data.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00008",
+            "preamble": "8. The system of claim 1 wherein one or more of the commands are primary commands.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00009",
+            "preamble": "9. The system of claim 1 wherein one or more of the command are secondary commands.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00010",
+            "preamble": "10. The system of claim 1 wherein the commands are a mix of secondary and primary commands.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00011",
+            "preamble": "11. The system of claim 1 wherein the memory bus includes a plurality of segments and the system further comprises a segment level sparing module to provide segment level sparing for the memory bus upon segment failure.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00012",
+            "preamble": "12. The system of claim 1 wherein the memory device data bus operates at a data rate and the memory bus operates at four times the data rate.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00013",
+            "preamble": "13. The system of claim 1 further comprising a bus level error correcting code fault detection and correction logic block to provide bus level error fault detection and correction.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00014",
+            "preamble": "14. The system of claim 1 wherein the memory module is a buffered memory module.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00015",
+            "preamble": "15. The system of claim 1 wherein at least one of the data frames further includes write data.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00016",
+            "preamble": "16. A method for a memory subsystem command interface, the method comprising:",
+            "components": [
+                {
+                    "component": "receiving data frames including a plurality of commands at a current memory module, wherein the current memory module is included in a cascaded interconnect system that includes a memory controller and one or more memory modules that are interconnected via a memory bus, and each data frame is comprised of the same number of transfers; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "executing one or more of the commands in response to the one or more commands being directed to the current memory module, the executing including accessing a command decode matrix specify command decodes and one or more associated transfers for locating the commands in the date frame.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00017",
+            "preamble": "17. The method of claim 16 wherein the transfers are received within a single memory clock cycle.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00018",
+            "preamble": "18. The method of claim 16 wherein the plurality of commands includes one command directed to the current memory module and another command directed to another memory module.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00019",
+            "preamble": "19. The method of claim 16 wherein the plurality of commands includes two commands directed to the current memory module.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00020",
+            "preamble": "20. The method of claim 16 wherein each of the data frames includes eight transfers, each transfer includes eight command bits and the commands are stored in the command bits in the frame.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00021",
+            "preamble": "21. The method of claim 16 wherein each of the data frames includes one to four memory commands and seventy-two bits of write data.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00022",
+            "preamble": "22. The method of claim 16 wherein the input signal includes two commands.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00023",
+            "preamble": "23. The method of claim 22 wherein a first command is located in the first seven transfers of the frame and a second command is located in the eighth transfer of the frame or alternatively, the first command is located in the first four transfers of the frame and the second command is located in the last four transfers of the frame.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00024",
+            "preamble": "24. The method of claim 16 wherein at least one of the data frames includes three commands.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00025",
+            "preamble": "25. The method of claim 24 wherein a first command is located in the first four transfers of the frame, a second command is located in the fifth through seventh transfer of the frame and a third command is located in the eight transfer of the frame or alternatively, the first command is located in the first three transfers of the frame, the second command is located in the fourth transfer of the frame and the third command is located in the fifth through eighth transfer of the frame.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00026",
+            "preamble": "26. The method of claim 16 wherein at least one of the data frames includes four commands.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00027",
+            "preamble": "27. The method of claim 26 wherein a first command is located in the first three transfers of the frame, a second command is located in the fourth transfer of the frame, a third command is located in the fifth through seventh transfer of the frame and a fourth command is located in the eight transfer of the frame.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00028",
+            "preamble": "28. The method of claim 26 wherein at least one of the data frames further includes write data.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00029",
+            "preamble": "29. The method of claim 16 further comprising:",
+            "components": [
+                {
+                    "component": "identifying one of the commands as a slow command; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "monitoring a single bit line in response to the identifying, wherein the executing is performed further in response to the single bit line transitioning from one state to another, thereby eliminating the need for high speed link training and initialization to perform the slow commands.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00030",
+            "preamble": "30. A storage medium encoded with machine readable computer program code for providing a memory subsystem command interface, the storage medium including instructions for causing a computer to implement a method comprising:",
+            "components": [
+                {
+                    "component": "receiving data frames a plurality of commands at a current memory module, wherein the current memory module is included in a cascaded interconnect system that includes a memory controller and one or more memory modules that are interconnected via a memory bus, and each data frame is comprised of the same number of transfers; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "executing one or more of the commands in response to the one or more commands being directed to the current memory module, the executing including accessing a command decode matrix.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00031",
+            "preamble": "31. The storage medium of claim 30 wherein the transfers are received within a single memory clock cycle.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00032",
+            "preamble": "32. The storage medium of claim 30 wherein the plurality of commands includes one command directed to the current memory module and another command directed to another memory module.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00033",
+            "preamble": "33. The storage medium of claim 30 wherein the plurality of commands includes two commands directed to the current memory module.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00034",
+            "preamble": "34. The storage medium of claim 30 wherein the at least one of the data frames include one to four memory commands and seventy-two bits of write data.",
+            "components": []
+        }
+    ],
+    "description": [
+        "The invention relates to a memory subsystem and in particular, to a memory subsystem command interface.",
+        "Computer memory subsystems have evolved over the years, but continue to retain many consistent attributes. Computer memory subsystems from the early 1980's, such as the one disclosed in U.S. Pat. No. 4,475,194 to LaVallee et al., of common assignment herewith, included a memory controller, a memory assembly (contemporarily called a basic storage module (BSM) by the inventors) with array devices, buffers, terminators and ancillary timing and control functions, as well as several point-to-point busses to permit each memory assembly to communicate with the memory controller via its own point-to-point address and data bus. FIG. 1 depicts an example of this early 1980 computer memory subsystem with two BSMs, a memory controller, a maintenance console, and point-to-point address and data busses connecting the BSMs and the memory controller.",
+        "FIG. 2, from U.S. Pat. No. 5,513,135 to Dell et al., of common assignment herewith, depicts an early synchronous memory module, which includes synchronous dynamic random access memories (DRAMs) 8, buffer devices 12, an optimized pinout, an interconnect and a capacitive decoupling method to facilitate operation. The patent also describes the use of clock re-drive on the module, using such devices as phase lock loops (PLLs).",
+        "FIG. 3, from U.S. Pat. No. 6,510,100 to Grundon et al., of common assignment herewith, depicts a simplified diagram and description of a memory system 10 that includes up to four registered dual inline memory modules (DIMMs) 40 on a traditional multi-drop stub bus channel. The subsystem includes a memory controller 20, an external clock buffer 30, registered DIMMs 40, an address bus 50, a control bus 60 and a data bus 70 with terminators 95 on the address bus 50 and data bus 70.",
+        "FIG. 4 depicts a 1990's memory subsystem which evolved from the structure in FIG. 1 and includes a memory controller 402, one or more high speed point-to-point channels 404, each connected to a bus-to-bus converter chip 406, and each having a synchronous memory interface 408 that enables connection to one or more registered DIMMs 410. In this implementation, the high speed, point-to-point channel 404 operated at twice the DRAM data rate, allowing the bus-to-bus converter chip 406 to operate one or two registered DIMM memory channels at the full DRAM data rate. Each registered DIMM included a PLL, registers, DRAMs, an electrically erasable programmable read-only memory (EEPROM) and terminators, in addition to other passive components.",
+        "As shown in FIG. 5, memory subsystems were often constructed with a memory controller connected either to a single memory module, or to two or more memory modules interconnected on a \u2018stub\u2019 bus. FIG. 5 is a simplified example of a multi-drop stub bus memory structure, similar to the one shown in FIG. 3. This structure offers a reasonable tradeoff between cost, performance, reliability and upgrade capability, but has inherent limits on the number of modules that may be attached to the stub bus. The limit on the number of modules that may be attached to the stub bus is directly related to the data rate of the information transferred over the bus. As data rates increase, the number and length of the stubs must be reduced to ensure robust memory operation. Increasing the speed of the bus generally results in a reduction in modules on the bus, with the optimal electrical interface being one in which a single module is directly connected to a single controller, or a point-to-point interface with few, if any, stubs that will result in reflections and impedance discontinuities. As most memory modules are sixty-four or seventy-two bits in data width, this structure also requires a large number of pins to transfer address, command, and data. One hundred and twenty pins are identified in FIG. 5 as being a representative pincount.",
+        "FIG. 6, from U.S. Pat. No. 4,723,120 to Petty, of common assignment herewith, is related to the application of a daisy chain structure in a multipoint communication structure that would otherwise require multiple ports, each connected via point-to-point interfaces to separate devices. By adopting a daisy chain structure, the controlling station can be produced with fewer ports (or channels), and each device on the channel can utilize standard upstream and downstream protocols, independent of their location in the daisy chain structure.",
+        "FIG. 7 represents a daisy chained memory bus, implemented consistent with the teachings in U.S. Pat. No. 4,723,120. A memory controller 111 is connected to a memory bus 315, which further connects to a module 310a. The information on bus 315 is re-driven by the buffer on module 310a to the next module, 310b, which further re-drives the bus 315 to module positions denoted as 310n. Each module 310a includes a DRAM 311a and a buffer 320a. The bus 315 may be described as having a daisy chain structure, with each bus being point-to-point in nature.",
+        "One drawback to the use of a daisy chain bus is that the transmission of data and commands between a memory controller and a memory module may not be efficient when a single transmission occurs during each memory clock cycle and each transmission includes one command directed to a single memory module. Further, the format of the data and commands that are transmitted from the memory controller to the memory module may not be flexible in format, in that each command maps to a specific command bit(s) in the transmission file.",
+        "Exemplary embodiments of the present invention include a cascaded interconnect system including one or more memory modules, a memory controller and a memory bus. The memory controller generates a data frame that includes a plurality of commands (where the idle command counts as a command). The memory controller and the memory module are interconnected by a packetized multi-transfer interface via the memory bus and the frame is transmitted to the memory modules via the memory bus.",
+        "Additional exemplary embodiments include a method for a memory subsystem command interface. The method includes receiving an input signal containing a plurality of commands at a current memory module. The current memory module is included in a cascaded interconnect system that includes a memory controller and one or more memory modules that are interconnected via a memory bus. One or more of the commands are executed in response to the one or more commands being directed to the current memory module.",
+        "Further exemplary embodiments include a storage medium for providing a memory subsystem command interface. The storage medium is encoded with machine readable computer program code for causing a computer to implement a method. The method includes receiving an input signal containing a plurality of commands at a current memory module. The current memory module is included in a cascaded interconnect system that includes a memory controller and one or more memory modules that are interconnected via a memory bus. One or more of the commands are executed in response to the one or more commands being directed to the current memory module.",
+        "Referring now to the drawings wherein like elements are numbered alike in the several FIGURES:",
+        "FIG. 1 depicts a prior art memory controller connected to two buffered memory assemblies via separate point-to-point links;",
+        "FIG. 2 depicts a prior art synchronous memory module with a buffer device;",
+        "FIG. 3 depicts a prior art memory subsystem using registered DIMMs;",
+        "FIG. 4 depicts a prior art memory subsystem with point-to-point channels, registered DIMMs, and a 2:1 bus speed multiplier;",
+        "FIG. 5 depicts a prior art memory structure that utilizes a multidrop memory \u2018stub\u2019 bus;",
+        "FIG. 6 depicts a prior art daisy chain structure in a multipoint communication structure that would otherwise require multiple ports;",
+        "FIG. 7 depicts a prior art daisy chain connection between a memory controller and memory modules;",
+        "FIG. 8 depicts a cascaded memory structure that is utilized by exemplary embodiments of the present invention;",
+        "FIG. 9 depicts a memory structure with cascaded memory modules and unidirectional busses that is utilized by exemplary embodiments of the present invention;",
+        "FIG. 10 depicts a buffered module wiring system that is utilized by exemplary embodiments of the present invention;",
+        "FIG. 11 depicts a downstream frame format that is utilized by exemplary embodiments of the present invention;",
+        "FIG. 12 depicts an upstream frame format that is utilized by exemplary embodiments of the present invention;",
+        "FIG. 13 depicts a cascaded bus structure with segment sparing that is utilized by exemplary embodiments of the present invention;",
+        "FIG. 14 is a table of primary command bus decodes that are utilized by exemplary embodiments of the present invention;",
+        "FIG. 15 is a table of secondary command bus decodes that are utilized by exemplary embodiments of the present invention;",
+        "FIG. 16 depicts command combinations that may be utilized by exemplary embodiments of the present invention;",
+        "FIG. 17 is a sample command decode for a bank activate command that may be utilized by exemplary embodiments of the present invention; and",
+        "FIG. 18 is a sample command decode for a read slow data buffer command that may be utilized by exemplary embodiments of the present invention.",
+        "Exemplary embodiments of the present invention provide the ability for multiple memory operations to be executed in parallel to maximize memory subsystem bandwidth and system performance. The command structure described herein permits several commands to be issued in a single packet, or frame. Commands that do not require all transfers of a given frame are formatted to allow other commands to be optionally issued at the same time (i.e., within the given frame).",
+        "In an exemplary embodiment of the present invention, the memory subsystem command interface is provided by a high speed and high reliability memory subsystem architecture and interconnect structure that includes single-ended point-to-point interconnections between any two subsystem components. The memory subsystem further includes a memory control function, one or more memory modules, one or more high speed busses operating at a four-to-one speed ratio relative to a DRAM data rate and a bus-to-bus converter chip on each of one or more cascaded modules to convert the high speed bus(ses) into the conventional double data rate (DDR) memory interface. The memory modules operate as slave devices to the memory controller, responding to commands in a deterministic or non-deterministic manner, but do not self-initiate unplanned bus activity, except in cases where operational errors are reported in a real-time manner. Memory modules can be added to the cascaded bus, with each module assigned an address to permit unique selection of each module on the cascaded bus. Exemplary embodiments of the present invention include a packetized multi-transfer interface which utilizes an innovative communication protocol to permit memory operation to occur on a reduced pincount, whereby address, command and data is transferred between the components on the cascaded bus over multiple cycles, and are reconstructed and errors corrected prior to being used by the intended recipient.",
+        "FIG. 8 depicts a cascaded memory structure that may be utilized by exemplary embodiments of the present invention when buffered memory modules 806 (e.g., the buffer device is included within the memory module 806) are in communication with a memory controller 802. This memory structure includes the memory controller 802 in communication with one or more memory modules 806 via a high speed point-to-point bus 804. Each bus 804 in the exemplary embodiment depicted in FIG. 8 includes approximately fifty high speed wires for the transfer of address, command, data and clocks. By using point-to-point busses as described in the aforementioned prior art, it is possible to optimize the bus design to permit significantly increased data rates, as well as to reduce the bus pincount by transferring data over multiple cycles. Whereas FIG. 4 depicts a memory subsystem with a two to one ratio between the data rate on any one of the busses connecting the memory controller to one of the bus converters (e.g., to 1,066 Mb/s per pin) versus any one of the busses between the bus converter and one or more memory modules (e.g., to 533 Mb/s per pin), an exemplary embodiment of the present invention, as depicted in FIG. 8, provides a four to one bus speed ratio to maximize bus efficiency and to minimize pincount.",
+        "Although point-to-point interconnects permit higher data rates, overall memory subsystem efficiency must be achieved by maintaining a reasonable number of memory modules 806 and memory devices per channel (historically four memory modules with four to thirty-six chips per memory module, but as high as eight memory modules per channel and as few as one memory module per channel). Using a point-to-point bus necessitates a bus re-drive function on each memory module. The bus re-drive function permits memory modules to be cascaded such that each memory module is interconnected to other memory modules, as well as to the memory controller 802.",
+        "FIG. 9 depicts a memory structure with cascaded memory modules and unidirectional busses that is utilized by exemplary embodiments of the present invention. One of the functions provided by the memory modules 806 in the cascade structure is a re-drive function to send signals on the memory bus to other memory modules 806 or to the memory controller 802. FIG. 9 includes the memory controller 802 and four memory modules 806a, 806b, 806c and 806d, on each of two memory busses (a downstream memory bus 904 and an upstream memory bus 902), connected to the memory controller 802 in either a direct or cascaded manner. Memory module 806a is connected to the memory controller 802 in a direct manner. Memory modules 806b, 806c and 806d are connected to the memory controller 802 in a cascaded manner.",
+        "An exemplary embodiment of the present invention includes two unidirectional busses between the memory controller 802 and memory module 806a (\u201cDIMM #1\u201d), as well as between each successive memory module 806b-d (\u201cDIMM #2\u201d, \u201cDIMM #3\u201d and \u201cDIMM #4\u201d) in the cascaded memory structure. The downstream memory bus 904 is comprised of twenty-two single-ended signals and a differential clock pair. The downstream memory bus 904 is used to transfer address, control, write data and bus-level error code correction (ECC) bits downstream from the memory controller 802, over several clock cycles, to one or more of the memory modules 806 installed on the cascaded memory channel. The upstream memory bus 902 is comprised of twenty-three single-ended signals and a differential clock pair, and is used to transfer read data and bus-level ECC bits upstream from the sourcing memory module 806 to the memory controller 802. Using this memory structure, and a four to one data rate multiplier between the DRAM data rate (e.g., 400 to 800 Mb/s per pin) and the unidirectional memory bus data rate (e.g., 1.6 to 3.2 Gb/s per pin), the memory controller 802 signal pincount, per memory channel, is reduced from approximately one hundred and twenty pins to about fifty pins.",
+        "FIG. 10 depicts a buffered module wiring system that is utilized by exemplary embodiments of the present invention. FIG. 10 is a pictorial representation of a memory module, with the arrows representing the primary signal flows. The signal flows include the upstream memory bus 902, the downstream memory bus 904, memory device address and command busses 1010 and 1006, and memory device data busses 1012 and 1008. In an exemplary embodiment of the present invention, a buffer device 1002, also referred to as a memory interface chip, provides two copies of the address and command signals to SDRAMs 1004 with the right memory device address and command bus 1006 exiting from the right side of the buffer device 1002 for the SDRAMs 1004 located to the right side and behind the buffer module 1002 on the right. The left memory device address and command bus 1010 exits from the left side of the buffer device 1002 and connects to the SDRAMs 1004 to the left side and behind the buffer device 1002 on the left. Similarly, the data bits intended for SDRAMs 1004 to the right of the buffer device 1002 exit from the right of the buffer device 1002 on the right memory device data bus 1008. The data bits intended for the left side of the buffer device 1002 exit from the left of the buffer device 1002 on the left memory device data bus 1012. The high speed upstream memory bus 902 and downstream memory bus 904 exit from the lower portion of the buffer device 1002, and connect to a memory controller or other memory modules either upstream or downstream of this memory module 806, depending on the application. The buffer device 1002 receives signals that are four times the memory module data rate and converts them into signals at the memory module data rate.",
+        "The memory controller 802 interfaces to the memory modules 806 via a pair of high speed busses (or channels). The downstream memory bus 904 (outbound from the memory controller 802) interface has twenty-four pins and the upstream memory bus 902 (inbound to the memory controller 802) interface has twenty-five pins. The high speed channels each include a clock pair (differential), a spare bit lane, ECC syndrome bits and the remainder of the bits pass information (based on the operation underway). Due to the cascaded memory structure, all nets are point-to-point, allowing reliable high-speed communication that is independent of the number of memory modules 806 installed. Whenever a memory module 806 receives a packet on either bus, it re-synchronizes the command to the internal clock and re-drives the command to the next memory module 806 in the chain (if one exists).",
+        "FIG. 11 depicts a downstream frame format that is utilized by exemplary embodiments of the present invention to transfer information downstream from the memory controller 802 to the memory modules 806. In an exemplary embodiment of the present invention, the downstream frame consists of eight transfers, with each transfer including twenty-two signals and a differential clock (twenty-four wires total). The frame further consists of eight command wires (c0 through c7) 1108, nine data wires (di0 through di8) 1106, four bus error correction code (ECC) wires (ecc0 through ecc3) 1104 and a spare wire (spare) 1102. The seventy-two data bits are shown in FIG. 11 as bits di0 through di8, and consist of nine wires with eight transfers on each wire for each frame. In exemplary embodiments of the present invention, the frame format depicted in FIG. 11 may be utilized to deliver one to four memory commands plus seventy-two bits of write data per memory clock cycle. The numbering of each data bit, as well as for other bits, is based on the wire used, as well as the specific transfer. D34 refers to data bit 3 (of bits 0 through 8) and transfer 4 (of transfer 0 through 7). The command bit field is shown as c0 through c7, and consists of sixty-four bits of information provided to the module over eight transfers.",
+        "The ECC bit field (ecc0 through ecc3) consists of thirty-two bit positions over eight transfers, but is actually formatted in groups of sixteen bits. Each sixteen bit packet consists of four transfers over each of the four wires, and provide the bus level fault detection and correction across each group of four bus transfers. The spare bit position may be used to logically replace any of the other twenty-one wires, also defined as bitlanes, used to transfer bits in the command, data and ECC fields, should a failure occur in one of the bitlanes that results in exceeding a system-assigned failure threshold limit. The spare wire may be utilized to replace a failing segment between any two directly connected assemblies (i.e., between the memory controller 802 and the memory module 806a, or between any two memory modules 806a-d), to replace a wire due to events, such as a wire failure, a connector failure, a solder interconnect failure, a driver failure and/or a receiver failure. Out of the one hundred and seventy-six possible bit positions, one hundred and sixty-eight are available for the transfer of information to the memory module 806, and of those one hundred and sixty-eight bit positions, thirty-two bit positions are further assigned to providing ECC protection on the bus transfers themselves, thereby allowing a total of one hundred and thirty-six bit positions to be used for the transfer of information to the memory module 806. The frame format depicted in FIG. 11 is applicable to incoming signals to a memory module 806, from the direction of the memory controller, as well as the outgoing signals to any downstream memory modules 806.",
+        "FIG. 12 depicts an upstream frame format that is utilized by exemplary embodiments of the present invention to transfer information upstream from a memory module 806 to either the memory controller 802 or an upstream memory module 806. In an emplary embodiment of the present invention, the upstream frame consists of eight transfers, with each transfer including twenty-three signals and a differential clock (twenty-five wires total). The frame further consists of eighteen data wires (do0 through do17) 1206, four bus ECC wires (ecc0 through ecc3) 1204 and a spare wire (spare) 1202. In exemplary embodiments of the present invention, the frame format depicted in FIG. 12 may be utilized to deliver one hundred and forty-four read data bits per memory clock cycle. The numbering of each data bit, as well as for other bits, is based on the wire used as well as the specific transfer. D34 refers to data bit 3 (of bits 0 through 17) and transfer 4 (of transfer 0 through 7).",
+        "The ECC bit field (ecc0 through ecc3) consists of thirty-two bit positions over eight transfers, but is actually formatted in groups of sixteen bits. Each sixteen bit packet consists of four transfers over each of the four wires with error correction being performed every four transfers. The bus level error correcting code fault detection and correction is performed by a logic block that includes instructions to carry out the detection and correction. The spare wire position may be used to logically replace any of the other twenty-two wires used to transfer bits in the data and ECC fields should a failure occur in one of these wires that is consistent in nature. A failure may be considered to be consistent in nature if it exceeds a system dependent threshold value (e.g., number of times the failure is detected). Single bitlane failures may be corrected on the fly by the bus level ECC, while a system service element, such as a service processor, may decide to spare out a failing segment to repair hard (e.g., periodic, repeating and continuous) failures that may occur during system operation. The spare wire may be utilized to replace a failing segment between any two directly connected assemblies (i.e., between the memory controller 802 and the memory module 806a, or between any two memory modules 806a-d), to replace a wire due to any purpose, such as wire failure, a connector failure, a solder interconnect failure, a driver failure and/or a receiver failure. Out of the one hundred and eighty-four possible bit positions, one hundred and seventy-six are available for the transfer of information to the memory module 806, and of those one hundred and seventy-six bit positions, thirty-two bit positions are further assigned to providing ECC protection on the bus transfers themselves, thereby allowing a total of one hundred and forty-four bit positions to be used for the transfer of information to an upstream memory module 806 or to the memory controller 802.",
+        "Exemplary embodiments of the present invention maximize memory subsystem survivability in the event of more than one failing interconnect between the memory controller 802 and the first memory module 806, as well as between any two interconnected memory modules 806 in the subsystem. FIG. 13 depicts a cascaded module bus structure with segment level sparing that is utilized by exemplary embodiments of the present invention. FIG. 13 includes a simplified drawing of a memory subsystem that includes the memory controller 802, a cascaded downstream memory bus 904, a cascaded upstream memory bus 902, four memory modules 806a-d (with more or less permissible), and a series of replaced segments 1302 that comprise unique wires between every two assemblies on the downstream memory bus 904.",
+        "The cascaded and repowered nature of the buffered memory module 806 architecture results in independent memory command and data busses on each memory module 806 in the channel. This structure allows multiple memory operations to be performed simultaneously on each of the independently repowered memory interfaces. The memory controller interface data and command structures are formatted into serialized frames with the same duration as a memory clock period. The frame format utilized by exemplary embodiments of the present invention allow multiple memory operations to be executed in parallel to maximize memory subsystem bandwidth and system performance.",
+        "Exemplary embodiments of the interface command structure protocol and frame format are further enhanced to optimize DRAM operation in both \u201copen\u201d and \u201cclosed\u201d page policies. In an open page policy, the memory controller 802 will generally leave memory pages open (memory pages left \u201cactive\u201d or \u201cactive-standby\u201d), or even open pages based on prediction logic, in hopes that a subsequent access will occur to the same row address (page). This method works well when memory accesses have a high degree of locality, and can serve as a low-cost cache structure. The command protocol utilized by exemplary embodiments of the present invention include frames that allow multiple memory \u201cbank activate\u201d, \u201cwrite\u201d, and \u201cread\u201d commands to be issued in a single memory clock cycle. In addition, the command protocol structure is designed to accommodate \u201cclosed\u201d page policies, where the memory being accessed is precharged immediately after the access is complete. The memory controller interface protocol includes packeted command frames that include both a \u201cbank activate\u201d, as well as an associated \u201cwrite\u201d or \u201cread\u201d command that is targeted to the same rank of memory devices.",
+        "Further, the interface command structure and protocol may utilize all data fields, or command bits, in all transfers, thereby permitting up to four commands to be issued in a single packet. Commands that do not require all transfers of a given frame are formatted to allow other commands (e.g., secondary commands) to be optionally issued at the same time.",
+        "FIG. 14 is a table of primary command bus decodes that are utilized by exemplary embodiments of the present invention. The table in FIG. 14 includes four columns: a command category 1412, a command column 1414, a primary command decode column 1416 and a type column 1418. The command category column 1412 includes the value of bits zero, one and two in the first transfer (referred to as transfer zero in FIG. 11) containing the command, where the value of the bits determines the type, or category, of the command. Bit zero corresponds to the first bit, labeled \u201cc0\u201d (i.e., signal 14) in the command wires 1108 in FIG. 11, bit one corresponds to the bit labeled \u201cc1\u201d, bit two to the bit labeled \u201cc2\u201d, etc. As shown in FIG. 14, example command categories include activate commands 1402, page and mode register set (MRS) commands 1404, other commands 1406, slow commands 1408 and a no operation command 1410. The command column 1414 includes the value of bits that are utilized to determine which command within the command category is being selected. For example, the command for an activate command category may be one of bank activate, bank activate with packet read or bank activate with packet write, based on the values in the command bits (in the case of an activate command 1402 bits three and four of the fourth transfer (referred to as transfer three) in the frame).",
+        "The primary command decode column 1416 contains the value of the command corresponding to the command category column 1412 and the command column 1414. The type column 1418 specifies the length and possible locations of the command in a frame being transferred. For example, the bank activate command may be located in transfers zero through three of a frame and/or in transfers four to seven of the frame. In contrast, the bank activate with packet read command and the bank activate with packet write command may only be located in transfers zero through six of a frame. In exemplary embodiments of the present invention, the bank activate with packet read command specifies the column address in transfers four and five and a read delay in transfer six.",
+        "For example, if the command starts in transfer zero, then \u201cC00\u201d=\u201c1\u201d, \u201cC10\u201d=\u201c1\u201d and \u201cC20\u201d=\u201c1\u201d for an activate type of command. In addition, \u201cC33\u201d=\u201c0\u201d and \u201cC34\u201d=\u201c0\u201d for a bank activate command. Bank activate commands, like all 0:3/4:7 and 0:2/4:6 commands, may start in transfer zero and/or transfer four of a frame.",
+        "FIG. 15 depicts a summary of secondary command bus decodes that may be utilized by exemplary embodiments of the present invention. In general, secondary commands do not require an address field and only require one transfer within the frame. The table in FIG. 15 includes a bit value column 1502 that specifies the contents of bits zero through seven for various secondary commands during transfer three or seven of a data frame. The secondary command decode column 1504 translates the bits into a secondary command. The secondary command type column 1506 specifies the transfers that may contain each secondary command. All of the exemplary commands depicted in the table require one transfer and may be located in transfer three and/or transfer seven of a frame. For example, the write to buffer command is specified by a \u201c11\u201d located in bits zero and one, a buffer address may be specified in bits two to four and a memory module 806 specified in bits five through seven. In another example, an enter power down mode command may be specified by a \u201c100\u201d located in bits zero through two, a rank specified in bits three and four, and a memory module 806 specified in bits five through seven.",
+        "FIG. 16 depicts command combinations that may be utilized by exemplary embodiments of the present invention. As described previously, commands that do not require all eight transfers within a frame may be combined with other commands in the same frame. The commands in a single frame may be directed to the same or different memory modules 806. As shown in FIG. 16, an idle command 1604 may be the only active command. A command requiring transfers zero through six (e.g., bank activate with packet read, bank activate with packet write, and DRAM clock synchronization) may be combined with a command requiring transfer seven (e.g., write to data buffer, enter power down mode, and refresh). A command requiring transfers zero through three (e.g., bank activate, and page write) may be combined with a command requiring transfers four to seven (e.g., bank activate, and page write). Also shown in FIG. 16, a command requiring transfers zero to three may be combined with a command requiring transfers four to six (enter self timed refresh, read data response) and another command requiring transfer seven (e.g., refresh, and write to data buffer). Other combinations (e.g., those shown in FIG. 16) may be implemented by exemplary embodiments of the present invention. Further flexibility is enabled by supporting the SDRAM refresh command as both primary commands (0:2/4:6) and as secondary commands (3/7).",
+        "FIG. 17 is a sample command decode for a bank activate command that may be utilized by exemplary embodiments of the present invention. Transfer zero includes \u201c111\u201d in bits zero through two, a memory module 806 selection in bits three through five and a rank selection in bits six through seven. Transfer one includes a bank selection in bits zero through two and the first five bits of a row address in bits three through seven. Transfer two includes the next eight bits of the row address. Transfer three includes the last three bits of the row address in bits zero through two, a \u201c00\u201d in bits three and four signifying no packet and zeros in bits five through seven. This leaves transfers four through seven available for other commands in configurations, such as those shown in FIG. 16.",
+        "FIG. 18 is a sample command decode for a read slow data buffer command that may be utilized by exemplary embodiments of the present invention. Slow commands may be utilized to access internal memory module registers. Because a limited number of address and data bits may be transferred during a slow command, a slow data buffer is used to temporarily store subsets of data that are ultimately transferred to and from internal memory module 806 registers. The read slow data buffer command depicted in FIG. 18 requires three frames. The first frame includes a \u201c000\u201d in bits zero through two to signify an idle, a \u201c00\u201d in bits three and four to signify a read slow data buffer command and a memory module 806 selection in bits five through seven. The same data is included in all eight transfers within the frame. The second frame includes the same data as the first frame, except for a \u201c001\u201d in bits zero through two to signify a slow command. Again, the same data is included in all eight transfers within the frame. The third frame includes the same data as the first frame. In this way all bits other than bit two itself: setup to, hold past and are qualified by, the activation of bit two. The bit line associated with bit two is monitored to detect a transition from one state to another (e.g., from a \u201c0\u201d to a \u201c1\u201d). This enables slow commands to be executed prior to the upstream and downstream initialization and alignment procedure.",
+        "Example commands, combinations of commands within a frame and placement of bits within frame transfers for example commands have been described herein. Other commands, combinations and placements may be implemented without departing from the scope of the present invention.",
+        "Exemplary embodiments of the present invention provide the ability for multiple memory operations to be executed in parallel to maximize memory subsystem bandwidth and system performance. If a command does not utilize all transfers within a frame, then another command(s) may be inserted into the frame. The other command(s) may be directed to the same or different memory module 806 as the first command. In this manner multiple commands may be initiated within the same clock cycle.",
+        "As described above, the embodiments of the invention may be embodied in the form of computer-implemented processes and apparatuses for practicing those processes. Embodiments of the invention may also be embodied in the form of computer program code containing instructions embodied in tangible media, such as floppy diskettes, CD-ROMs, hard drives, or any other computer-readable storage medium, wherein, when the computer program code is loaded into and executed by a computer, the computer becomes an apparatus for practicing the invention. The present invention can also be embodied in the form of computer program code, for example, whether stored in a storage medium, loaded into and/or executed by a computer, or transmitted over some transmission medium, such as over electrical wiring or cabling, through fiber optics, or via electromagnetic radiation, wherein, when the computer program code is loaded into and executed by a computer, the computer becomes an apparatus for practicing the invention. When implemented on a general-purpose microprocessor, the computer program code segments configure the microprocessor to create specific logic circuits.",
+        "While the invention has been described with reference to exemplary embodiments, it will be understood by those skilled in the art that various changes may be made and equivalents may be substituted for elements thereof without departing from the scope of the invention. In addition, many modifications may be made to adapt a particular situation or material to the teachings of the invention without departing from the essential scope thereof. Therefore, it is intended that the invention not be limited to the particular embodiment disclosed as the best mode contemplated for carrying out this invention, but that the invention will include all embodiments falling within the scope of the appended claims. Moreover, the use of the terms first, second, etc. do not denote any order or importance, but rather the terms first, second, etc. are used to distinguish one element from another."
+    ],
+    "citations": [
+        "3825904",
+        "4028675",
+        "4135240",
+        "4475194",
+        "4486739",
+        "4654857",
+        "4723120",
+        "4740916",
+        "4796231",
+        "4803485",
+        "4833605",
+        "4839534",
+        "4943984",
+        "4985828",
+        "5053947",
+        "5177375",
+        "5206946",
+        "5214747",
+        "5265049",
+        "5287531",
+        "5347270",
+        "5387911",
+        "5394535",
+        "5454091",
+        "5475690",
+        "5513135",
+        "5531135",
+        "5544309",
+        "5592632",
+        "5611055",
+        "5613077",
+        "5627963",
+        "5629685",
+        "5661677",
+        "5666480",
+        "5764155",
+        "5822749",
+        "5852617",
+        "5870325",
+        "5872996",
+        "5926838",
+        "5928343",
+        "5930273",
+        "5973591",
+        "5974493",
+        "5995405",
+        "6038132",
+        "6049476",
+        "6076158",
+        "6078515",
+        "6096091",
+        "6128746",
+        "6170047",
+        "6170059",
+        "6173382",
+        "6215686",
+        "6219288",
+        "6260127",
+        "6262493",
+        "6292903",
+        "6301636",
+        "6317352",
+        "6321343",
+        "6338113",
+        "6370631",
+        "6378018",
+        "6381685",
+        "6393528",
+        "6473836",
+        "6477614",
+        "6483755",
+        "6484271",
+        "6487627",
+        "6493250",
+        "6496540",
+        "6496910",
+        "6499070",
+        "6502161",
+        "6507888",
+        "6510100",
+        "6513091",
+        "6526469",
+        "6532525",
+        "6546359",
+        "6549971",
+        "6553450",
+        "6557069",
+        "6564329",
+        "6587112",
+        "6587912",
+        "6601121",
+        "6611905",
+        "6622217",
+        "6625687",
+        "6625702",
+        "6628538",
+        "6631439",
+        "6671376",
+        "6678811",
+        "6697919",
+        "6704842",
+        "6721944",
+        "6738836",
+        "6741096",
+        "6766389",
+        "6775747",
+        "6791555",
+        "6839393",
+        "6877076",
+        "6877078",
+        "6889284",
+        "6938119",
+        "6949950",
+        "6977536",
+        "7133972",
+        "7177211",
+        "7206962",
+        "2001/0000822",
+        "2001/0003839",
+        "2002/0019926",
+        "2002/0038405",
+        "2002/0083255",
+        "2002/0103988",
+        "2002/0112119",
+        "2002/0112194",
+        "2002/0124195",
+        "2002/0147898",
+        "2002/0174274",
+        "2003/0033364",
+        "2003/0056183",
+        "2003/0084309",
+        "2003/0090879",
+        "2003/0126363",
+        "2003/0223303",
+        "2003/0236959",
+        "2004/0006674",
+        "2004/0049723",
+        "2004/0098549",
+        "2004/0117588",
+        "2004/0128474",
+        "2004/0163028",
+        "2004/0205433",
+        "2004/0230718",
+        "2004/0246767",
+        "2004/0250153",
+        "2004/0260909",
+        "2004/0260957",
+        "2005/0023560",
+        "2005/0044457",
+        "2005/0050237",
+        "2005/0050255",
+        "2005/0066136",
+        "2005/0080581",
+        "2005/0097249",
+        "2005/0120157",
+        "2005/0125702",
+        "2005/0125703",
+        "2005/0138267",
+        "2005/0144399",
+        "2005/0166006",
+        "2005/0177690",
+        "2005/0204216",
+        "2005/0229132",
+        "2005/0257005",
+        "2005/0259496",
+        "2006/0036826",
+        "2006/0036827",
+        "2396711",
+        "04326140"
+    ],
+    "us_classification": "711100",
+    "international_classifications": [
+        {
+            "classification_level": "A",
+            "section": "G",
+            "classification_class": "06",
+            "subclass": "F",
+            "main_group": "12",
+            "subgroup": "00"
+        }
+    ]
+}

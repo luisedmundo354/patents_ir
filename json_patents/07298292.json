@@ -1,0 +1,133 @@
+{
+    "title": "Method and apparatus for generating character set",
+    "abstract": "A method of generating a character set is provided, including: receiving two bytes of a character code value and determining whether or not the character code value is greater than a predetermined reference value; adding a predetermined offset value to the character code value and outputting the resultant value if the character code value is greater than the predetermined reference value, and outputting the character code value if the character code value is not greater than the predetermined reference value; and adding null data to the end of a character string consisting of the character code value after the character code value is input.",
+    "inventors": [
+        "Cho"
+    ],
+    "document_number": "07298292",
+    "publication_date": "20071120",
+    "assignees": [
+        "Pantech Co., Ltd."
+    ],
+    "claims": [
+        {
+            "claim_number": "CLM-00001",
+            "preamble": "1. A method of generating a character set, comprising:",
+            "components": [
+                {
+                    "component": "receiving two bytes of a character code value and determining whether or not the character code value is greater than a predetermined reference value;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "adding a predetermined offset value to the character code value and outputting the resultant value if the character code value is greater than the predetermined reference value, and outputting the character code value if the character code value is not greater than the predetermined reference value; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "adding null data to the end of a character string consisting of the character code value after the character code value is input.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00002",
+            "preamble": "2. The method of claim 1 , wherein the character code value is a Unicode value, and the predetermined reference value is \u20180x0080\u2019.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00003",
+            "preamble": "3. The method of claim 1 , wherein the offset value is \u20180x8000\u2019, and the null data is \u20180x00\u2019.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00004",
+            "preamble": "4. A computer readable medium recording a program executing in a computer the method of claim 1 .",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00005",
+            "preamble": "5. An apparatus for generating a character set, comprising:",
+            "components": [
+                {
+                    "component": "a determination part receiving two bytes of a character code value and determining whether or not the character code value is greater than a predetermined reference value;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a conversion part adding a predetermined offset value to the character code value and outputting the resultant value if the character code value is greater than the predetermined reference value; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "an output part adding null data to the end of a character string consisting of the character code value after the character code value is input and outputting the character string.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00006",
+            "preamble": "6. The apparatus of claim 5 , further including a character processing part processing and displaying the character string.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00007",
+            "preamble": "7. The apparatus of claim 5 , wherein the character code value is a Unicode value, and the predetermined reference value is \u20180x0080\u2019.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00008",
+            "preamble": "8. The apparatus of claim 5 , wherein the offset value is \u20180x8000\u2019, and the null data is \u20180x00\u2019.",
+            "components": []
+        }
+    ],
+    "description": [
+        "This application claims the priority of Korean Patent Application No. 2005-67524, filed on Jul. 25, 2005, in the Korean Intellectual Property Office, the disclosure of which is incorporated herein in its entirety by reference.",
+        "The present invention relates to a method and apparatus for generating a character set by using a modified Unicode character set.",
+        "In general, character sets required for inputting characters, such as numerals, symbols, Korean characters, and Japanese characters, are used in mobile communication terminals, and code values of each of the character sets are assigned to the characters. Examples of a method of encoding the character set include a single-byte character set (SBCS), a multi-byte character set (MBCS), and a Unicode character set. The respective character sets are different from one another in terms of the number of bytes used for representing a character and null data added at the end of a character string.",
+        "SBCS uses less memory than MBCS or Unicode character set to represent characters but has a limitation in representing various types of characters. MBCS uses a plurality of bytes to represent a character even though the character can be represented with one byte.",
+        "The present invention provides a method and apparatus for generating a character set, which reduces a memory required for representing a character by varying the number of bytes required for representing the character.",
+        "According to an aspect of the present invention, there is provided a method of generating a character set, including: receiving two bytes of a character code value and determining whether or not the character code value is greater than a predetermined reference value; adding a predetermined offset value to the character code value and outputting the resultant value if the character code value is greater than the predetermined reference value, and outputting the character code value if the character code value is not greater than the predetermined reference value; and adding null data to the end of a character string consisting of the character code value after the character code value is input.",
+        "According to another aspect of the present invention, there is provided an apparatus for generating a character set, including: a determination part receiving two bytes of a character code value and determining whether or not the character code value is greater than a predetermined reference value; a conversion part adding a predetermined offset value to the character code value and outputting the resultant value if the character code value is greater than the predetermined reference value; and an output part adding null data to the end of a character string consisting of the character code value after the character code value is input and outputting the character string.",
+        "The apparatus may further include a character processing part processing and displaying the character string.",
+        "The character code value may be a Unicode value, and the predetermined reference value may be \u20180x 0080\u2019.",
+        "The offset value may be \u20180x 8000\u2019, and the null data may be \u20180x 00\u2019.",
+        "According to another aspect of the present invention, there is provided a computer readable medium recording a program executing in a computer the method of generating a character set.",
+        "The above and other features and advantages of the present invention will become more apparent by describing in detail exemplary embodiments thereof with reference to the attached drawings in which:",
+        "FIG. 1 is a flow chart of a method of generating a character set according to an embodiment of the present invention;",
+        "FIGS. 2A and 2B illustrate ASCII code tables;",
+        "FIG. 3 illustrates part of a Unicode character set; and",
+        "FIG. 4 is a block diagram of an apparatus for generating a character set according to an embodiment of the present invention.",
+        "Exemplary embodiments in accordance with the present invention will now be described in detail with reference to the accompanying drawings.",
+        "FIG. 1 is a flow chart of a method of generating a character set according to an embodiment of the present invention.",
+        "First, a method of encoding a character set will be described in detail. Examples of the character set include a single-byte character set (SBCS), a multi-byte character set (MBCS), and a Unicode character set.",
+        "SBCS means a character set using one byte for each character. In this character set, a character string ends with \u20180\u2019 to indicate the end of the character string. An example of the SBCS is an ASCII code. FIGS. 2A and 2B illustrate tables for the ASCII code.",
+        "MBCS means a character set in which a character such as Hangeul, Japanese or Chinese is encoded in two bytes and a character such as English is encoded in one byte. MBCS is generally referred to as a double-byte character set (DBCS) since there is no character using three or more bytes.",
+        "A DBCS encoding method uses a specific value to determine whether a character uses one byte or two bytes. For example, in the Shift-JIS encoding method, values between 0x81 and 0x9F and between 0xE0 and 0xFC represent two-byte characters. These values are referred to as lead bytes and are larger than 0x7F. The lead byte is followed by a trail byte. In DBCS, the trail byte may have a value other than \u20180\u2019. Similarly to SBCS, a character string ends with \u20180\u2019 in DBCS.",
+        "Unicode character set means a character set in which every character is encoded in two bytes. Thus, it requires more memory for a character than SBCS. That is, a character uses one, two, or three bytes in MBCS, while every character uses two bytes in the Unicode character set. In the Unicode character set, a character string ends with \u201800\u2019. FIG. 3 illustrates part of Unicode character set. The Unicode character set has a range wider than ASCII range from 0x0000 to 0x00FF.",
+        "A method of generating a character set according to an embodiment of the present invention will be described with reference to FIG. 1. In operation S110, a character code is input. The character code may be a Unicode. In operation S120, it is determined whether or not a value of the Unicode is greater than 0x0080. If the Unicode value is greater than 0x0080, the Unicode value is added to 0x0080 to generate an Extended-DBCS (E-DBCS) value in operation S130. Otherwise, the Unicode value is output as an E-DBCS value in operation S140. The E-DBCS value means a new character code value. In operation S150, null data is added to the resultant character code string. The null data uses a byte of \u20180\u2019. In operation S160, the character string having the null data is transmitted to a display part and is output. The E-DBCS value may be converted to a Unicode value by subtracting 0x0080 from the E-DBCS value.",
+        "For example, when Unicode values of 0x0400 and 0x0041 are input, 0x0400 is added to 0x8000 and then 0x8400 is output since 0x0400 is larger than 0x0080. Meanwhile, since a Unicode value of 0x0041 is less than 0x0080, it is recognized as an ASCII code and 0x41 is output. As a result, 0x840041 is obtained. 0x00 representing the end of character string is added to 0x840041, resulting in 0x84004100.",
+        "FIG. 4 is a block diagram of an apparatus for generating a character set according to an embodiment of the present invention.",
+        "The apparatus for generating a character set includes a determination part 410, a conversion part 420, and an output part 430. The apparatus may further include a character processing part 440 that processes and displays a character string outputted from the output part 430.",
+        "The determination part 410 receives a character string. The character string may be a Unicode character set. The determination part 410 determines whether or not a value of a character code is greater than 0x8000. If the character code value is greater than 0x8000, the determination part 410 transmits the character code to the conversion part 420. Otherwise, the determination part 410 transmits the character code to the output part 430. The conversion part 420 adds 0x8000 to the character code value and transmits the resultant value to the output part 430. The output part 430 adds a byte of null data to the transmitted character code, thus generating a character string. The null data may be \u201800\u2019. The character processing part 440 processes and displays the character string generated in this manner.",
+        "Meanwhile, the above-mentioned method of generating a character set may be written in a computer program. Codes and code segments constituting the program can be easily deduced from computer programmers in the art. The program is stored in computer readable media and is executed by a computer, thereby performing the method of generating a character set. Examples of the computer readable media include magnetic recording media, optical recording media, and carrier wave media.",
+        "As apparent from the above description, it is possible to improve the processing speed since conversion of a character code is determined using a Unicode value without using a conversion table.",
+        "In addition, it is possible to reduce memory required for a character set since the character uses one or two bytes. Further, it is possible to represent special characters supported in the Unicode character set.",
+        "While the present invention has been described with reference to exemplary embodiments thereof, it will be understood by those skilled in the art that various changes in form and details may be made therein without departing from the scope of the present invention as defined by the following claims."
+    ],
+    "citations": [
+        "5682158",
+        "6247048",
+        "6601168",
+        "6766296",
+        "7132962",
+        "7218252"
+    ],
+    "us_classification": "341 50",
+    "international_classifications": [
+        {
+            "classification_level": "A",
+            "section": "H",
+            "classification_class": "03",
+            "subclass": "M",
+            "main_group": "7",
+            "subgroup": "00"
+        }
+    ]
+}

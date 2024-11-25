@@ -1,0 +1,412 @@
+{
+    "title": "Method and apparatus for determining optimum initial value for test pattern generator",
+    "abstract": "The purpose of the invention is to determine an optimum initial value to be input to a test pattern generator in order to achieve efficient testing of an integrated circuit. To achieve this purpose, a minimum test length is obtained by performing a fault simulation and a reverse-order fault simulation using an arbitrarily given initial value; the next initial value that is likely to yield a test length shorter than the minimum test length is computed and a fault simulation is performed using the thus computed initial value; and the next initial value that is likely to yield a test length shorter than that test length is computed and a fault simulation is performed using the thus computed initial value. By repeating this process, an initial value that yields the shortest test length is obtained.",
+    "inventors": [
+        "Ichino",
+        "Arai",
+        "Fukumoto",
+        "Iwasaki",
+        "Shoda",
+        "Sato"
+    ],
+    "document_number": "07299394",
+    "publication_date": "20071120",
+    "assignees": [
+        "Semiconductor Technology Academic Research Center"
+    ],
+    "claims": [
+        {
+            "claim_number": "CLM-00001",
+            "preamble": "1. A method for determining an optimum initial value to be input to a test pattern generator for testing an integrated circuit, comprising the steps of:",
+            "components": [
+                {
+                    "component": "a) obtaining a first test length and a first minimum test length for detecting a predetermined fault number n by performing a fault simulation and a reverse-order fault simulation using an arbitrarily given first initial value;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "b) computing, based on said first initial value and on said first test length and said first minimum test length, a second initial value that can yield a test length shorter than said first minimum test length;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "c) obtaining a second test length for detecting said fault number n by performing a second fault simulation using said computed second initial value;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "d) comparing said second test length with said first minimum test length, and obtaining a second minimum test length by regarding said first minimum test length as said second minimum test length when said second test length is equal to or longer than said first minimum test length, or by performing a reverse-order fault simulation against said second fault simulation when said second test length is shorter than said first minimum test length; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "e) obtaining the shortest test length by repeating said steps b), c), and d) by regarding said second initial value, said second test length, and said second minimum test length as said first initial value, said first test length, and said first minimum test length, wherein",
+                    "subcomponents": [
+                        "an initial value that yields the shortest test length obtained in said step e) is determined as the initial value to be input to said test pattern generator when testing said integrated circuit."
+                    ]
+                },
+                {
+                    "component": "an initial value that yields the shortest test length obtained in said step e) is determined as the initial value to be input to said test pattern generator when testing said integrated circuit.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00002",
+            "preamble": "2. A method for determining an optimum initial value for testing an integrated circuit as claimed in claim 1 , wherein in said step e), said steps b), c), and d) are repeated until said minimum test length reaches a predetermined value.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00003",
+            "preamble": "3. A method for determining an optimum initial value for a test pattern generator as claimed in claim 1 , wherein in said step e), said steps b), c), and d) are repeated until said first or second initial value reaches a final value of a preselected test pattern sequence.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00004",
+            "preamble": "4. A method for determining an optimum initial value for a test pattern generator as claimed in claim 1 , wherein when said first initial value is an i-th value in a test pattern sequence, said first test length is L, said first minimum test length is Lm, and said second initial value in said step b) is an i2-th value in said test pattern sequence, then i2 is calculated as",
+            "components": [
+                {
+                    "component": "",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00005",
+            "preamble": "5. A method for determining an optimum initial value for a test pattern generator as claimed in claim 1 , wherein said test pattern generator has a test-per-clock structure using a linear feedback shift register.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00006",
+            "preamble": "6. A method for determining an optimum initial value for a test pattern generator as claimed in claim 1 , wherein said test pattern generator has a test-per-scan structure using a linear feedback shift register in combination with a scan chain.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00007",
+            "preamble": "7. An apparatus for testing an integrated circuit that is constructed by integrating into a single chip a circuit-under-test, a test pattern generator for generating a test pattern sequence and applying the same to said circuit-under-test, and a test response compactor for detecting a test result from said circuit-under-test, wherein said test pattern generator is provided with an initial value that yields the shortest test length, said shortest test length being determined by performing the steps of:",
+            "components": [
+                {
+                    "component": "a) obtaining a first test length and a first minimum test length for detecting a predetermined fault number n by performing a fault simulation and a reverse-order fault simulation using an arbitrarily given first initial value;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "b) computing, based on said first initial value and on said first test length and said first minimum test length, a second initial value that can yield a test length shorter than said first minimum test length;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "c) obtaining a second test length for detecting said fault number n by performing a second fault simulation using said computed second initial value;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "d) comparing said second test length with said first minimum test length, and obtaining a second minimum test length by regarding said first minimum test length as said second minimum test length when said second test length is equal to or longer than said first minimum test length, or by performing a reverse-order fault simulation against said second fault simulation when said second test length is shorter than said first minimum test length; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "e) obtaining said shortest test length by repeating said steps b), c), and d) by regarding said second initial value, said second test length, and said second minimum test length as said first initial value, said first test length, and said first minimum test length.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00008",
+            "preamble": "8. An apparatus for testing an integrated circuit as claimed in claim 7 , wherein said test pattern generator has a test-per-clock structure using a linear feedback shift register.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00009",
+            "preamble": "9. An apparatus for testing an integrated circuit as claimed in claim 7 , wherein said test pattern generator has a test-per-scan structure using a linear feedback shift register in combination with a scan chain.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00010",
+            "preamble": "10. A method for determining an optimum initial value to be input to a test pattern generator for testing an integrated circuit, comprising the steps of:",
+            "components": [
+                {
+                    "component": "a) obtaining a first fault number n detected with a predetermined target test length L",
+                    "subcomponents": []
+                },
+                {
+                    "component": "b) obtaining a first minimum test length necessary for detecting said first fault number n by performing a reverse-order simulation against said first fault simulation;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "c) computing, based on said first initial value and on said target test length L",
+                    "subcomponents": []
+                },
+                {
+                    "component": "d) obtaining a second fault number nt detected with said predetermined target test length L",
+                    "subcomponents": []
+                },
+                {
+                    "component": "e) comparing said second fault number nt with said first number n, and obtaining a maximum number of detected faults by taking said first fault number n as said maximum number when nt\u2266n, or by repeating said steps b) to d) until nt\u2266n is achieved, when nt>n;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "f) obtaining a test length L necessary for detecting said maximum number of detected faults, by performing a third fault simulation using an initial value, in a test pattern sequence, that immediately follows the initial value that achieves said maximum number of detected faults;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "g) comparing said test length L with said target test length L",
+                    "subcomponents": []
+                },
+                {
+                    "component": "h) repeating said steps f) and g) with the initial value computed in said step g), until L<L",
+                    "subcomponents": []
+                },
+                {
+                    "component": "i) obtaining the largest number of faults detected with said target test length, by repeating said steps a) to h) by regarding as said first initial value the initial value that achieves L<L",
+                    "subcomponents": [
+                        "an initial value that achieves said largest number of detected faults obtained in said step i) is determined as the initial value to be input to said test pattern generator when testing said integrated circuit."
+                    ]
+                },
+                {
+                    "component": "an initial value that achieves said largest number of detected faults obtained in said step i) is determined as the initial value to be input to said test pattern generator when testing said integrated circuit.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00011",
+            "preamble": "11. A method for determining an optimum initial value for testing an integrated circuit as claimed in claim 10 , wherein in said step i), said steps a) to h) are repeated until the number of faults detected reaches a predetermined desired value.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00012",
+            "preamble": "12. A method for determining an optimum initial value for a test pattern generator as claimed in claim 10 , wherein in said step i), said steps a) to h) are repeated until any one of said initial value reaches a final value of a preselected test pattern sequence.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00013",
+            "preamble": "13. A method for determining an optimum initial value for a test pattern generator as claimed in claim 10 , wherein when said first initial value is an i-th value in a test pattern sequence, said predetermined target test length is L",
+            "components": [
+                {
+                    "component": "",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00014",
+            "preamble": "14. A method for determining an optimum initial value for a test pattern generator as claimed in claim",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00015",
+            "preamble": "15. A method for determining an optimum initial value for a test pattern generator as claimed in claim 10 , wherein said test pattern generator has a test-per-scan structure using a linear feedback shift register in combination with a scan chain.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00016",
+            "preamble": "16. An apparatus for testing an integrated circuit that is constructed by integrating into a single chip a circuit-under-test, a test pattern generator for generating a test pattern sequence and applying the same to said circuit-under-test, and a test response compactor for detecting a test result from said circuit-under-test, wherein said test pattern generator is provided with an initial value that achieves the largest number of detected faults, said largest number of detected faults being determined by performing the steps of:",
+            "components": [
+                {
+                    "component": "a) obtaining a first fault number n detected with a predetermined target test length L",
+                    "subcomponents": []
+                },
+                {
+                    "component": "b) obtaining a first minimum test length necessary for detecting said first fault number n by performing a reverse-order simulation against said first fault simulation;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "c) computing, based on said first initial value and on said target test length L",
+                    "subcomponents": []
+                },
+                {
+                    "component": "d) obtaining a second fault number nt detected with said predetermined target test length L",
+                    "subcomponents": []
+                },
+                {
+                    "component": "e) comparing said second fault number nt with said first fault number n, and obtaining a maximum number of detected faults by taking said first fault number n as said maximum number when nt\u2266n, or by repeating said steps b) to d) until nt\u2266n is achieved, when nt>n;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "f) obtaining a test length L necessary for detecting said maximum number of detected faults, by performing a third fault simulation using an initial value, in a test pattern sequence, that immediately follows the initial value that achieves said maximum number of detected faults;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "g) comparing said test length L with said target test length L",
+                    "subcomponents": []
+                },
+                {
+                    "component": "h) repeating said steps f) and g) with the initial value computed in said step g), until L<L",
+                    "subcomponents": []
+                },
+                {
+                    "component": "i) obtaining said largest number of faults detected with said target test length, by repeating said steps a) to h) by regarding as said first initial value the initial value that achieves L<L",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00017",
+            "preamble": "17. An apparatus for testing an integrated circuit as claimed in claim 16 , wherein said test pattern generator has a test-per-clock structure using a linear feedback shift register.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00018",
+            "preamble": "18. An apparatus for testing an integrated circuit as claimed in claim 16 , wherein said test pattern generator has a test-per-scan structure using a linear feedback shift register in combination with a scan chain.",
+            "components": []
+        }
+    ],
+    "description": [
+        "This application claims priority from Japanese Patent Application No. 2002-265519, filed on Sep. 11, 2002.",
+        "1. Field of the Invention",
+        "The present invention relates to a method for determining an optimum initial value for efficient testing of an integrated circuit, including a large scale integrated circuit (VLSI), in a test pattern generator that generates a test pattern to be applied to the circuit under test.",
+        "2. Prior Art",
+        "With the increasing miniaturization of semiconductor processes, the costs of testing integrated circuits (including LSIs and VLSIs) have been increasing. If the operating speeds and integration levels of LSIs continue to increase at the present pace, more expensive testers than those used today would have to be used, over a long period of time, for LSI testing. To reduce test times on such expensive testers, extensive research has been conducted to find designs for easing the burden on testers by using design-for-testability techniques exemplified by scan design and built-in self-test (BIST) techniques.",
+        "BIST implements testing by integrating a test pattern generator (TPG) and a test response compactor (TRC) on the same chip as the circuit to be tested. This serves to ease the burden on the tester connected externally to the chip. A linear feedback shift register (LFSR) and a multiple input signature register (MISR) are often used as the TPG and the TRC, respectively.",
+        "A pseudo-random test pattern generator that uses an LFSR can apply a test pattern without using a tester, but has the shortcoming that, to achieve a high fault coverage exceeding 95%, a large number of test patterns become necessary and, as a result, the time required for testing, i.e., the test length, increases. Many attempts to overcome this shortcoming have been reported. One such attempt is a weighted pseudo-random sequence generating technique which assigns a weight to each bit in the test pattern to be applied to the circuit under test (hereinafter referred to as the CUT), and changes the probability of each bit being a 1 or a 0 in order to improve fault detection probability. (Refer, for example, to Literature 1 listed below.)",
+        "On the other hand, a method that inserts observation points and test points is intended to improve test quality by including the observation points and test points in the circuit under test and thereby improve the observability and controllability. However, as this method inserts observation points and test points in the CUT, the shortcoming is that the circuit structure of the CUT is changed and, hence, delay characteristics, etc. change. (Refer, for example, to Literature 2 listed below.)",
+        "With the above techniques alone, it is difficult to obtain sufficient fault coverage with limited test length. Therefore, BIST techniques that combine a random sequence with ATPG (Automatic Test-Pattern Generation) vectors are also being studied. (Refer, for example, to Literature 3, 4, and 5 listed below.)",
+        "There is also being studied a method that encodes a testcube as a seed for an LFSR by making use of the don't cares in the test code, and that performs testing by decoding the seed with the LFSR within the chip. In this reseeding method, each testcube is encoded by using an LFSR having a bit length equal to (the number of specified bits in the testcube+20) bits.",
+        "There is also a method called MP-LFSR which uses an LFSR having a plurality of feedback polynomials for testcube decoding. In this method, each testcube is encoded by using an MP-LFSR having a bit length equal to (the number of specified bits in the testcube+4) bits. (Refer, for example, to Literature 6 listed below.)",
+        "Bit-flipping BIST and bit-fixing BIST are each a method that finds a test pattern closest to the testcube from among the test patterns output from an LFSR, and applies the testcube by flipping or fixing some bits. These methods require a circuit for flipping or fixing bits.",
+        "According to the BIST techniques using the reseeding method, bit-flipping BIST, or bit-fixing BIST, first, easily detectable faults are detected using pseudo-random tests, and then reseeding of ATPG vectors is performed. These methods, first, perform pseudo-random tests using about 10,000 patterns. Then, ATPG vectors are applied to the remaining faults that have not been detected by the pseudo-random tests. To add the test vectors, the ATPG vectors must be applied from a tester or, in the case of BIST, a ROM, and if the number of undetected faults is large, the test cost increases.",
+        "To reduce the amount of hardware in the bit-flipping BIST or bit-fixing BIST circuitry, it is desirable to improve the quality of pseudo-random testing and thereby reduce the number of undetected faults. When the number of undetected faults is reduced, the tester storage capacity required can be reduced in the case of using a tester, and the internal ROM size can be reduced in the case of BIST.",
+        "One possible approach to improving the quality of pseudo-random testing is to improve the quality of pseudo-random testing by carefully selecting the seed. A method that makes use of a preobtained testcube is being studied. This method evaluates the test quality of the seed by the Hamming distance between the test pattern output from the LFSR and the testcube. By so doing, a seed of high test quality can be obtained with a reasonable amount of computation. (Refer, for example, to Literature 7 to 10 listed below.)",
+        "(Literature 1)",
+        "R. Kapur, S. Patil, T. J. Snethen, T, W. Williams, \u201cDesign of an Efficient Weighted Pattern Generation System,\u201d Int'l Test Conf., pp. 491-500, 1994",
+        "(Literature 2)",
+        "H-C. Tsai, K-T. Cheng, S. Bhawmik, \u201cImproving the Test Quality for Scan-based BIST Using a General Test Application Scheme,\u201d DA Conf., pp. 748-753, 1999",
+        "(Literature 3)",
+        "G. Kiefer and H-J. Wunderlich, \u201cDeterministic BIST with Scan Chains,\u201d Int'l Test Conf., pp. 1057-1064,",
+        "(Literature 4)",
+        "G. Kiefer, H. Vranken, E. J. Marinissen, H-J. Wunderlich, \u201cApplication of Deterministic Logic BIST to Industrial Circuits,\u201d Int'l Test Conf., pp. 105-114, 2000",
+        "(Literature 5)",
+        "D. Das, N. A. Touba, \u201cReducing Test Data Volume Using External/LBIST Hybrid Test Patterns,\u201d Int'l Test Conf., pp. 115-122, 2000",
+        "(Literature 6)",
+        "S. Hellebrand, S. Tarnick, J. Rajski, B. Courtois, \u201cGeneration of Vector Patterns Through Reseeding of Multiple-Polynomial Linear Feedback Shift Registers,\u201d Int'l Test Conf., pp. 120-129, 1992",
+        "(Literature 7)",
+        "I. Bayraktaroglu, K. Udawatta, A. Oraologlu, \u201cAn Examination of PRPG Selection Approaches for Large Industrial Design,\u201d Asia Test Symposium, pp. 440-444, 1998",
+        "(Literature 8)",
+        "I. Bayraktaroglu and A. Oraologlu, \u201cSelecting a PRPG, Randomness, Primitiveness, or Sheer Luck?,\u201d Asia Test Symposium, pp. 373-379, 2001",
+        "(Literature 9)",
+        "C. Fagot, O. Gascuel, P. Girard, C. Landrault, \u201cA Ring Architecture Strategy for BIST Test Pattern Generation,\u201d Asia Test Symposium, pp. 418-423, 1998",
+        "(Literature 10)",
+        "C. Fagot, O. Gascuel, P. Girard, C. Landrault, \u201cOn Calculating Efficient LFSR Seeds for Built-in Self Test,\u201d Europe Test Conf., pp. 4-14, 1999",
+        "In the above integrated circuit testing methods using an LFSR, etc. as the test pattern generator, it is known that the test length required to achieve prescribed fault coverage differs if the initial value given to the test pattern generator differs. Accordingly, if the initial value that minimizes the test time can be selected in advance, the test time required in the mass production of integrated circuits can be reduced, and a drastic reduction in test cost can thus be achieved.",
+        "In the prior art, however, little attention has been paid to the initial value of the pattern generator, and a suitable value, such as 111 . . . 1 (all 1s), has simply been selected. As a result, if such an initial value, selected without paying any special consideration, is an inappropriate one, there is the possibility that the test length becomes enormously long.",
+        "The present invention has been devised in view of the above problem and proposes, for a test pattern generator, a method for selecting an initial value to be given to the test pattern generator so as to achieve the target fault coverage with the shortest test length. When the method of the invention is used, the test time can be reduced without increasing the amount of chip hardware, though off-line computation time is required for the computation of the initial value.",
+        "The invention further proposes a method for selecting a test pattern initial value that achieves a maximum fault detection count for a fixed test length. This means reducing the number of undetected faults. When the method of the invention is used, the number of undetected faults can be reduced without adding extra hardware, though off-line computation time is required. When using a bit-flipping method, the amount of hardware overhead can be reduced.",
+        "To solve the above-described problem, the present invention provides a method for determining an optimum initial value to be input to a test pattern generator for testing an integrated circuit, comprising the steps of: a) obtaining a first test length and a first minimum test length for detecting a predetermined number, n, of faults, by performing a fault simulation and a reverse-order fault simulation using an arbitrarily given first initial value; b) computing, based on the first initial value and on the first test length and the first minimum test length, a second initial value that can yield a test length shorter than the first minimum test length; c) obtaining a second test length for detecting the number, n, of faults, by performing a second fault simulation using the computed second initial value; d) comparing the second test length with the first minimum test length, and obtaining a second minimum test length by regarding the first minimum test length as the second minimum test length when the second test length is equal to or longer than the first minimum test length, or by performing a reverse-order fault simulation against the second fault simulation when the second test length is shorter than the first minimum test length; and e) obtaining the shortest test length by repeating the steps b), c), and d) by regarding the second initial value, the second test length, and the second minimum test length as the first initial value, the first test length, and the first minimum test length, wherein an initial value that yields the shortest test length obtained in the step e) is determined as the initial value to be input to the test pattern generator when testing the integrated circuit.",
+        "According to the method of the invention having the above-described first configuration, the value that can detect the predetermined number of faults in the shortest time can be selected as the initial value to be input to the test pattern generator. By selecting this value as the initial value for the test pattern generator when testing an integrated circuit, the test time can be greatly reduced compared with the case where no special consideration is paid to the selection of the initial value, and the invention thus offers an enormous effect in reducing the mass production cost.",
+        "To solve the above-described problem, the present invention further provides a method for determining an optimum initial value to be input to a test pattern generator for testing an integrated circuit, comprising the steps of: a) obtaining a first number, n, of faults detected with a predetermined target test length Lfix, by performing a first fault simulation using an arbitrarily given first initial value; b) obtaining a first minimum test length necessary for detecting the first number, n, of faults, by performing a reverse-order simulation against the first fault simulation; c) computing, based on the first initial value and on the target test length Lfix and the first minimum test length, a second initial value that yields the first minimum test length; d) obtaining a second number, nt, of faults detected with the predetermined target test length Lfix, by performing a second fault simulation using the computed second initial value; e) comparing the second number nt with the first number n, and obtaining a maximum number of detected faults by taking the first number n as the maximum number when nt\u2266n, or by repeating the steps b) to d) until nt\u2266n is achieved, when nt>n; f) obtaining a test length L necessary for detecting the maximum number of detected faults, by performing a third fault simulation using an initial value, in a test pattern sequence, that immediately follows the initial value that achieves the maximum number of detected faults; g) comparing the test length L with the target test length Lfix, and, if L\u2266Lfix, then computing, based on the initial value used in the third fault simulation and on the test length L and the target test length Lfix, the next initial value that is likely to yield a test length shorter than the target test length Lfix; h) repeating the steps f) and g) with the initial value computed in the step g), until L<Lfix is achieved; and i) obtaining the largest number of faults detected with the target test length, by repeating the steps a) to h) by regarding as the first initial value the initial value that achieves L<Lfix in the step g) or the step h), wherein an initial value that achieves the largest number of detected faults obtained in the step i) is determined as the initial value to be input to the test pattern generator when testing the integrated circuit.",
+        "According to the method of the invention having the above-described second configuration, the value that can detect the largest number of faults within the predetermined test length can be selected as the initial value to be input to the test pattern generator. By selecting this value as the initial value for the test pattern generator when testing an integrated circuit, the test quality can be greatly improved compared with the case where no special consideration is paid to the selection of the initial value, and the invention thus offers an enormous effect in reducing the mass production cost.",
+        "FIG. 1 is a diagram showing a test-per-clock BIST structure;",
+        "FIG. 2 is a diagram showing the relationship between seed index and test length;",
+        "FIG. 3 is a diagram showing in simplified form the relationship between seed index and test length in FIG. 2;",
+        "FIG. 4 is a diagram for explaining a method according to one embodiment of the present invention;",
+        "FIG. 5 is a diagram for explaining the method according to the one embodiment of the present invention;",
+        "FIG. 6 is a diagram for explaining the method according to the one embodiment of the present invention;",
+        "FIG. 7 is a diagram showing one example of a program implementing the one embodiment of the present invention;",
+        "FIG. 8 is a diagram showing the first half of a flowchart illustrating the method steps according to the one embodiment of the present invention;",
+        "FIG. 9 is a diagram showing the second half of the flowchart, which is a continuation of the flowchart shown in FIG. 8;",
+        "FIG. 10 is a diagram showing a test-per-scan BIST structure;",
+        "FIG. 11 is a diagram showing the relationship between seed and test pattern in the test-per-scan BIST structure;",
+        "FIG. 12 is a diagram showing one example of a program implementing another embodiment of the present invention;",
+        "FIG. 13 is a diagram showing the first half of a flowchart illustrating the method steps according to that other embodiment of the present invention;",
+        "FIG. 14 is a diagram showing the second half of the flowchart, which is a continuation of the flowchart shown in FIG. 13; and",
+        "FIG. 15 is a diagram for explaining the flowchart shown in FIGS. 13 and 14.",
+        "The preferred embodiments of the present invention will be described below with reference to the accompanying drawings.",
+        "A test pattern generator that uses an LFSR as a pseudo-random pattern generator generates a test pattern sequence when a clock is applied to it after its initial state has been set up. An example of BIST using such a test pattern generator is a test-per-clock structure such as shown in FIG. 1. In FIG. 1, reference numeral 1 is a test pattern generator constructed from an LFSR 2, 3 is a circuit-under-test (CUT) to which a test pattern is input, and 4 is a test response compactor. Once the state of each flip-flop in the LFSR 2 is determined, the test pattern sequence to be output thereafter is uniquely determined. Information that determines the states of the flip-flops in the LFSR 2 is called a seed.",
+        "In the test-per-clock BIST structure that uses an LFSR as the test pattern generator 1, the seed that is input to the LFSR 2 is the same as the test pattern that is output from the LFSR 2 and applied to the CUT 3.",
+        "Consider a single stuck-at fault test using an LFSR such as shown in FIG. 1. The circuit to be tested for single stuck-at faults is a combinational circuit.",
+        "The LFSR constructed with an m-degree primitive polynomial outputs (2m\u22121) different test patterns to the CUT. An m-bit two-element vector from the LFSR can be regarded as an element \u03b1i (0\u2266i\u22662m\u22121\u22122) over a GF (2m). Here, i denotes an index.",
+        "For a seed \u03b10, the LFSR first outputs a test pattern \u03b10, followed by a test pattern \u03b11, and then \u03b12, \u03b13, and so on. For a seed \u03b11, first the test pattern \u03b11. is output, then \u03b12, and so on. The j-th test pattern output in response to the seed \u03b1i is denoted by \u03b11+j\u22121.",
+        "Here, let F denote a set of detectable single stuck-at faults that can exist in the CUT. When the fault coverage of a test pattern is expressed as C %, then faults the number of which is given by\n\n|F|\u00d7C/100\n\nare detected. Here, \u2225 indicates the number of elements in the set.",
+        "Fa is a set of faults detected with the test pattern a from among the faults contained in F.",
+        "The method of generating the test patterns \u03b1i\u22121, \u03b1i\u22122, . . . for the seed \u03b1i will hereinafter be referred to as reverse-order test pattern generation. L(\u03b1i, nfix) is a function that returns the test length that achieves the target fault detection count=nt for the seed \u03b1i. Ideally, nfix=|F|, but it is realistic to set a value slightly smaller than |F| as nfix.",
+        "LR(\u03b1i+1, nfix) is a function that returns the test length that achieves the target fault detection count nt when the reverse-order test pattern generation is performed with the seed \u03b1i+1. L(\u03b1i, nfix) and LR(\u03b1i+1, nfix) can be obtained through fault simulation.",
+        "When a CUT, its target fault detection count nfix, and an LFSR polynomial are given, the LFSR seed that minimizes the test length is called the shortest test length seed \u03b1i*. At this time, i*=arg min{L(\u03b1i, nfix)}.",
+        "Next, the relationship between the seed and the test pattern sequence output from the LFSR will be considered.",
+        "Consider the case where test-per-clock testing is applied to the combinational circuit portion of the s386 circuit which is one of the ISCAS 89 benchmark circuits. The input of this circuit is 13 bits wide. The results of the experiment for the test lengths that achieve 100% fault coverage for each seed are shown in FIG. 2. The number of detectable faults in the s386 circuit is 384. The seed number is plotted as abscissa, and the test length (clock) that achieves 100% fault coverage is plotted as ordinate. From FIG. 2, it can be seen that the test length L that achieves 100% fault coverage for seed \u03b10 is L(\u03b10, 384)=1783.",
+        "From FIG. 2, the seed versus test length characteristic of the test-per-clock structure using the LFSR can be identified. That is, each time the index increases by one, the test length either\n\n    \n    \n        1) becomes shorter by one, or\n        2) remains the same, or\n        3) becomes longer.",
+        "To facilitate understanding of this characteristic, a simplified example of FIG. 2 is shown in FIG. 3. In FIG. 3, the ordinate represents the test length L that achieves 100% fault coverage, and the abscissa represents the seed index i. For simplicity, in FIG. 3 the number of detectable faults in the CUT is assumed to be 100.",
+        "From FIG. 3, it can be seen that the test length for seed \u03b10 is L(\u03b10, 100)=8. Next, it is assumed that all the faults detected by \u03b10 have been detected by the seven patterns \u03b11 to \u03b17 generated with the seed \u03b11. That is,\n\n|Fa1\u222aFa2\u222a . . . \u222aFa7|=|Fa0\u222aFa1\u222a . . . \u222aFa7|=F|\n\nThen, L(\u03b11, 100)=7.",
+        "Likewise, when the faults detected by six patterns \u03b12 to \u03b17 contain all the faults detected by \u03b11, that is,",
+        "\uf603\n    \n      \n        F\n        \n          a\n          0\n        \n      \n      \u22c3\n      \n        F\n        \n          a\n          1\n        \n      \n      \u22c3\n      \n        \n      \n      \u2062\n      \u2026\n      \u2062\n      \n        \n      \n      \u22c3\n      \n        F\n        \n          a\n          7\n        \n      \n    \n    \uf604\n  \n  =\n  \n    \n      \uf603\n      \n        \n          F\n          \n            a\n            1\n          \n        \n        \u22c3\n        \n          F\n          \n            a\n            2\n          \n        \n        \u22c3\n        \n          \n        \n        \u2062\n        \u2026\n        \u2062\n        \n          \n        \n        \u22c3\n        \n          F\n          \n            a\n            7\n          \n        \n      \n      \uf604\n    \n    =\n    \n      \uf603\n      F\n      \uf604\n    \n  \n\n\n\n\nthen the test length for seed \u03b12 is L(\u03b12, 100)=6. Similarly, the test length for seed \u03b13 is L(\u03b13, 100)=5.",
+        "On the other hand, it is assumed that the faults detected by the patterns \u03b14 to \u03b17 generated with seed \u03b14 are less than 100 in number and thus do not contain all the faults detected by the seed \u03b13. That is\n\n|Fa4\u222aFa5\u222a . . . \u222aFa7|<|Fa3\u222aFa4\u222a . . . \u222aFa7|=|F|\n\nIn this case, the test length for seed \u03b14 increases to the point where all the faults detected by the seed \u03b13 are detected. In the example of FIG. 3, the test length increases from 5 to 10.",
+        "Here, when the relation\n\nL(\u03b1i, nfix)<LR(\u03b1i+1, nfix)\n\nholds, \u03b1i is called the minimum test length seed, and L(\u03b1i, nfix) the minimum test length. Hereinafter, the seed that yields the minimum test length is expressed as the minimum test length seed \u03b1imin, and the index of the seed is denoted by imin. Of the minimum test lengths found by performing tests with all the indexes, the smallest one is taken as the shortest test length Ls.",
+        "In the example of FIG. 3, the minimum test length seed is \u03b13 and, at this time, the minimum test length is 5. In the example of FIG. 2, there are 13 minimum test lengths, which are, from left to right, 1648, 2104, 1298, 1466, 2505, 2211, 2823, 2283, 2497, 1866, 1615, 2000, and 1867; thus, the shortest test length Ls is 1298.",
+        "When the seed that yields the shortest test length L obtained as described above is selected as the initial seed for the LFSR 2 in the circuit of FIG. 1, the testing of the CUT 3 will be completed in the shortest time. On the other hand, in the testing of the CUT 3, if an arbitrary seed is selected without paying any special attention to the seed selection, as in the prior art method, there is the possibility that a seed that yields a test length exceeding 3000, for example, may be selected in the example of FIG. 2. If such a seed is selected, the time required for testing in the mass production of VLSIs becomes enormously long, resulting in an increase in test cost. Accordingly, selecting the seed yielding the shortest test length greatly contributes to reducing the test cost during the mass production of VLSIs.",
+        "In reality, however, obtaining the test lengths for all the seeds for test pattern sequences, as shown in FIG. 2, is practically impossible because the circuit scale of a VLSI is very large. There is, therefore, a need for an efficient and practicable method for selecting an optimum seed.",
+        "Utilizing the characteristic of the seed versus test length relationship described above, the present invention provides a method for selecting an optimum initial value by using a practically feasible method.",
+        "A procedure for selecting the initial seed for obtaining a preset number of faults, nfix, with the shortest test length according to the method of the present invention will be described below with reference to drawings. The seed selection in this case is called the shortest test length seed selection method.",
+        "First, the selection method of the invention will be described by dividing the procedure into Step A for finding a minimum test length and Step B for checking the presence or absence of a shorter minimum test length. In the following description, i indicates the current index, and i is initialized to 0. That is, the process begins with the seed of index 0.",
+        "[Step A]",
+        "In Step A, the minimum test length and its seed are obtained.",
+        "With the index i and higher, the minimum test length that appears the earliest is obtained. First, the test length Li(\u03b1i, nfix) for seed \u03b1i is obtained through fault simulation. Next, fault simulation using the reverse-order test pattern generation is performed to obtain LRi(\u03b1i+Li\u22121, nfix). The minimum test length Lm is thus obtained. The index im that yields the minimum test length is obtained by subtracting the minimum test length Lm from the test length Li and adding i to the difference, that is, Li\u2212Lm+i.",
+        "FIG. 4 shows an example of Step A. First, in Step-A-1, fault simulation is performed with seed \u03b10 to obtain the test length (\u03b10, nfix). In the example FIG. 4, the test length L(\u03b10, nfix)=8. Next, in Step-A-2, by using as the initial seed the seed \u03b17 that achieved the maximum fault detection count nfix, reverse-order fault simulation is performed to obtain the test length LR(\u03b17, nfix). This value gives the minimum test length Lm. In the example of FIG. 4, Lm=5.",
+        "The index im that achieves this minimum test length Lm is L\u2212Lm+1=8\u22125+0=3. This calculation step is Step-A-3. Thus, it can be seen that the seed \u03b1Lm\u2212Lm+i, that is, \u03b13, is the seed that achieves the target fault coverage with the minimum test length 5.",
+        "[Step B]",
+        "In Step B, it is checked whether there is a seed that achieves a minimum test length shorter than the minimum test length obtained in Step A.",
+        "The test length for the seed of index imin+1 is longer than the minimum test length Lm.",
+        "First, with the index set to i=imin+1, the test length l=L(\u03b1i, nfix) is obtained. From this test length L, the next index that is likely to yield a test length shorter than the minimum test length lm can be calculated. That index is i+l\u2212lmin+1. This index is set as the new index i. The test length l=L(\u03b1i, nfix) for the calculated seed \u03b1i is obtained. If the test length l is shorter than the minimum test length lmin, the process returns to Step-A to obtain the minimum test length once again. Otherwise, the next index that is likely to yield a test length shorter than the minimum test length lmin is calculated once again. This step is repeated until a test length shorter than the minimum test length lmin appears. In the case of an m-bit LFSR, this process is repeated until the index reaches (2m\u22121). The minimum test length lmin when i=2m\u22122 is the shortest test length l* that achieves the target fault coverage, and imin indicates the index i* of the seed that yields the shortest test length.",
+        "The operation in Step B will be described with reference to FIGS. 5 and 6. In both FIGS. 5 and 6, it is assumed that the minimum test length lmin=5 is already achieved with the seed 3. That is, imin=3.",
+        "First, a description will be given for the case of FIG. 5. In Step-B-1, the test length L(\u03b14, nfix) for seed \u03b14 is obtained. In the example of FIG. 5, the test length is 10. As the minimum test length lmin=5, it follows that L(\u03b14, nfix), . . . , L(\u03b19, nfix)\u22675. That is, \u03b14 to \u03b19 are not candidates for minimum test length seeds.",
+        "In Step-B-2, the index of the next seed that is likely to yield a test length shorter than lmin is obtained. In this case, i=4+10\u22125+1=10, and thus the candidate seed is \u03b110. Then, the test length L(\u03b110, nfix) for the seed \u03b110 is obtained. In the example of FIG. 5, the test length L=4. This means that there is the possibility that, by using the seed of index 11, the target fault detection count nfix may be achieved with a shorter test length. In this case, the process returns to Step A to obtain the minimum test length lmin once again.",
+        "Next, a description will be given for the case of FIG. 6. In operation, Step-B-1 and Step-B-2 are the same as those in FIG. 5. In Step-B-1, the test length L(\u03b14, nfix) for the seed \u03b14 is obtained. In the example of FIG. 6, the test length is 10. Next, in Step-B-2, the index of the seed that is likely to yield a test length shorter than the minimum test length lmin obtained in the preceding Step-A is calculated. In FIG. 6, as in the case of FIG. 5, the candidate seed is \u03b110. In Step-B-3, the test length L(\u03b110, nfix) for the seed \u03b110 is obtained. In the example of FIG. 6, L(\u03b110, nfix)=7. In this case, the process returns to Step-B-2 to repeat the step of obtaining the index of the seed that is likely to yield a test length shorter than the minimum test length lmin.",
+        "FIG. 7 shows one example of a program for finding the shortest test length seed.",
+        "A flowchart recapitulating the procedure for finding the shortest test length seed described above is shown in FIGS. 8 and 9. A description will be given below with reference to the flowchart.",
+        "First, in step S1, the seed index i is set to 0. Next, in step S2, fault simulation is performed using the seed \u03b10, to obtain the test length L that becomes necessary to detect a predetermined number, nfix, of faults. In the example of FIG. 4, the test length L is 8.",
+        "In the next step S3, reverse-order fault simulation is performed against the fault simulation performed in step S2, to obtain the minimum test length Lm necessary for obtaining the number, nfix, of faults. From the example of FIG. 4, it can be seen that the minimum test length Lm is 5. The initial value i in the reverse-order fault simulation is i=i+L\u22121.",
+        "When the minimum test length Lm is obtained in step S3, then the index of the seed that yields the minimum test length Lm is calculated in step S4. In step S5, the seed having the index calculated in step S4 is selected. In step S6, it is determined whether the test length Lm obtained with the seed \u03b1i is a value that is good enough for an integrated circuit test. If the value of Lm is good enough, the process is terminated in step S7, and \u03b1i obtained in step S5 is set as the optimum seed.",
+        "Next, in step S8, it is determined whether the index i has reached the final value of the test pattern sequence S. If it has reached the final value (YES in step S8), the process is terminated in step S9, and the seed obtained in step S5 is selected as the optimum value.",
+        "Next, in step S10, the index i is incremented by 1, and after confirming in step S11 that the index has not yet reached the final value of the test pattern sequence S, the seed having the index i is selected in step S12, and the same fault simulation as that in step S2 is performed in step S13. In the example of FIG. 5, this fault simulation is performed using the seed \u03b14. If, in step S11, the index i exceeds the final value of the test pattern sequence S (YES in step S11), the process is terminated in step S14, and the seed \u03b1i obtained in step S5 is taken as the optimum value.",
+        "With the fault simulation in step S13, the test length L for the seed \u03b1i+L\u2212Lm+1 is obtained. In the example of FIG. 5, this test length L is 10.",
+        "As explained in the description of Step-B-2 in FIG. 5, when the new test length L is obtained in step S13, any seeds from the current index i to the index i=i+L\u2212Lm cannot be candidates for seeds that are likely to yield a test length shorter than the minimum test length Lm. Accordingly, in step S15, the index is incremented to i=i+L\u2212Lm+1, and after confirming in step S16 that the index does not exceed the final value of the test pattern sequence S, the same fault simulation as that in step S2 is performed in step S17. If, in step S16, the index i exceeds the final value of the test pattern sequence S, the process is terminated in step S18, and the seed \u03b1i obtained in step S5 is taken as the optimum value.",
+        "In the next step S19, it is determined whether the test length L obtained as a result of the fault simulation performed in step S17 is shorter than the minimum test length Lm. As, actually, the test length is decreased by one clock at a time, in step S19 it may be checked whether L=Lm\u22121 or not. If YES is determined in step S19, this corresponds to the example of FIG. 5; therefore, in this case, the process returns to step S3 where the reverse-order fault simulation is performed to obtain a new minimum test length Lm.",
+        "On the other hand, if NO is determined in step S19, this corresponds to the example of FIG. 6; therefore, the process returns to step S15 to calculate the next index that is likely to yield a test length shorter than the minimum test length Lm and, with this index, step S16 and its subsequent steps are repeated. These steps are repeated until the relation L<Lm holds in step S19.",
+        "The smallest (shortest) test length Lm is found by repeating the above process.",
+        "Alternatively, when the test length L is obtained for the seed \u03b14 in FIG. 5 through fault simulation, reverse-order fault simulation up to the test pattern \u03b110 may be performed in this fault simulation to check whether there appears any minimum test length shorter than the previously obtained minimum test length. If a shorter minimum test length is found, then the next seed index that is likely to yield an even shorter test length can be calculated using that value. Using this method, the time required to calculate the shortest test length seed can be further reduced.",
+        "Table 1 shows a comparison between the shortest test length seed selection method of the present invention described above and the method that obtains the shortest test length seed by performing fault simulation on all the seeds. The experiment was conducted using the s386 circuit and polynomial 20033. AS can be seen from Table 1, when fault simulation was performed on all the seeds, the fault simulation had to be performed 8191 times, and the calculation time required was about 40 minutes. In contrast, when the method of the present invention was used, the fault simulation need only be performed 14 times, and the calculation time required was about four seconds.",
+        "TABLE 1\n\n\n\n\n\n\n\nNUMBER OF TIMES OF FAULT SIMULATION AND\n\n\nCALCULATION TIME IN SHORTEST TEST LENGTH SEED\n\n\nSELECTION METHOD (s386/POLYNOMIAL 20033)\n\n\n\n\n\n\n\n\n\n\nNUMBER OF TIMES OF\nCALCULATION\n\n\n\nFAULT SIMULATION\nTIME\n\n\n\n\n\n\n\n\n\n\n\n\n\nFAULT SIMULATION\n8191 TIMES\nABOUT\n\n\nPERFORMED ON ALL\n\n40 MINUTES\n\n\nSEEDS\n\n\nSHORTEST TEST\n\u200314 TIMES\nABOUT\n\n\nLENGTH SEED\n\n4 SECONDS\n\n\nSELECTION METHOD",
+        "Table 2 shows the test length for the shortest test length seed obtained in the experiment of Table 1, as compared with the test lengths obtained without considering the seed selection. As is apparent from Tables 1 and 2, according to the method of the present invention, as the shortest test length seed can be obtained in a very short time, the time required for integrated circuit testing is greatly reduced.",
+        "TABLE 2\n\n\n\n\n\n\n\nSHORTEST TEST LENGTH SEED AS COMPARED\n\n\nWITH TEST LENGTHS OBTAINED WITHOUT\n\n\nCONSIDERING SEED SELECTION\n\n\n(s386/POLYNOMIAL 20033)\n\n\n\n\n\n\n\n\n\n\nSEED\nTEST LENGTH\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSHORTEST TEST LENGTH SEED\n1293\n\n\n\n00 . . . 01\n1783\n\n\n\nAll 1\n2230\n\n\n\n0101 . . .\n1971\n\n\n\n1010 . . .\n2949\n\n\n\nSHORTEST TEST LENGTH IN\n1706\n\n\n\nRANDOM 14 SELECTIONS",
+        "FIG. 10 is a diagram showing a test-per-scan BIST structure which is different from the test-per-clock BIST structure shown in FIG. 1. The BIST shown here is characterized in that the test pattern generator 1 is constructed using an LFSR 2 in combination with a scan chain 5. According to the structure shown here, since the number of signal inputs to the circuit-under-test (CUT) 3 and the number of bits in the LFSR 2 are independent of each other, the advantage is that a highly integrated circuit can be tested using an LFSR 2 with a smaller number of bits. For example, a circuit with a 1000-bit input can be tested using a 20-bit LFSR.",
+        "The test-per-scan structure of FIG. 10 can also change the output test pattern sequence by changing the seed. However, in this structure, the LFSR seed does not appear directly as the test pattern, but here also, the output test pattern sequence is determined by the seed. When the number of stages in the LFSR is m, and the length of the scan chain 5 is k bits, the PRPG outputs k-bit test patterns p0, p1, and so on.",
+        "Let \u03b2j denote the seed that generates the test pattern pj after setting the seed in the LFSR. Here, the seed is expressed as \u03b2j=\u03b1(j\u00d7k)mod(2m\u22121). That is, \u03b20=\u03b10, \u03b21=\u03b1k, \u03b22=\u03b12k, and so on. At this time, both of k and (2m\u22121) must be prime numbers. If they are not prime numbers, dummy flip-flops are added to the scan chain so that they become prime numbers.",
+        "The example of FIG. 11 shows that the seeds \u03b20 . . . , \u03b24 each output 10 test patterns. For example, the seed \u03b20 first outputs the test pattern p0. Then, it outputs p1. The 10th test pattern that the seed \u03b20 outputs is p9. The seed \u03b21 first outputs p1, then p2. In this way, the test-per-scan structure shown in FIG. 10 can obtain the shortest test length that achieves the target fault coverage, by using the same technique as used in the test-per-clock structure of FIG. 1.",
+        "A second embodiment of the present invention will be described below. This embodiment concerns an optimum seed selection method that can detect a maximum number of faults within a fixed test time. In the case of a complex circuit, it is difficult to achieve a fault coverage exceeding 95%, and it is realistic to set a certain test length and select a seed that can detect the largest number of faults with that test length lfix. This seed",
+        "\u03b2\n    \n      j\n      *\n    \n  \n  =\n  \n    a\n    \u2062\n    \n      \n    \n    \u2062\n    r\n    \u2062\n    \n      \n    \n    \u2062\n    g\n    \u2062\n    \n      \n    \n    \u2062\n    \n      \n        max\n        \n          \u03b2\n          j\n        \n      \n      \u2062\n      \n        \uf603\n        \n          \n            F\n            \n              \u03b2\n              \u2062\n              \n                \n              \n              \u2062\n              j\n            \n          \n          \u22c3\n          \n            F\n            \n              \n                \u03b2\n                \u2062\n                \n                  \n                \n                \u2062\n                j\n              \n              +\n              1\n            \n          \n          \u22c3\n          \n            \n          \n          \u2062\n          \u2026\n          \u2062\n          \n            \n          \n          \u22c3\n          \n            F\n            \n              \n                \u03b2\n                \u2062\n                \n                  \n                \n                \u2062\n                j\n              \n              +\n              \n                1\n                \n                  f\n                  \u2062\n                  \n                    \n                  \n                  \u2062\n                  i\n                  \u2062\n                  \n                    \n                  \n                  \u2062\n                  x\n                \n              \n              -\n              1\n            \n          \n        \n        \uf604\n      \n    \n  \n\n\n\n\nis called the maximum fault detection count seed.",
+        "The maximum fault detection count seed selection method is an extension of the shortest test length seed selection method described above. The difference from the shortest test length seed selection method is that the selection method of this embodiment dynamically updates the target fault detection count each time a minimum test length is found.",
+        "Before describing this method, the function will be defined. D(\u03b1i, 1) is a function that returns the number of faults detected with the test length l for the seed \u03b1i. Like L(\u03b1i, nfix) and LR(\u03b1i+1, nfix), D(\u03b1i, 1) can be obtained through fault simulation.",
+        "When the test length lfix is given, the seed that achieves the largest fault detection count with that test length is selected. The process consists of two steps, Step-A* for obtaining the target fault detection count for the given test length lfix and Step-B* for predicting the presence of a seed that can detect a larger number of faults.",
+        "The seed number of \u03b2j is denoted by j. As the selection process starts with the seed of the seed number 0, j=0.",
+        "In Step-A*, the target fault detection count for the test length lfix is obtained.",
+        "First, the number of faults detected with the test length lfix corresponding to the seed \u03b2j is set as the target fault detection count nt. That is, nt=D(\u03b2j, lfix). Next, the minimum test length that achieves the target fault detection count nt is obtained from\n\nLR(\u03b2i+lfix\u2212l, nt)\n\nThe minimum test length lmin is thus obtained. The seed number jmin that yields the minimum test length is jmin=j+lfix\u2212lmin. With this jmin, Step-A* is repeated until the test length of seed \u03b2imin+1 becomes longer than lfix.",
+        "When the test length of seed \u03b2imin+1 is longer than the target test length lfix, the process proceeds to Step-B*. The seed number at which the test length l=LF(\u03b2j, nfix) that achieves the target fault detection count nfix becomes shorter than lfix is calculated. The prediction is repeated until 1 becomes equal to the calculated test length lfix\u22121 and, when the predicted test length is achieved, the target fault detection count nt is again set.",
+        "In the case of an m-bit LFSR, this process is repeated until the seed number reaches 2m\u22122. The thus obtained target fault detection count nt is the maximum fault detection count n* for a given test length lfix, and the seed number jmin is the maximum fault detection count seed number j*.",
+        "FIG. 12 shows one example of a program for finding the maximum fault detection count seed.",
+        "FIGS. 13 and 14 show a flowchart recapitulating the procedure for finding the maximum fault detection count seed described above. FIG. 15 is a diagram for explaining the flowchart. The second embodiment of the present invention will be described below with reference to these drawings.",
+        "First, in step P1, the seed number J is set to 0. Next, in step P2, fault simulation is performed with the seed \u03b20 of the seed number 0, to obtain the number of faults, n, detected with a predetermined test length Lfix (in the example of FIG. 15, Lfix=10).",
+        "In step P3, it is determined whether the value of n obtained in step P2 satisfies the condition as the maximum fault count. If the condition is satisfied, the process is terminated in step P4, and the seed \u03b20 that achieves the maximum fault count n is set as the initial value to be input to the test pattern generator.",
+        "If NO in step P3, the process proceeds to step P5 where reverse-order fault simulation is performed against the fault simulation performed in step P2, to obtain the minimum test length Lm necessary for detecting the number, n, of faults. In the example of FIG. 15, the minimum test length Lm is 7. The seed number that yields this minimum test length is calculated as J+Lfix\u2212Lm. In step P6, it is determined whether the seed number J+Lfix\u2212Lm exceeds the final value of the test pattern sequence S. If the determination is YES, the process is terminated in step P7, and the more recently obtained seed that yields the minimum test length is selected as the optimum initial value.",
+        "If, in step P6, the seed number J+Lfix\u2212Lm is within the range of the test pattern sequence S (NO in step P6), then in step P8 the seed number J is set to J+Lfix\u2212Lm and, in step P9, fault simulation is performed using this seed number, to find how many faults are detected within the target test length Lfix. This is because, in the case of a seed that yields the minimum test length Lm here, unlike the case of the shortest test length seed detection method, there is the possibility that a new fault may be found between the minimum test length Lm and the target test length Lfix.",
+        "In the case of FIG. 15, if fault simulation is performed with the seed \u03b13 by giving the test length 10, there is the possibility that a new fault may be found with the test patterns p10 to p12.",
+        "In the next step P10, the fault count nt obtained in step P9 is compared with the fault count n obtained in step P2. If nt>n, n is set as nt in step P11, after which the process returns through step P3 to step P5 where the reverse-order fault simulation is performed once again to obtain the minimum test length necessary for detecting the number, nt, of faults. Then, step P6 and subsequent steps are carried out to obtain a new fault count nt; this process is repeated until nt\u2267t.",
+        "When, with the above processing, the number, n, of faults detected with the target test length Lfix reaches a maximum and the fault count is no longer updated, the seed number of the seed that achieves the maximum fault count is incremented by 1 in step P12. In the example of FIG. 15, when the number, nt, of faults detected with the seed \u03b23 is nt\u2266st, the next seed is \u03b24. In step P13, it is determined whether this seed number exceeds the final value of the test pattern sequence; if it exceeds the final number, the process is terminated in step p14, otherwise the process proceeds to step P15.",
+        "In step P15, fault simulation is performed with the seed of the new number to obtain the test length L necessary for achieving the so-far obtained maximum fault count n and, in step P16, this test length L is compared with the target test length Lfix. In the case of FIG. 15, as the test length L of the seed \u03b24 is 13, L>Lfix. In this case, as can be seen from FIG. 15, there is the possibility that the seed \u03b28 is likely to yield a test length L shorter than Lfix. In step P17, the next seed number that is likely to yield a test length L shorter than Lfix is computed.",
+        "In step P18, it is determined whether the seed number computed in step P17 exceeds the final value of the test pattern sequence; if it does not exceed the final value, the process returns to step P15 to perform fault simulation with the seed of the above-computed seed number. This step is repeated until the test length L becomes shorter than Lfix in step P16. If YES in step P18, as in steps P7 and P13, the process is terminated in step P19.",
+        "When the test length L becomes shorter than Lfix in step P16, steps P2 and subsequent steps are carried out using the seed obtained here, to obtain a new fault count detected within the target test length Lfix. In this way, the maximum fault detection count is obtained by repeating the above process until the thus obtained new fault count reaches the predetermined target fault count or until the seed number exceeds the final value of the test pattern sequence. The seed determined here is the optimum initial value for the test pattern generator.",
+        "Alternatively, when the test length L is obtained for the seed \u03b24 in FIG. 15 through fault simulation (step P15 in FIG. 14), reverse-order fault simulation up to the test pattern p14 may be performed in this fault simulation to check whether there appears any minimum test length shorter than the previously obtained minimum test length. If a shorter minimum test length is found, then the next seed number that can detect a larger number of faults within the target test length Lfix can be calculated using that value. Using this method, the time required to calculate the maximum fault detection count seed can be further reduced.",
+        "The above maximum fault detection count seed selection method has been described for the test-per-scan structure shown in FIGS. 10 and 11, but it will be appreciated that the above selection method can be equally applied to the test-per-clock BIST structure.",
+        "Table 3 shows a comparison between the seed \u03b10 and the maximum fault detection count seed obtained by the method of the present invention, for 20 polynomials in the c7552 circuit using a 20-bit primitive polynomial LFSR. The table shows the average number of detected faults, the minimum number of undetected faults, and the processing time per polynomial, for the seed \u03b10(00 . . . 01) and the maximum fault detection count seed.",
+        "TABLE 3\n\n\n\n\n\n\n\nAVERAGE FAULT DETECTION COUNT FOR c7552 with 20-\n\n\nBIT LFSR/20 POLYNOMIALS\n\n\n\n\n\n\n\n\n\n\nMAXIMUM FAULT\n\n\n\n\n\n\n\n\n\n\n\n\nSEED 00 . . . 01\nDETECTION COUNT SEED\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAVERAGE\nMINIMUM\nAVERAGE\nMINIMUM\n\n\n\n\nNUMBER OF\nNUMBER OF\nNUMBER OF\nNUMBER OF\nPROCESSING\n\n\nTEST\nUNDETECTED\nUNDETECTED\nUNDETECTED\nUNDETECTED\nTIME\n\n\nLENGTH\nFAULTS\nFAULTS\nFAULTS\nFAULTS\n(SECONDS)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n1000\n464\n418\n369\n359\n4121\n\n\n5000\n351\n319\n277\n259\n4262\n\n\n10000\n304\n270\n243\n227\n5034",
+        "For the target test length 1000, when the seed \u03b10 is used, the average number of undetected faults is 464, and the minimum number of undetected faults is 418. In the case of the maximum fault detection count seed, the average number is 369, and the minimum number of undetected faults is 359. The processing time per polynomial was 4121 seconds.",
+        "When the test length is 10000, the number of undetected faults is 227 in the case of the polynomial having the maximum fault detection count seed that achieves the largest fault detection count among the 20 primitive polynomials. This means that 77 more faults are detected compared with the average number of undetected faults, i.e., 304, for the seed \u03b10."
+    ],
+    "citations": [
+        "5991909",
+        "6766473",
+        "7162674",
+        "7178078"
+    ],
+    "us_classification": "714738",
+    "international_classifications": [
+        {
+            "classification_level": "A",
+            "section": "G",
+            "classification_class": "01",
+            "subclass": "R",
+            "main_group": "31",
+            "subgroup": "28"
+        }
+    ]
+}

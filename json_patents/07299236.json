@@ -1,0 +1,193 @@
+{
+    "title": "Test data compression and decompression method using zero-detected run-length code in system-on-chip",
+    "abstract": "A method of effectively compressing a test vector is introduced for testing a system-on-chip (SOC) semiconductor device. Since the number of test vectors is increased in a SOC, the number of \u20180\u2019s is increased if adjacent test vectors are properly aligned using an ordering algorithm. \u20180000\u2019 is considered as a single block and a counter of \u20180-group\u2019 is incremented by one to encode each further instance of the string \u20180000\u2019. A codeword capable of being decompressed can be generated using only a counter without using a memory block.",
+    "inventors": [
+        "Kang",
+        "Lee"
+    ],
+    "document_number": "07299236",
+    "publication_date": "20071120",
+    "assignees": [
+        "Industry-Academic Cooperation Foundation, Yonsei University"
+    ],
+    "claims": [
+        {
+            "claim_number": "CLM-00001",
+            "preamble": "1. A method of a test data compression using a Zero-Detected Run-length (ZDR) code in a system-on-chip, (SOC), which is stored in a form of algorism or computer programming, the method comprising the steps of:",
+            "components": [
+                {
+                    "component": "defining a test vector T",
+                    "subcomponents": [
+                        "",
+                        "",
+                        "wherein \u2295 is an exclusive-OR operator;"
+                    ]
+                },
+                {
+                    "component": "",
+                    "subcomponents": []
+                },
+                {
+                    "component": "",
+                    "subcomponents": []
+                },
+                {
+                    "component": "wherein \u2295 is an exclusive-OR operator;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "creating the test vector T",
+                    "subcomponents": []
+                },
+                {
+                    "component": "connecting the elements of the test set T",
+                    "subcomponents": []
+                },
+                {
+                    "component": "sequentially scanning the test set T",
+                    "subcomponents": []
+                },
+                {
+                    "component": "creating a codeword (\u201c100\u201d, \u201c101\u201d, \u201c110\u201d and \u201c111\u201d) when a bit \u20181\u2019 appears, and when the codeword is \u20180000\u2019 (0001, 0020, 0011, 0100, 0101, 0110 and0111);",
+                    "subcomponents": []
+                },
+                {
+                    "component": "repeatedly checking a \u20180 Group\u2019 (\u20180000\u2019, \u20180000\u00d72\u2019, \u20180000\u00d73\u2019, \u20180000\u00d74\u2019, \u20180000\u00d75\u2019, \u20180000\u00d76\u2019, \u20180000\u00d77\u2019 and \u20180000\u00d78\u2019) while incrementing the bit of the \u20180 Group\u2019 counter by one until \u20181\u2019 appears as the next bit;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "recording \u20180111\u2019 when the \u20180 Group\u2019 becomes \u20180000\u00d78\u2019 and counting the number of bits having the value \u20180\u2019; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "creating a codeword of a \u20181 Group\u2019 on the SOC when a \u20181\u2019 bit appears.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00002",
+            "preamble": "2. A method of decompressing a test data compressed by the compression method using a decompression decoder including an Finite State Machine (FSM) and 3-bit counters in a system-on-chip, (SOC), the method comprising the steps of:",
+            "components": [
+                {
+                    "component": "inputting a bit to the FSM through a signal BIT_IN when a signal EN, which represents that the FSM can accept data, is output from the FSMT;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "activating signals 0_SIGN and COUNTER_START of a first 3-bit counter when the bit input to the FSM is \u20180\u2019 and activating signals 1_SIGN and COUNTER_START when the bit input to the FSM is \u20181\u2019;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "inputting 2 bits to the first 3-bit counter through a signal SHIFT when the signal 0-SIGN is activated;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "inputting 3 bits to the first 3-bit counter through the signal SHIFT when the signal 1_SIGN is activated;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "operating the first 3-bit counter to output a signal C_OUT when the signal 0_SIGN is activated;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "recording \u2018100\u2019 in a second 3-bit counter when the second 3-bit counter receives the signal C_OUT;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "activating a signal V",
+                    "subcomponents": []
+                },
+                {
+                    "component": "allowing the first 3-bit counter to down-count one bit when the signal V",
+                    "subcomponents": []
+                },
+                {
+                    "component": "finishing the operation of the first and second counters when the signal 0_SIGN is input to the first 3-bit counter;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "operating the 3-bit counters when the signal 1_SIGN is input to the first 3-bit counter and when the counting operation is finished, activating a signal V",
+                    "subcomponents": []
+                },
+                {
+                    "component": "outputting a bit \u20181\u2019 through a signal OUT on the SOC when the signal V",
+                    "subcomponents": []
+                }
+            ]
+        }
+    ],
+    "description": [
+        "1. Field of the Invention",
+        "The present invention relates to a method of effectively compressing a test vector required for testing a system-on-chip (SOC) semiconductor device. The present invention is the result of efforts to foster and support university IT research centers, carried out by the Ministry of Information and Communication in Republic of Korea.",
+        "2. Related Prior Art",
+        "With the development of semiconductor design techniques, a system-on-chip (SOC) configuration, in which functional blocks are integrated into a single chip, can be manufactured. In order to test semiconductor devices in such a high-performance SOC, the number and complexity of test vectors to be input are increased and automatic test equipment (ATE) requires a high operating frequency and a large memory capacity. This increases time and cost required for testing the semiconductor devices. Accordingly, people have a growing interest in the compression of test vectors. The compression of the test vector enables effective utilization of a restricted channel of the ATE.",
+        "The test vector used when a semiconductor device is tested has a large number of similar bits. Thus, the test vector can represent only values that are different from each other when the exclusive-OR operation (XOR) is carried out on the bits of the test vector. This is because the elusive-OR operation outputs \u20180\u2019 when the input bits are identical to each other but outputs \u20181\u2019 when the input bits are different from each other. The original test vector Td and a test set Tdiff are defined as follows:\n\nTd={t1, t2, t3, t4, t5, . . . , tn}\n\nTdiff={d1, d2, d3, . . . , dn}={t1, t1\u2295t2, t2\u2295t3, . . . ,tn\u22121\u2295tn}",
+        "According to this method, only the bits of the test vector that have different values from the corresponding bits of the previous element are represented by \u20181\u2019. Thus, most of values of Tdiff are continuous \u20180\u2019s considering that the test vector is characterized by having a large number of identical bits.",
+        "The vector Tdiff generated as above is connected in a single chain as follows:\n\nTdiff: d1=00000100\n\nd2=00110000\n\nd3=00010001\n\n=>000001000011000000010001",
+        "The point where the bit \u20181\u2019 first appears in the chain is checked and the number of digits of \u20180\u2019 appearing before the bit \u20181\u2019 is counted to generate a codeword through a method represented by Table 1.",
+        "TABLE 1\n\n\n\n\n\n\n\nCodeword\nTdiff\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n000\n1\n\n\n\n001\n01\n\n\n\n010\n001\n\n\n\n011\n0001\n\n\n\n100\n00001\n\n\n\n101\n000001\n\n\n\n110\n0000001\n\n\n\n111\n00000001",
+        "The generated data is stored in the ATE for use. A corresponding circuit receives the compressed codeword and decompresses the compressed codeword to use it. A decompression device used for decompressing the codeword is illustrated in FIG. 1. A cyclical scan register (CSR) can obtain the current test vector from Tdiff by applying XOR to Tdiff again. Using this process, the original test vector can be completely restored using only a single decoder.",
+        "However, as semiconductor device chips are configured as system-on-chips, the number of test vectors increases and the number of vectors having identical bits also increases. Accordingly, the conventional algorithm cannot effectively compress an increasing number of test sets for a circuit. Furthermore, a conventional statistical code compression technique increases hardware overhead and cannot make functional blocks for tests in a circuit large. There is therefore a need for a new compression technique capable of obtaining a high compression ratio using simple hardware.",
+        "Accordingly, the present invention is directed toward a test data compression and decompression method using a zero-detected run-length (ZDR) code in a system-on-chip (SOC) that substantially obviates one or more problems due to limitations and disadvantages of the related art.",
+        "An object of the present invention is to provide a method of effectively compressing test data when a device is tested in a SOC.",
+        "To accomplish the above object, according to the present invention, there is provided a test data compression method using a ZDR code in a system-on-chip (SOC), including the steps of:",
+        "defining a test vector Td to be applied and a test set Tdiff as follows;\n\nTd={t1, t2, t3, t4, t5, . . . , tn}\n\nTdiff={d1, d2, d3, . . . , dn}={t1, t1\u2295t2, t2\u2295t3, . . . , tn\u22121\u2295tn}",
+        "creating Td and Tdiff with values generated by an automatic test pattern generator (ATPG);",
+        "connecting separate elements of Tdiff in a single chain;",
+        "sequentially scanning Tdiff, creating a codeword when a bit \u20181\u2019 appears, and when the codeword is \u20180000\u2019, repeatedly checking a \u20180 Group\u2019 while incrementing the bit of the \u20180 Group\u2019 counter by one until a \u20181\u2019 bit appears;",
+        "recording \u20180111\u2019 when the \u20180 Group\u2019 becomes \u20180000 \u2019\u00d78 and counting the number of bits having the value \u20180\u2019; and",
+        "creating a codeword of a \u20181 Group\u2019 when a \u20181\u2019 bit appears.",
+        "The present invention provides a compression method using a ZDR code having a variable-to-variable-length code. Specifically, in this compression method, two consecutive test vectors are compared to each other, only bits different from corresponding bits of the previous vector are represented by \u20181\u2019, and bits identical to corresponding bits of the previous vector are represented by \u20180\u2019. This process is reversed to obtain the original test vectors.",
+        "The above and other objects, features and advantages of the present invention will be apparent from the following detailed description of the preferred embodiments of the invention in conjunction with the accompanying drawings, in which:",
+        "FIG. 1 illustrates a conventional decompression system.",
+        "FIG. 2 illustrates the configuration of a decompression decoder according to the present invention.",
+        "FIG. 3 illustrates the operation states of the finite state machine shown in FIG. 2.",
+        "FIG. 4 is a graph showing the comparison between codewords generated by a conventional technique and a technique proposed by the present invention.",
+        "Reference will now be made in detail to the preferred embodiments of the present invention, examples of which are illustrated in the accompanying drawings.",
+        "A test vector compression technique according to the present invention includes a compression algorithm and a decompression decoder.",
+        "[Compression Algorithm]",
+        "A ZDR code has a variable-to-variable-length code. Here, a test vector Td to be applied and a test set Tdiff are defined as follows.\n\nTd={t1, t2, t3, t4, t5, . . . , tn}\n\nTdiff={d1, d2, d3, . . . , dn}={t1, t1\u2295t2, t2\u2295t3, . . . , tn\u22121\u2295tn}",
+        "The Tdiff compares each bit of two consecutive test vectors to each other, represents bits different from the corresponding bits of the previous vector by \u20181\u2019 and records bits identical to corresponding bits of the previous vector as \u20180\u2019. When this process is reversed, the original test vectors can be obtained. The ZDR compression method according to the present invention will now be explained in more detail with reference to Table 2.",
+        "Step 1: Td and Tdiff are generated with values created by an automatic test pattern generator (ATPG). The elements of Tdiff thus generated are connected in a single chain.",
+        "Step 2: is sequentially scanned, and when a bit \u20181\u2019 appears, a codeword is created. When the codeword is \u20180000\u2019, that is, when there are four \u20180\u2019s in a row, a \u20180 Group\u2019 is checked while increasing the bit of a \u20180 Group\u2019 counter by one until \u20181\u2019 appears as the next bit in Tdiff. When the \u20180 Group\u2019 becomes \u20180000\u2019\u00d78, 0111 is recorded and bits having the value \u20180\u2019 are counted.",
+        "Step 3: When a \u20181\u2019 bit appears, a codeword of a \u20181 Group\u2019 is created. Then, the process returns to the second step to scan Tdiff bit by bit.",
+        "TABLE 2\n\n\n\n\n\nGroup\nData\nPrefix\nTail\nCodeword\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n1\n1\n1\n00\n100\n\n\n\n01\n\n01\n101\n\n\n\n001\n\n10\n110\n\n\n\n0001\n\n11\n111\n\n\n0\n0000\n0\n000\n0000\n\n\n\n0000x2\n\n001\n0001\n\n\n\n0000x3\n\n010\n0020\n\n\n\n0000x4\n\n011\n0011\n\n\n\n0000x5\n\n100\n0100\n\n\n\n0000x6\n\n101\n0101\n\n\n\n0000x7\n\n110\n0110\n\n\n\n0000x8\n\n111\n0111",
+        "According to the above-described process, result values are not changed with the order of inputting the test vectors when a stuck-at fault is judged. Thus, a higher compression ratio can be obtained by aligning the test vectors to decrease the variation in the bits of adjacent patterns. In this case, codewords are created through the method represented in Table 4.",
+        "Since the number of test vectors is increased in a SOC configuration, the number of \u20180\u2019s is increased if adjacent test vectors are properly aligned using an ordering algorithm. \u20180000\u2019 is considered as a single block and the count of the \u20180-group\u2019is increased one by one to encode each further instance of the string \u20180000\u2019. A codeword capable of being decompressed can be generated using only a counter without using a memory block.",
+        "Table 3 represents a 32-bit test set to which the compression method according to the present invention is applied, and Table 4 compares the compression method using the ZDR code according to the present invention to a conventional Golomb method.",
+        "TABLE 3\n\n\n\n\n\n32-bit test set (Tdiff)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nD1\n0000000000000000\n0000000100000000\n\n\n\nD2\n0000000000001000\n0000000000000000\n\n\n\nD3\n0001010000000000\n0000000000000001\n\n\n\nD4\n0000000000000010\n0000000000000000\n\n\n\nD5\n0000000001000000\n0000000000000001",
+        "TABLE 4\n\n\n\n\n\n\n\n\n\nCompression using ZDR (Present invention)\n\n\n\n\n\n\n\n0000x5 0001 0000x5 1 0000x5 001 01 0000x6\n\n\n\n0100 111 0100 110 0100 110 101 0101\n\n\n\n01 0000x3 001 0000x8 0001 0000x5 1 0000x5 01\n\n\n\n001 0010 110 0111 111 0100 100 0100 101\n\n\n\nCodeword: 59 bits\n\n\n\n\n\n\n\nCompression using Golomb technique\n\n\n\n\n\n\n\n0000x5 0001 0000x5 1 0000x5 001 01 0000x6 01\n\n\n\n111110 11 111110 00 111110 10 001 1111110 01\n\n\n\n0000x3 001 0000x8 0001 0000x5 1 0000x5 01\n\n\n\n11110 10 111111110 11 111110 00 1111110 01\n\n\n\nCodeword: 69 bits",
+        "[Decompression Decoder]",
+        "A corresponding circuit decompresses the codeword compressed according to the present invention, in order to use it. Herein, a decompression decoder shown in FIG. 2 is used as a decompression device. FIG. 3 shows operation states of a finite state machine (FSM) of the decompression decoder shown in FIG. 2.",
+        "The operation states of the FSM have five steps, which will be described in detail.",
+        "Internal signals of the decompression decoder are explained with reference to FIG. 2.",
+        "Step 1: When a signal EN, which represents that the FSM can accept data, is output, a bit is input to the FSM through a signal BIT_IN.",
+        "Step 2: When the bit input to the FSM is \u20180\u2019, signals 0_SIGN and COUNTER_START of a 3-bit counter are on. When the bit input to the FSM is \u20181\u2019, signals 1_SIGN and COUNTER_START are on.",
+        "Step 3: 2 bits are input to the 3-bit counter through a signal SHIFT when the 0_SIGN is on and 3 bits are input to the 3-bit counter through the signal SHIFT when the 1_SIGN is on.",
+        "Step 4: The 3-bit counter is operated. While step 4 is being processed, the FSM continuously outputs \u20180\u2019s through a signal OUT for one clock. When the signal 0_SIGN is input to the 3-bit counter, a signal C_OUT is output from the 3-bit counter. Another 3-bit counter receives the signal C_OUT and records \u2018100\u2019. When the counting operation is finished, a signal V\u20142 is on. When the signal V\u20142 is input to the 3-bit counter, the 3-bit counter down-counts one bit. The operations of the counters are finished and the process returns to Step 1 when the 0_SIGN is input. When the signal 1_SIGN is input, the 3-bit counter is operated. In this case, when the count is finished, a signal V\u20141 is on.",
+        "Step 5: When the signal V\u20141 is input to the FSM, a bit \u20181\u2019 is output through the signal OUT and the process returns to Step 1.",
+        "The operation of the decompression decoder of the present invention includes the aforementioned five steps. As described above, the operation of the decompression decoder is very simple such that a bit \u20180\u2019 is output through the OUT of the FSM whenever a clock CLK is input in Step 4, a bit \u20181\u2019 is output through the OUT when the signal V\u20141 is input in Step 5, and then the process is repeated.",
+        "FIG. 4 is a graph showing the comparison of the ZDR code according to the present invention to the conventional Golomb code. It can be seen from FIG. 4 that the compression ratio of the ZDR code according to the present invention increases abruptly over the conventional Golomb code as the run-length of consecutive \u20180\u2019 bits is increased.",
+        "In the case of (define) FDR, a counter requires a size capable of accepting 2 bits when a group becomes larger. Accordingly, hardware capable of handling the longest run-length is needed. This considerably increases the counter size.",
+        "However, according to the compression and decompression method described in the present invention, the compression ratio has a logarithmic function curve and hardware can handle any run-length so that there is no need to reconstruct hardware depending on the core to be tested.",
+        "Table 5 represents data obtained through a comparative experiment executed for the ZDR code and Golomb code.",
+        "In Table 5, C.N. means a compression bit number and C.R. denotes a compression ratio.",
+        "TABLE 5\n\n\n\n\n\n\n\n\n\nBit\nGolomb code\nZDR C. R\nZDR Result\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCircuit\nnumber\nC. N.\nC. R.\n(3, 2)\n(4, 3)\nC. N.\nC. R.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nC2670\n140965\n51485\n63.48\n69.38\n71.13\n40699\n71.13\n\n\nC3540\n25400\n15706\n38.17\n41.00\n29.69\n14987\n41.00\n\n\nC5315\n180492\n68619\n61.98\n67.19\n66.94\n59226\n67.19\n\n\nC7552\n136620\n75550\n44.70\n51.96\n45.20\n65635\n51.96\n\n\nC641\n10692\n5374\n49.74\n52.96\n44.78\n5030\n52.96\n\n\nS713\n10584\n5370\n49.26\n52.31\n43.78\n5048\n52.31\n\n\nS1196\n7808\n6044\n22.59\n25.60\n12.50\n5809\n25.60\n\n\nS1238\n8160\n6155\n24.57\n27.25\n14.75\n5936\n27.25\n\n\nS1423\n33852\n13605\n59.81\n63.68\n62.66\n12296\n63.68\n\n\nS5378\n259680\n84415\n67.49\n72.14\n73.60\n68567\n73.60\n\n\nS9234\n456703\n153331\n66.43\n73.10\n74.84\n114909\n74.84\n\n\nS13207\n2110500\n559390\n73.49\n79.80\n85.22\n311834\n85.22\n\n\nS15850\n1955200\n526833\n73.05\n79.27\n84.37\n305501\n84.37\n\n\nS35932\n5639837\n1430412\n74.64\n80.85\n86.87\n740362\n86.87",
+        "The present invention can solve at-speed testing and bottleneck problems generated when the number of test sets is increased in an SOC. Furthermore, the present invention enables tests even in an environment where an internal core structure cannot be easily known due to the copyright of IP. The present invention can meet the time-to-market theory because tests can be executed with compressed test sets by adding hardware using only a counter to the SOC core.",
+        "While the present invention has been described with reference to the particular illustrative embodiments, it is not to be restricted by the embodiments but only by the appended claims. It is to be appreciated that those skilled in the art can change or modify the embodiments without departing from the scope and spirit of the present invention."
+    ],
+    "citations": [
+        "2004/0190331"
+    ],
+    "us_classification": "707101",
+    "international_classifications": [
+        {
+            "classification_level": "A",
+            "section": "G",
+            "classification_class": "06",
+            "subclass": "F",
+            "main_group": "17",
+            "subgroup": "30"
+        }
+    ]
+}

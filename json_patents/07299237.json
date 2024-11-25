@@ -1,0 +1,430 @@
+{
+    "title": "Dynamically pipelined data migration",
+    "abstract": "In accordance with one embodiment of the present invention, there is provided a technique for dynamically pipelined data migration. According to one aspect, it is determined that a source schema-conformant source data set is to be converted to a target schema-conformant target data set. A plurality of conversion mechanisms, which can be invoked in succession to convert the source data set into the target data set, is automatically determined. The plurality of conversion mechanisms comprises (a) an initial set of one or more conversion mechanisms that can be invoked in succession to convert the source data set to a final intermediate data set, and (b) a final conversion mechanism that converts the final intermediate data set to the target data set. Each conversion mechanism in the plurality of conversion mechanisms is successively invoked, in order, to convert the set of source data set to the target data set.",
+    "inventors": [
+        "Clark",
+        "Tong",
+        "Wu",
+        "Vong"
+    ],
+    "document_number": "07299237",
+    "publication_date": "20071120",
+    "assignees": [
+        "Sun Microsystems, Inc."
+    ],
+    "claims": [
+        {
+            "claim_number": "CLM-00001",
+            "preamble": "1. A machine-implemented method, comprising:",
+            "components": [
+                {
+                    "component": "determining that a set of source data, which conforms to a source schema, is to be converted to a set of target data, which conforms to a target schema, wherein the source schema is different from the target schema;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "automatically determining, based on a mapping data structure, a plurality of conversion mechanisms that can be invoked in succession to convert the set of source data to the set of target data, the plurality of conversion mechanisms comprising:",
+                    "subcomponents": [
+                        "(a) an initial set of one or more conversion mechanisms that can be invoked in succession to convert the set of source data to a final set of intermediate data, the final set of intermediate data conforming to a final intermediate schema, which is different from the source and target schemas; and",
+                        "(b) a final conversion mechanism that converts the final set of intermediate data to the set of target data;"
+                    ]
+                },
+                {
+                    "component": "(a) an initial set of one or more conversion mechanisms that can be invoked in succession to convert the set of source data to a final set of intermediate data, the final set of intermediate data conforming to a final intermediate schema, which is different from the source and target schemas; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(b) a final conversion mechanism that converts the final set of intermediate data to the set of target data;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "invoking the plurality of conversion mechanisms in succession to convert the set of source data to the set of target data; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "storing the set of target data;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "wherein the mapping data structure indicates, for each particular conversion mechanism of the plurality of conversion mechanisms, at least one schema pair that indicates that said particular conversion mechanism converts (1) data that conforms to a first schema indicated in said pair into (2) data that conforms to a second schema indicated in said pair.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00002",
+            "preamble": "2. The machine-implemented method of claim 1 , wherein there is no single conversion mechanism that will directly convert the set of source data to the set of target data.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00003",
+            "preamble": "3. The machine-implemented method of claim 1 , wherein the initial set of conversion mechanisms consists of a single conversion mechanism, which converts the set of source data to the final set of intermediate data.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00004",
+            "preamble": "4. The machine-implemented method of claim 3 , wherein the plurality of conversion mechanisms is determined based, at least partially, upon the mapping data structure, wherein the mapping data structure comprises information indicating that the single conversion mechanism converts a set of data conforming to the source schema to a set of data conforming to the final intermediate schema, and wherein the mapping data structure further comprises information indicating that the final conversion mechanism converts a set of data conforming to the final intermediate schema to a set of data conforming to the target schema.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00005",
+            "preamble": "5. The machine-implemented method of claim 1 , wherein the initial set of conversion mechanisms comprises a plurality of initial conversion mechanisms that can be invoked in succession to convert the set of source data to the final set of intermediate data.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00006",
+            "preamble": "6. The machine-implemented method of claim 5 , wherein the plurality of initial conversion mechanisms comprises:",
+            "components": [
+                {
+                    "component": "(i) a first conversion mechanism which converts the set of source data into a first set of intermediate data, the first set of intermediate data conforming to a first intermediate schema; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(ii) a second conversion mechanism which converts the first set of intermediate data to the final set of intermediate data.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00007",
+            "preamble": "7. The machine-implemented method of claim 6 , wherein the plurality of conversion mechanisms is determined based, at least partially, upon the mapping data structure, wherein the mapping data structure comprises information indicating that the first conversion mechanism converts a set of data conforming to the source schema to a set of data conforming to the first intermediate schema, wherein the mapping data structure further comprises information indicating that the second conversion mechanism converts a set of data conforming to the first intermediate schema to a set of data conforming to the final intermediate schema, and wherein the mapping data structure further comprises information indicating that the final conversion mechanism converts a set of data conforming to the final intermediate schema to a set of data conforming to the target schema.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00008",
+            "preamble": "8. The machine-implemented method of claim 1 , further comprising:",
+            "components": [
+                {
+                    "component": "detecting an embedded set of data within the set of source data;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "automatically determining an additional plurality of conversion mechanisms that can be invoked in succession to convert the embedded set of data to an embedded set of target data; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "invoking the additional plurality of conversion mechanisms in succession to convert the embedded set of data to the embedded set of target data.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00009",
+            "preamble": "9. The machine-implemented method of claim 8 , wherein the embedded set of target data conforms to a schema that differs from the target schema.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00010",
+            "preamble": "10. The machine-implemented method of claim 8 , wherein the additional plurality of conversion mechanisms differs from the plurality of conversion mechanisms.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00011",
+            "preamble": "11. A computer-readable storage medium carrying one or more sequences of instructions, which instructions, when executed by one or more processors, cause the one or more processors to carry out the steps of:",
+            "components": [
+                {
+                    "component": "determining that a set of source data, which conforms to a source schema, is to be converted to a set of target data, which conforms to a target schema, wherein the source schema is different from the target schema;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "automatically determining, based on a mapping data structure, a plurality of conversion mechanisms that can be invoked in succession to convert the set of source data to the set of target data, the plurality of conversion mechanisms comprising:",
+                    "subcomponents": [
+                        "(a) an initial set of one or more conversion mechanisms that can be invoked in succession to convert the set of source data to a final set of intermediate data, the final set of intermediate data conforming to a final intermediate schema, which is different from the source and target schemas; and",
+                        "(b) a final conversion mechanism that converts the final set of intermediate data to the set of target data;"
+                    ]
+                },
+                {
+                    "component": "(a) an initial set of one or more conversion mechanisms that can be invoked in succession to convert the set of source data to a final set of intermediate data, the final set of intermediate data conforming to a final intermediate schema, which is different from the source and target schemas; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(b) a final conversion mechanism that converts the final set of intermediate data to the set of target data;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "invoking the plurality of conversion mechanisms in succession to convert the set of source data to the set of target data; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "storing the set of target data;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "wherein the mapping data structure indicates, for each particular conversion mechanism of the plurality of conversion mechanisms, at least one schema pair that indicates that said particular conversion mechanism converts (1) data that conforms to a first schema indicated in said pair into (2) data that conforms to a second schema indicated in said pair.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00012",
+            "preamble": "12. The computer-readable storage medium of claim 11 , wherein there is no single conversion mechanism that will directly convert the set of source data to the set of target data.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00013",
+            "preamble": "13. The computer-readable storage medium method of claim 11 , wherein the initial set of conversion mechanisms consists of a single conversion mechanism, which converts the set of source data to the final set of intermediate data.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00014",
+            "preamble": "14. The computer-readable storage medium of claim 13 , wherein the plurality of conversion mechanisms is determined based, at least partially, upon the mapping data structure, wherein the mapping data structure comprises information indicating that the single conversion mechanism converts a set of data conforming to the source schema to a set of data conforming to the final intermediate schema, and wherein the mapping data structure further comprises information indicating that the final conversion mechanism converts a set of data conforming to the final intermediate schema to a set of data conforming to the target schema.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00015",
+            "preamble": "15. The computer-readable storage medium of claim 11 , wherein the initial set of conversion mechanisms comprises a plurality of initial conversion mechanisms that can be invoked in succession to convert the set of source data to the final set of intermediate data.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00016",
+            "preamble": "16. The computer-readable storage medium of claim 15 , wherein the plurality of initial conversion mechanisms comprises:",
+            "components": [
+                {
+                    "component": "(i) a first conversion mechanism which converts the set of source data into a first set of intermediate data, the first set of intermediate data conforming to a first intermediate schema; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(ii) a second conversion mechanism which converts the first set of intermediate data to the final set of intermediate data.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00017",
+            "preamble": "17. The computer-readable storage medium of claim 16 , wherein the plurality of conversion mechanisms is determined based, at least partially, upon the mapping data structure, wherein the mapping data structure comprises information indicating that the first conversion mechanism converts a set of data conforming to the source schema to a set of data conforming to the first intermediate schema, wherein the mapping data structure further comprises information indicating that the second conversion mechanism converts a set of data conforming to the first intermediate schema to a set of data conforming to the final intermediate schema, and wherein the mapping data structure further comprises information indicating that the final conversion mechanism converts a set of data conforming to the final intermediate schema to a set of data conforming to the target schema.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00018",
+            "preamble": "18. The computer-readable storage medium of claim 11 , wherein the one or more sequences of instructions comprise one or more sequences of instructions that, when executed by the one or more processors, cause the one or more processors to carry out the steps of:",
+            "components": [
+                {
+                    "component": "detecting an embedded set of data within the set of source data;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "automatically determining an additional plurality of conversion mechanisms that can be invoked in succession to convert the embedded set of data to an embedded set of target data; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "invoking the additional plurality of conversion mechanisms in succession to convert the embedded set of data to the embedded set of target data.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00019",
+            "preamble": "19. The computer-readable storage medium of claim 18 , wherein the embedded set of target data conforms to a schema that differs from the target schema.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00020",
+            "preamble": "20. The computer-readable storage medium of claim 18 , wherein the additional plurality of conversion mechanisms differs from the plurality of conversion mechanisms.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00021",
+            "preamble": "21. A computer system comprising:",
+            "components": [
+                {
+                    "component": "a mechanism for determining that a set of source data, which conforms to a source schema, is to be converted to a set of target data, which conforms to a target schema, wherein the source schema is different from the target schema;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a mechanism for automatically determining, based on a mapping data structure a plurality of conversion mechanisms that can be invoked in succession to convert the set of source data to the set of target data, the plurality of conversion mechanisms comprising:",
+                    "subcomponents": [
+                        "(a) an initial set of one or more conversion mechanisms that can be invoked in succession to convert the set of source data to a final set of intermediate data, the final set of intermediate data conforming to a final intermediate schema, which is different from the source and target schemas; and",
+                        "(b) a final conversion mechanism that converts the final set of intermediate data to the set of target data;"
+                    ]
+                },
+                {
+                    "component": "(a) an initial set of one or more conversion mechanisms that can be invoked in succession to convert the set of source data to a final set of intermediate data, the final set of intermediate data conforming to a final intermediate schema, which is different from the source and target schemas; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(b) a final conversion mechanism that converts the final set of intermediate data to the set of target data;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a mechanism for invoking the plurality of conversion mechanisms in succession to convert the set of source data to the set of target data; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a mechanism for storing the set of target data;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "wherein the mapping data structure indicates, for each particular conversion mechanism of the plurality of conversion mechanisms, at least one schema pair that indicates that said particular conversion mechanism converts (1) data that conforms to a first schema indicated in said pair into (2) data that conforms to a second schema indicated in said pair.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00022",
+            "preamble": "22. The computer system of claim 21 , wherein there is no single conversion mechanism that will directly convert the set of source data to the set of target data.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00023",
+            "preamble": "23. The computer system of claim 21 , wherein the initial set of conversion mechanisms consists of a single conversion mechanism, which converts the set of source data to the final set of intermediate data.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00024",
+            "preamble": "24. The computer system of claim 23 , wherein the plurality of conversion mechanisms is determined based, at least partially, upon the mapping data structure, wherein the mapping data structure comprises information indicating that the single conversion mechanism converts a set of data conforming to the source schema to a set of data conforming to the final intermediate schema, and wherein the mapping data structure further comprises information indicating that the final conversion mechanism converts a set of data conforming to the final intermediate schema to a set of data conforming to the target schema.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00025",
+            "preamble": "25. The computer system of claim 21 , wherein the initial set of conversion mechanisms comprises a plurality of initial conversion mechanisms that can be invoked in succession to convert the set of source data to the final set of intermediate data.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00026",
+            "preamble": "26. The computer system of claim 25 , wherein the plurality of initial conversion mechanisms comprises:",
+            "components": [
+                {
+                    "component": "(i) a first conversion mechanism which converts the set of source data into a first set of intermediate data, the first set of intermediate data conforming to a first intermediate schema; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "(ii) a second conversion mechanism which converts the first set of intermediate data to the final set of intermediate data.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00027",
+            "preamble": "27. The computer system of claim 26 , wherein the plurality of conversion mechanisms is determined based, at least partially, upon the mapping data structure, wherein the mapping data structure comprises information indicating that the first conversion mechanism converts a set of data conforming to the source schema to a set of data conforming to the first intermediate schema, wherein the mapping data structure further comprises information indicating that the second conversion mechanism converts a set of data conforming to the first intermediate schema to a set of data conforming to the final intermediate schema, and wherein the mapping data structure further comprises information indicating that the final conversion mechanism converts a set of data conforming to the final intermediate schema to a set of data conforming to the target schema.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00028",
+            "preamble": "28. The computer system of claim 21 , further comprising:",
+            "components": [
+                {
+                    "component": "a mechanism for detecting an embedded set of data within the set of source data;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a mechanism for automatically determining an additional plurality of conversion mechanisms that can be invoked in succession to convert the embedded set of data to an embedded set of target data; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a mechanism for invoking the additional plurality of conversion mechanisms in succession to convert the embedded set of data to the embedded set of target data.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00029",
+            "preamble": "29. The computer system of claim 28 , wherein the embedded set of target data conforms to a schema that differs from the target schema.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00030",
+            "preamble": "30. The computer system of claim 28 , wherein the additional plurality of conversion mechanisms differs from the plurality of conversion mechanisms.",
+            "components": []
+        }
+    ],
+    "description": [
+        "In order to make the storage and retrieval of data faster and more efficient, data may be stored in an organized form in a data repository such as a database. Data stored in an organized form often conforms to a \u201cschema\u201d that indicates the structure of the data. For example, given a plurality of entities represented by data stored in a database, a database schema may indicate a separate table for each entity type, a separate table column for each attribute of a particular entity type, and a data type (e.g., number, string, etc.) for each table column.",
+        "Sometimes, it is desirable to take data that conforms in structure to one schema and modify that data so that the data conforms in structure to another, different schema instead. For example, a database administrator may wish to export data that is stored in a source database and import that data into another, different, target database. The target database server might be a newer version of the source database server, produced by the same database software vendor. Alternatively, the source database server and the target database server might be produced by entirely different database software vendors. For another example, when a new version of an application is installed, the application installation program might need to modify existing data produced by an old version of the application so that the data conforms to a new schema used by the new version of the application.",
+        "In such cases, the schema used by the source database or application may differ from the schema used by the target database or application. For example, data types supported by the source database might differ from data types supported by the target database. To facilitate data conversion, data types of table columns might need to be altered. Table columns might need to be split or merged. The format of data within a particular table column might need to be altered. Such data conversion is referred to as \u201cdata migration.\u201d",
+        "According to a \u201cmanual migration\u201d approach, a database administrator obtains data contained in a source database by manually constructing and executing Structured Query Language (SQL) \u201cselect\u201d statements. Once the database administrator has obtained the data from the source database, the database administrator inputs the data into a custom-made conversion program. The custom-made conversion program is specifically designed to take data that conforms to the source schema and alter the data so that the data conforms to the target schema. After the custom-made conversion program has produced the altered data, the database administrator loads the altered data into the target database by manually constructing and executing SQL \u201cinsert\u201d statements.",
+        "Although a database software vendor might sometimes provide a conversion program that converts data from the form used in a second-to-most-recent version of that vendor's database to the form used in the most recent version of that vendor's database, database software vendors typically do not provide conversion programs that convert data from forms used in less recent versions of those vendors' databases to the forms used in the most recent versions of those vendors' databases. As a result, using the \u201cmanual migration\u201d approach, a database administrator might be forced to create a new custom-made program that converts data from a form used in an old version of a database to a form used in the newest version of the database.",
+        "In accordance with one embodiment of the present invention, there is provided a technique for dynamically pipelined data migration. Using this technique, a sequence or \u201cpipeline\u201d of conversion mechanisms that will transform data that conforms to a source schema into data that conforms to a target schema are dynamically and automatically determined and applied.",
+        "In one embodiment, it is determined that a set of source data, which conforms to a source schema, is to be converted to a set of target data, which conforms to a target schema. The target schema differs from the source schema. A plurality of conversion mechanisms, which can be invoked in succession to convert the set of source data to the set of target data, is automatically determined. The plurality of conversion mechanisms comprises (a) an initial set of one or more conversion mechanisms that can be invoked in succession to convert the set of source data to a final set of intermediate data, and (b) a final conversion mechanism that converts the final set of intermediate data to the set of target data. The final set of intermediate data conforms to a final intermediate schema, which differs from both the source schema and the target schema. Each conversion mechanism in the plurality of conversion mechanisms is invoked in succession to convert the set of source data to the set of target data.",
+        "Thus, according to one embodiment, a \u201cpipeline\u201d of conversion mechanisms is dynamically determined, and data is processed through each conversion mechanism in the pipeline until the set of target data is produced, thereby accomplishing the desired data migration.",
+        "FIG. 1 is an operational flow diagram that illustrates a high-level overview of the operation of an embodiment of the present invention.",
+        "FIG. 2 is a functional block diagram that illustrates a computing environment, according to an embodiment of the present invention, in which multiple conversion mechanisms are applied in succession to a set of data to derive a set of target data that conforms to a target schema.",
+        "FIG. 3 is an operational flow diagram that illustrates the operation of an embodiment of the present invention.",
+        "FIG. 4 is a hardware block diagram of an example computer entity, which may be used to embody one or more components of an embodiment of the present invention.",
+        "In accordance with one embodiment of the present invention, techniques are provided for dynamically pipelined data migration. An operational flow diagram, which illustrates a high level overview of the operation of one embodiment of the present invention, is shown in FIG. 1. The operational flow diagram of FIG. 1 illustrates a technique in which data is automatically migrated through a dynamically determined pipeline of conversion mechanisms. Either a single computing device or multiple separate computing devices may perform operations of the technique.",
+        "Referring to FIG. 1, in block 102, it is determined that a set of source data is to be converted to a set of target data. The set of source data conforms to a source schema, and the set of target data conforms to a target schema.",
+        "In block 104, a plurality of conversion mechanisms is automatically determined. The plurality of conversion mechanisms comprises (a) an initial set of one or more conversion mechanisms and (b) a final conversion mechanism. Each conversion mechanism, when applied to a set of data, converts a set of data that conforms to one schema into a set of data that conforms to another schema. The first conversion mechanism in the initial set converts the set of source data, which conforms to the source schema, into a set of data that conforms to some intermediate schema that differs from the source and target schemas. The final conversion mechanism converts a set of data that conforms to some intermediate schema into the set of target data, which conforms to the target schema.",
+        "In block 106, each conversion mechanism in the plurality of conversion mechanisms is invoked in succession to convert the source data to the target data.",
+        "In other aspects, the invention encompasses in some embodiments, computer apparatus, computing systems and computer-readable media configured to carry the foregoing technique.",
+        "FIG. 2 is a functional block diagram that illustrates a computing environment 200, according to an embodiment of the present invention, in which multiple conversion mechanisms are applied in succession to a set of data to derive a set of target data that conforms to a target schema.",
+        "The computing environment of FIG. 2 depicts a pipeline-constructing mechanism 202, a mapping data structure 204, conversion mechanisms 206A-N, a source database 208, a target database 210, a specific-to-general (\u201cSTG\u201d) format conversion mechanism 212, and a general-to-specific (\u201cGTS\u201d) format conversion mechanism 214. The components depicted in the computing environment of FIG. 2 may be embodied within a single computing device or distributed among multiple separate computing devices.",
+        "Source database 208 contains a source-specific-formatted (\u201cSSF\u201d) data set 216. SSF data set 216 conforms to a source schema. SSF data set 216 is formatted according to a source-specific format used by source database 208. As used herein, a \u201cformat\u201d is any arranging, encoding, delimiting, or markup mechanism or plan that can be used to indicate the structure and/or organization of data, independently of the actual content of that data. A \u201csource-specific\u201d format is a format that is used specifically by a repository, container, object, or other entity from which data originates to represent the format of that data within that repository, container, object, or other entity. For example, the source-specific format may be a relational table format. Other examples of source-specific formats include comma-delimited file formats, spreadsheet formats, page description language formats, and markup language formats.",
+        "When invoked, STG format conversion mechanism 212 reads SSF data set 216 from source database 208. STG format conversion mechanism 212 writes the information contained in SSF data set 216 into a self-describing-formatted (\u201cSDF\u201d) data set 218A. Like SSF data set 216, SDF data set 218A conforms to the source schema. However, unlike SSF data set 216, SDF data set 218A is formatted according to a self-describing format rather than the source-specific format. As used herein, a \u201cself-describing\u201d format is a format that expressly describes the organization or structure of data, such that no additional information beyond that expressed by the descriptive mechanisms used by the format is necessary to understand or interpret the organization or structure of the data that is formatted according to the format; the manner in which the organization or structure of self-describing-formatted data should be interpreted is apparent from the formatting mechanisms (such as tags or other metadata) themselves. One example of a self-describing format is Extensible Markup Language (XML). Another example of a self-describing format is Standard Generalized Markup Language (SGML).",
+        "In one embodiment, SDF data set 218A contains nested XML elements that indicate the structure imposed by the source schema. For example, SDF data set 218A may contain nested XML elements with tags such as \u201c<table>,\u201d \u201c<row>,\u201d and \u201c<column>.\u201d The nesting of the XML elements reflects the structure of SSF data set 216.",
+        "When pipeline-constructing mechanism 202 receives a command to convert SDF data set 218A into an SDF data set 218N that conforms to a target schema, pipeline-constructing mechanism 202 determines how the conversion process is to be done. Pipeline-constructing mechanism 202 consults mapping data structure 204 to determine a sequence of conversion mechanisms 206A-N that can collectively convert SDF data set 218A into SDF data set 218N.",
+        "There might not be any single one of conversion mechanisms 206A-N that can convert SDF data set 218A directly into SDF data set 218N. Pipeline-constructing mechanism 202 either is provided with or automatically determines (a) the identity of the source schema to which SDF data set 218A conforms, and (b) the identity of the target schema to which SDF data set 218N needs to conform when generated. Using this information, pipeline-constructing mechanism 202 determines, from mapping data structure 204, a conversion mechanism 206N that can convert an SDF data set 218M, which conforms to some intermediate schema that differs from both the source schema and the target schema, into SDF data set 218N, which conforms to the target schema.",
+        "In a similar manner, pipeline-constructing mechanism 202 determines, from mapping data structure 204, one or more other conversion mechanisms 206A-M that, when applied in succession, collectively convert SDF data set 218A into SDF data set 218M. Each of conversion mechanisms 206B-M converts a set of SDF data produced by an earlier conversion mechanism into a set of SDF data that conforms to an intermediate schema that differs from the source and target schemas. Thus, pipeline-constructing mechanism 202 determines and constructs a sequence, or \u201cpipeline\u201d of conversion mechanisms that, when invoked in succession, can collectively convert SDF data set 218A into SDF data set 218N.",
+        "In one embodiment, each of SDF data sets 218A-N conforms to a different schema, but each of SDF data sets 218A-N is in the same self-describing format. For example, each of SDF data sets 218A-N may be described in XML format. Because each of SDF data sets 218A-N is, in one embodiment, in the same self-describing format, conversion mechanisms 206A-N do not need to be custom-designed to account for differences in specialized and proprietary formats such as might be used by different database software vendors.",
+        "In one embodiment, mapping data structure 204 contains multiple entries. Each entry specifies a schema identity pair and a corresponding conversion mechanism that can convert data sets that conform to one of the pair's schemas into data sets that conform to the other of the pair's schemas. An example of mapping data structure 204 is shown below in TABLE 1.",
+        "TABLE 1\n\n\n\n\n\nEXAMPLE MAPPING DATA STRUCTURE\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSCHEMA \u201cA\u201d TO\nCONVERSION MECHANISM 206A\n\n\n\nSCHEMA \u201cB\u201d\n\n\n\nSCHEMA \u201cB\u201d TO\nCONVERSION MECHANISM 206M\n\n\n\nSCHEMA \u201cC\u201d\n\n\n\nSCHEMA \u201cC\u201d TO\nCONVERSION MECHANISM 206N\n\n\n\nSCHEMA \u201cD\u201d",
+        "For example, mapping data structure 204 may indicate that conversion mechanism 206A can convert data sets that conform to schema \u201cA\u201d into data sets that conform to schema \u201cB.\u201d Mapping data structure 204 may also indicate that conversion mechanism 206M can convert data sets that conform to schema \u201cB\u201d into data sets that conform to schema \u201cC.\u201d Thus, even if no single one of conversion mechanisms 206A-N can independently and directly convert data sets that conform to schema \u201cA\u201d into data sets that conform to schema \u201cC,\u201d by consulting mapping data structure 204, pipeline-construction mechanism 202 can determine a pipeline of multiple conversion mechanisms that can collectively perform this conversion, if such a pipeline can be constructed. In the above example, the conversion mechanisms in the pipeline are conversion mechanisms 206A and 206M, in that order. Therefore, a single conversion mechanism that independently and directly converts a schema \u201cA\u201d\u2014conformant data set into a schema \u201cC\u201d-conformant data does not need to be custom-made.",
+        "After pipeline-constructing mechanism 202 has determined the pipeline of conversion mechanisms 206A-N, pipeline-constructing mechanism 202 inputs SDF data set 218A into conversion mechanism 206A. Conversion mechanism 206A receives SDF data set 218A, performs a specified modification to SDF data set 218A, and outputs SDF data set 218B. For each particular conversion mechanism 206B-N in the pipeline, pipeline-constructing mechanism 202 takes the output of the conversion mechanism immediately previous to the particular conversion mechanism and provides that output as input to the particular conversion mechanism. Conversion mechanisms 206A-N may modify the contents and/or the structures of SDF data sets 218A-N. The output of the last conversion mechanism in the pipeline, denoted in FIG. 2 as conversion mechanism 206N (although two or more conversion mechanisms may be in the pipeline), is SDF data set 218N, which conforms to the target schema.",
+        "For example, such a pipeline might be useful when migrating data from an old version of a database to a new version of the database. Data in the old version of the database (e.g., \u201cversion 1\u201d) might conform to schema \u201cA,\u201d while data in the new version of the database (e.g., \u201cversion 3\u201d) might need to conform to schema \u201cC.\u201d There might not exist any single conversion mechanism that directly converts schema \u201cA\u201d-conformant data into schema \u201cC\u201d-conformant data. However, there might be an intermediate version of the database (e.g., \u201cversion 2\u201d), and data in the intermediate version might conform to schema \u201cB.\u201d Additionally, there might exist a conversion mechanism that converts schema \u201cA\u201d-conformant data into schema \u201cB\u201d-conformant data, and another conversion mechanism that converts schema \u201cB\u201d-conformant data into schema \u201cC\u201d-conformant data. By pipelining these conversion mechanisms as described above, schema \u201cA\u201d-conformant data may be converted automatically into schema \u201cC\u201d-conformant data.",
+        "In modifying the contents and/or the structures of SDF data sets 218A-N, conversion mechanisms 206A-N may insert text, delete text, move text, rename text, etc., according to specified instructions and/or mappings implemented in or provided to conversion mechanisms 206A-N.",
+        "After SDF data set 218N has been generated, GTS format conversion mechanism 214 reads SDF data set 218N. GTS format conversion mechanism 214 writes the information contained in SDF data set 218N into a target-specific-formatted (\u201cTSF\u201d) data set 220 in target database 210. In doing so, GTS format conversion mechanism 214 may create, in target database 210, \u201ccontainer\u201d data structures (e.g., database tables) equivalent to those indicated by SDF data set 218N. Like SDF data set 218N, TSF data set 220 conforms to the target schema. However, unlike SDF data set 218N, TSF data set 220 is formatted according to a target-specific format rather than the self-describing format. For example, the target-specific format may be a relational table format.",
+        "Thus, in computing environment 200, multiple conversion mechanisms 206A-N are applied in succession to a set of data, which originally conforms to the source schema, to derive TSF data set 220, which conforms to the target schema. Although computing environment 200 comprises databases 208 and 210, alternative embodiments of the invention do not comprise databases. In one alternative embodiment, for example, SSF data set 216 and TSF data set 220 are contained in flat files. In another alternative embodiment, for example, SSF data set 216 and TSF data set 220 are contained in binary files. SSF data set 216 may be in a different format than TSF data set 220.",
+        "According to one embodiment, pipeline-constructing mechanism 202, conversion mechanisms 206A-N, STG format conversion mechanism 212, and GTS format conversion mechanism 214 are programs that execute on a computer system such as is described with reference to in FIG. 4 below.",
+        "According to one embodiment, conversion mechanisms 206A-N are Extensible Stylesheet Language Transformations (XSLT) processors that accept XSLT style sheets as input and apply changes specified in those XSLT style sheets to SDF data sets 218A-N, thereby converting the schema-conformance of SDF data sets 218A-N from one schema to another. According to an alternative embodiment, conversion mechanisms 206A-N are generic context translation programs that accept XML-formatted mappings as input and apply the changes specified by those mappings to SDF data sets 218A-N.",
+        "As described above, according to one embodiment, SDF data sets 218A-N are formatted in XML. According to an alternative embodiment, SDF data sets 218A-N are formatted in Standard Generalized Markup Language (SGML). According to yet another alternative embodiment, SDF data sets 218A-N are formatted in a self-describing markup language other than XML or SGML.",
+        "A sample operation of computing environment 200 in accordance with one embodiment of the present invention will now be described. In the following discussion, reference will be made to the functional block diagram of FIG. 2 and the flow diagram of FIG. 3. Either a single computing device or multiple separate computing devices may perform operations of the technique depicted in FIG. 3.",
+        "Referring to FIG. 3, in block 302, a source data set is converted from a source-specific format to a self-describing format. For example, STG format conversion mechanism 212 may read SSF data set 216 from source database 208 and convert the format of SSF data set 216 to a self-describing format such as XML. STG format conversion mechanism 212 may write the converted-format data set to SDF data set 218A.",
+        "In block 304, a source schema to which the source data set conforms is determined. For example, pipeline-constructing mechanism 202 may determine, based on user input or information contained in SDF data set 218A, an identity of a source schema to which SDF data set 218A conforms.",
+        "In block 306, a target schema to which the source data set should be made to conform is determined. For example, pipeline-constructing mechanism 202 may determine, based on user input, an identity of a target schema to which SDF data set 218A should be made to conform.",
+        "In block 308, two or more conversion mechanisms that will collectively convert the source data set into a target data set that conforms to the target schema are selected from among a plurality of conversion mechanisms. For example, pipeline-constructing mechanism 202 may consult mapping data structure 204 to determine a sequence of two or more conversion mechanisms 206A-N that will collectively convert SDF data set 218A to SDF data set 218N when the outputs of one or more of conversion mechanisms 206A-N are provided as inputs to one or more of conversion mechanisms 206A-N. For example, mapping data structure 204 may indicate that conversion mechanism 206A converts SDF data set 218A to SDF data set 218B, and that conversion mechanism 206N converts SDF data set 218B to SDF data set 218N. As a result, pipeline-constructing mechanism 202 may determine that the sequence will comprise conversion mechanisms 206A and 206N, in that order.",
+        "In block 310, the source data set is provided as input to the first conversion mechanism in the sequence of selected conversion mechanisms. For example, pipeline-constructing mechanism 202 may provide SDF data set 218A as input to conversion mechanism 206A.",
+        "In block 312, the output of each conversion mechanism in the sequence of selected conversion mechanisms is provided as input to the next conversion mechanism in the sequence, until the last conversion mechanism in the sequence has generated output. For example, assuming that conversion mechanism 206A outputs SDF data set 218B, pipeline-constructing mechanism 202 may provide SDF data set 218B as input to conversion mechanism 206B. Assuming that conversion mechanism 206N outputs SDF data set 218N, pipeline-constructing mechanism 202 may provide SDF data set 218B as input to conversion mechanism 206N. This process continues until SDF data set 218N is generated. In one embodiment, each of SDF data sets 218A-N conforms to a different schema.",
+        "In block 314, the target data set is converted from the self-describing format to a target-specific format. For example, GTS format conversion mechanism 214 may read SDF data set 218N and convert the format of SDF data set 218N to a target-specific format that is used in target database 210. GTS format conversion mechanism 214 may store the converted-format data set as TSF data set 220 in target database 210.",
+        "In the embodiment described above, data is converted to and from a self-describing format. However, in an alternative embodiment, data does not need to be converted to and/or from a self-describing format. In an alternative embodiment, each conversion mechanism in the sequence of selected conversion mechanisms converts the format of input SDF data sets as well as the schema to which those SDF data sets conform.",
+        "According to one embodiment, one or more of conversion mechanisms 206A-N uses Simple API for XML (SAX) processing to read, convert, and write SDF data sets 218A-N, which may be XML-formatted documents. Using SAX processing, conversion mechanisms 206A-N do not need to read an SDF data set entirely into memory before beginning to process and convert that SDF data set. Instead, using SAX processing, conversion mechanisms 206A-N may read a portion of a particular SDF data set, process and convert that portion, write the results of the processing, and then read another portion of the particular SDF data set. This permits operations to be performed on large data sets without using excessively large amounts of memory. This also allows conversion mechanisms 206A-N to generate output as conversion mechanisms 206A-N receive input. Alternatively, a Document Object Model (DOM) may be used to process SDF data sets 218A-N.",
+        "In more advanced databases and data repository systems, data structures may contain complex embedded data structures whose structures at least partially influence the meaning or interpretation of the content of those embedded data structures. For example, a column of a database table may be of an \u201cXML type\u201d data type; each entry in such a column may be a separate embedded XML document that has a hierarchical structure that at least partially influences the meaning or interpretation of that embedded XML document. Each entry in such a column may conform to some schema that differs from the schema to which the column's database table conforms. Indeed, an embedded XML document may contain yet another embedded XML document that conforms to a different schema than that of the containing XML document.",
+        "Sometimes, the conversion of a source data set to a target data set may require the conversion of embedded data structures so that those embedded data structures conform to a different schema. Sometimes, an embedded data structure might need to be converted to conform to a different schema even when the rest of the \u201ccontaining\u201d data structure does not need to be converted. For example, the structure of embedded XML documents within a particular database table might need to be modified even if the structure of the particular database table does not need to be modified.",
+        "In one embodiment, one or more of conversion mechanisms 206A-N includes, or is followed in the pipeline by, a location mechanism that locates embedded data structures within a \u201ccontaining\u201d data structure. The location mechanism receives an SDF data set as input. The location mechanism identifies, in the SDF data set (the \u201ccontaining data structure\u201d), the start of an embedded data structure and the end of the embedded data structure. In response to identifying the start and end of an embedded data structure, the location mechanism buffers all of the data between the start of the embedded data structure and the end of the embedded data structure. Instead of passing the embedded data structure unmodified to the next of conversion mechanisms 206A-N in the \u201cmain\u201d pipeline, the location mechanism \u201croutes\u201d the embedded data structure to the first of potentially many conversion mechanisms in a \u201csub-pipeline\u201d that is dynamically constructed by pipeline-construction mechanism 202 in the same manner as the \u201cmain\u201d pipeline. The location mechanism passes through, to the next of conversion mechanisms 206A-N in the \u201cmain\u201d pipeline, any data that is contained within the containing data structure but not within the embedded data structure.",
+        "In the same manner as conversion mechanisms 206A-N in the \u201cmain\u201d pipeline, conversion mechanisms in the \u201csub-pipeline\u201d collectively convert the embedded data structure so that the embedded data structure conforms to a specified target schema that differs from the source schema to which the embedded data structure originally conformed. Once the embedded data structure has been converted to conform to the specified target schema (which may differ from the target schema to which the container data structure conforms after conversion), the converted embedded data structure is \u201cre-embedded\u201d into the containing data structure and passed, with the rest of the containing data structure, to the next of conversion mechanisms 206A-N in the \u201cmain\u201d pipeline.",
+        "A location mechanism may use any of several techniques to locate the start and end of an embedded data structure. In one embodiment, a location mechanism identifies the start and end of an embedded data structure by finding XML elements that are located within a specified \u201cpath\u201d in the containing data structure. A \u201cpath\u201d may be specified according to XML Path Language (XPath), for example.",
+        "In an alternative embodiment, a location mechanism identifies the start and end of an embedded data structure by finding starting and ending markup language tags that have specified names that distinguish the starting and ending markup language tags from other tags in the containing data structure. For example, an embedded data structure may begin with an \u201c<embed>\u201d tag and end with an \u201c</embed>\u201d tag. STG format conversion mechanism 212 may insert such special tags before and after an embedded data structure when STG format conversion mechanism 212 detects such an embedded data structure, for example.",
+        "As is described above with reference to block 302 of FIG. 3, in one embodiment, a source data set is converted from a source-specific format to a self-describing format. In one embodiment, the self-describing format is XML. The XML specification requires a certain \u201cXML declaration\u201d element to appear at the beginning of an XML document. The XML specification prohibits such an \u201cXML declaration\u201d element from appearing anywhere in an XML document other than at the beginning.",
+        "As is described above, an embedded data structure also may be represented as an XML document. If both the containing data structure and the embedded data structure contained therein have the XML-specification-required \u201cXML declaration\u201d element, then the containing data structure will have an \u201cXML declaration\u201d element somewhere other than at the beginning of the containing data structure, in violation of the XML specification. XML specification-compliant parsers, which may be implemented in one or more of conversion mechanisms 206A-N, may return an error in response to detecting such a violation.",
+        "To remedy this problem, in one embodiment, when a source data set is converted from the source-specific format to the self-describing format, any embedded data structures contained within the source data set are \u201cescaped.\u201d In one embodiment, an embedded data structure is \u201cescaped\u201d by converting \u201cless-than\u201d (\u201c<\u201d) symbols in the embedded data structure into other specified symbols, such as \u201c&lt;\u201d. After such a conversion, XML specification-compliant parsers will not recognize an embedded \u201cXML declaration\u201d element as such.",
+        "\u201cEscaped\u201d embedded data structures may be \u201crouted\u201d to a conversion mechanism in a \u201csub-pipeline\u201d as described above. In the course of parsing the embedded data structure, the conversion mechanisms in the \u201csub-pipeline\u201d automatically \u201cun-escape\u201d the embedded data structure, so that any \u201c&lt;\u201d symbols are converted back into \u201c<\u201d symbols. Before the converted embedded data structure is \u201cre-embedded\u201d into the containing data structure at the end of the \u201csub-pipeline,\u201d the converted embedded data structure is \u201cre-escaped.\u201d For example, the location mechanism that initially \u201crouted\u201d the embedded structure to the \u201csub-pipeline\u201d may receive and re-escape the converted embedded data structure prior to \u201cre-embedding\u201d the converted embedded structure into the containing data structure.",
+        "FIG. 4 is a block diagram that illustrates a computer system 400 upon which an embodiment of the invention may be implemented. Computer system 400 includes a bus 402 for facilitating information exchange, and one or more processors 404 coupled with bus 402 for processing information. Computer system 400 also includes a main memory 406, such as a random access memory (RAM) or other dynamic storage device, coupled to bus 402 for storing information and instructions to be executed by processor 404 as apparatus. Main memory 406 also may be used for storing temporary variables or other intermediate information during execution of instructions by processor 404. Computer system 400 may further include a read only memory (ROM) 408 or other static storage device coupled to bus 402 for storing static information and instructions for processor 404. A storage device 410, such as a magnetic disk or optical disk, is provided and coupled to bus 402 for storing information and instructions.",
+        "Computer system 400 may be coupled via bus 402 to a display 412, such as a cathode ray tube (CRT), for displaying information to a computer user. An input device 414, including alphanumeric and other keys, is coupled to bus 402 for communicating information and command selections to processor 404. Another type of user input device is cursor control 416, such as a mouse, a trackball, or cursor direction keys for communicating direction information and command selections to processor 404 and for controlling cursor movement on display 412. This input device typically has two degrees of freedom in two axes, a first axis (e.g., x) and a second axis (e.g., y), that allows the device to specify positions in a plane.",
+        "In computer system 400, bus 402 may be any mechanism and/or medium that enables information, signals, data, etc., to be exchanged between the various components. For example, bus 402 may be a set of conductors that carries electrical signals. Bus 402 may also be a wireless medium (e.g. air) that carries wireless signals between one or more of the components. Bus 402 may also be a medium (e.g. air) that enables signals to be capacitively exchanged between one or more of the components. Bus 402 may further be a network connection that connects one or more of the components. Overall, any mechanism and/or medium that enables information, signals, data, etc., to be exchanged between the various components may be used as bus 402.",
+        "Bus 402 may also be a combination of these mechanisms/media. For example, processor 404 may communicate with storage device 410 wirelessly. In such a case, the bus 402, from the standpoint of processor 404 and storage device 410, would be a wireless medium, such as air. Further, processor 404 may communicate with main memory 406 via a network connection. In this case, the bus 402 would be the network connection. Further, processor 404 may communicate with display 412 via a set of conductors. In this instance, the bus 402 would be the set of conductors. Thus, depending upon how the various components communicate with each other, bus 402 may take on different forms. Bus 402, as shown in FIG. 4, functionally represents all of the mechanisms and/or media that enable information, signals, data, etc., to be exchanged between the various components.",
+        "The invention is related to the use of computer system 400 for implementing the techniques described herein. According to one embodiment of the invention, those techniques are performed by computer system 400 in response to processor 404 executing one or more sequences of one or more instructions contained in main memory 406. Such instructions may be read into main memory 406 from another machine-readable medium, such as storage device 410. Execution of the sequences of instructions contained in main memory 406 causes processor 404 to perform the process steps described herein. In alternative embodiments, hard-wired circuitry may be used in place of or in combination with software instructions to implement the invention. Thus, embodiments of the invention are not limited to any specific combination of hardware circuitry and software.",
+        "The term \u201cmachine-readable medium\u201d as used herein refers to any medium that participates in providing data that causes a machine to operation in a specific fashion. In an embodiment implemented using computer system 400, various machine-readable media are involved, for example, in providing instructions to processor 404 for execution. Such a medium may take many forms, including but not limited to, computer-readable storage medium, non-volatile media, and volatile media. Non-volatile media includes, for example, optical or magnetic disks, such as storage device 410. Volatile media includes dynamic memory, such as main memory 406. Transmission media includes coaxial cables, copper wire and fiber optics, including the wires that comprise bus 402. Computer-readable storage medium includes, for example, a floppy disk, a flexible disk, a hard disk, magnetic tape, a CD-ROM, and/or a DVD-ROM.",
+        "Common forms of machine-readable media include, for example, a floppy disk, a flexible disk, hard disk, magnetic tape, or any other magnetic medium, a CD-ROM, any other optical medium, any other physical medium with patterns of holes, a RAM, a PROM, and EPROM, a FLASH-EPROM, any other memory chip or cartridge.",
+        "Various forms of machine-readable media may be involved in carrying one or more sequences of one or more instructions to processor 404 for execution. For example, the instructions may initially be carried on a magnetic disk of a remote computer. The remote computer can load the instructions into its dynamic memory and send the instructions over a network using a network interface. A network interface local to computer system 400 can receive the data from a network. In some cases, network communications involve the use of a modem and telephone line. Bus 402 carries the data to main memory 406, from which processor 404 retrieves and executes the instructions. The instructions received by main memory 406 may optionally be stored on storage device 410 either before or after execution by processor 404.",
+        "Computer system 400 also includes a communication interface 418 coupled to bus 402. Communication interface 418 provides a two-way data communication coupling to a network link 420 that is connected to a local network 422. For example, communication interface 418 may be an integrated services digital network (ISDN) card or a modem to provide a data communication connection to a corresponding type of telephone line. As another example, communication interface 418 may be a local area network (LAN) card to provide a data communication connection to a compatible LAN. Wireless links may also be implemented. In any such implementation, communication interface 418 sends and receives electrical, electromagnetic or optical signals that carry digital data streams representing various types of information.",
+        "Network link 420 typically provides data communication through one or more networks to other data devices. For example, network link 420 may provide a connection through local network 422 to a host computer 424 or to data equipment operated by an Internet Service Provider (ISP) 426. ISP 426 in turn provides data communication services through the world wide packet data communication network now commonly referred to as the \u201cInternet\u201d 428. Local network 422 and Internet 428 both use electrical, electromagnetic or optical signals that carry digital data streams. The signals through the various networks and the signals on network link 420 and through communication interface 418, which carry the digital data to and from computer system 400, are exemplary forms of carrier waves transporting the information.",
+        "Computer system 400 can send messages and receive data, including program code, through the network(s), network link 420 and communication interface 418. In the Internet example, a server 430 might transmit a requested code for an application program through Internet 428, ISP 426, local network 422 and communication interface 418.",
+        "The received code may be executed by processor 404 as it is received, and/or stored in storage device 410, or other non-volatile storage for later execution. In this manner, computer system 400 may obtain application code in the form of a carrier wave.",
+        "In the foregoing specification, embodiments of the invention have been described with reference to numerous specific details that may vary from implementation to implementation. Thus, the sole and exclusive indicator of what is the invention, and is intended by the applicants to be the invention, is the set of claims that issue from this application, in the specific form in which such claims issue, including any subsequent correction. Any definitions expressly set forth herein for terms contained in such claims shall govern the meaning of such terms as used in the claims. Hence, no limitation, element, property, feature, advantage or attribute that is not expressly recited in a claim should limit the scope of such claim in any way. The specification and drawings are, accordingly, to be regarded in an illustrative rather than a restrictive sense."
+    ],
+    "citations": [
+        "6321208",
+        "6704747",
+        "6963880",
+        "7103619",
+        "2003/0110155",
+        "2004/0034618",
+        "2004/0034619",
+        "2004/0093344",
+        "2004/0216030",
+        "2005/0050068",
+        "2005/0080755",
+        "2005/0131970",
+        "2005/0149484",
+        "2005/0149537",
+        "2006/0167909",
+        "2006/0288032"
+    ],
+    "us_classification": "707101",
+    "international_classifications": [
+        {
+            "classification_level": "A",
+            "section": "G",
+            "classification_class": "06",
+            "subclass": "F",
+            "main_group": "7",
+            "subgroup": "00"
+        }
+    ]
+}

@@ -1,0 +1,292 @@
+{
+    "title": "Method and apparatus for processing pictures of mobile object",
+    "abstract": "A feature amount of an inter-mobile unit relative movement are detected as an observation amount by an observation amount detecting section",
+    "inventors": [
+        "Kamijo",
+        "Sakauchi",
+        "Ikeuchi"
+    ],
+    "document_number": "07298394",
+    "publication_date": "20071120",
+    "assignees": [
+        "Fujitsu Limited",
+        "The Foundation for the Promotion of Industrial Science"
+    ],
+    "claims": [
+        {
+            "claim_number": "CLM-00001",
+            "preamble": "1. A mobile unit anomaly detection method of processing time series pictures to detect an anomaly of a mobile unit in a picture, comprising:",
+            "components": [
+                {
+                    "component": "detecting a feature amount of a relative movement of a second mobile unit with respect to a first mobile unit as an observation amount to store a time series of said observation amounts as a current observation series;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "calculating a similarity of said current observation series to a predetermined collision observation series; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "when said similarity is larger than a predetermined value, determining whether or not a collision accident has happened on the basis of whether or not said first or second mobile unit is at rest in a predetermined stoppage prohibition area.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00002",
+            "preamble": "2. The mobile unit anomaly detection method according to claim 1 , wherein, when said similarity is larger than said predetermined value, it is determined that said collision accident has occurred when said first or second mobile unit is at rest in said predetermined stoppage prohibition area and another mobile unit is moving.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00003",
+            "preamble": "3. The mobile unit anomaly detection method according to claim 1 , further comprising:",
+            "components": [
+                {
+                    "component": "when said similarity is smaller than said predetermined value, determining whether or not said first or said second mobile unit at rest is in failure on the basis of whether said first or second mobile unit is at rest in said predetermined stoppage prohibition area.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00004",
+            "preamble": "4. The mobile unit anomaly detection method according to claim 3 , wherein, when said similarity is smaller than said predetermined value, it is determined that said first or second mobile unit at rest is in failure when said first or second mobile unit is at rest in said predetermined stoppage prohibition area and another mobile unit is moving.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00005",
+            "preamble": "5. A mobile unit anomaly detection apparatus comprising:",
+            "components": [
+                {
+                    "component": "a picture storage device storing time series pictures; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a picture processing device processing said time series pictures to detect an anomaly of a mobile unit in at least one of said pictures,",
+                    "subcomponents": []
+                },
+                {
+                    "component": "wherein said picture processing device comprises:",
+                    "subcomponents": [
+                        "an observation amount detecting section detecting a feature amount of a relative movement of a second mobile unit with respect to a first mobile unit as an observation amount;"
+                    ]
+                },
+                {
+                    "component": "an observation amount detecting section detecting a feature amount of a relative movement of a second mobile unit with respect to a first mobile unit as an observation amount;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "an observation series storage section storing a time series of said observation amounts as a current observation series;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a stoppage prohibition area storage section storing a predetermined stoppage prohibition area;",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a similarity calculation section calculating a similarity of said current observation series to a predetermined collision observation series; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "a determination section determining, when said similarity is larger than a predetermined value, whether or not a collision accident has happened on the basis of whether or not said first or second mobile unit is at rest in said predetermined stoppage prohibition area, and outputs a result of the determination.",
+                    "subcomponents": []
+                }
+            ]
+        },
+        {
+            "claim_number": "CLM-00006",
+            "preamble": "6. The mobile unit anomaly detection apparatus according to claim 5 , wherein, when said similarity is larger than said predetermined value, said determination section determines that said collision accident has occurred when said first or second mobile unit is at rest in said predetermined stoppage prohibition area and another mobile unit is moving.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00007",
+            "preamble": "7. The mobile unit anomaly detection apparatus according to claim 5 , wherein said determination section, when said similarity is smaller than said predetermined value, determines whether or not said first or second mobile unit at rest is in failure on the basis of whether said first or second mobile unit is at rest in said predetermined stoppage prohibition area, and outputs a result of the determination.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00008",
+            "preamble": "8. The mobile unit anomaly detection apparatus according to claim 7 , wherein said determination section, when said similarity is smaller than said predetermined value, determines that said first or second mobile unit at rest is in failure when said first or second mobile unit is at rest in said predetermined stoppage prohibition area and another mobile unit is moving.",
+            "components": []
+        },
+        {
+            "claim_number": "CLM-00009",
+            "preamble": "9. A method of detecting an accident, the method comprising:",
+            "components": [
+                {
+                    "component": "measuring a current series of movement amounts of a mobile unit with respect to another mobile unit; and",
+                    "subcomponents": []
+                },
+                {
+                    "component": "correlating to detect an accident the measured current series of movement amounts to a set of series of movement amounts for known accidents.",
+                    "subcomponents": []
+                }
+            ]
+        }
+    ],
+    "description": [
+        "1. Field of the Invention",
+        "The present invention relates to a method and an apparatus for processing pictures of mobile unit, more particularly, to a method and an apparatus for processing time-series pictures to detect an anomaly such as collision or failure of mobile unit in the pictures.",
+        "2. Description of the Related Art",
+        "Early detection of a traffic accident can not only enhance a success rate in life saving by speedy rescue operation, but also alleviate accident-related traffic congestion by speedup of the police inspection at the site. Therefore, various kinds of automation in recognition of traffic accident are expected.",
+        "In the publication of JP 2001-148019-A whose inventors are the same as those of the present application, there is disclosed a mobile unit anomaly detection method processing time-series pictures to detect an anomaly of mobile unit in pictures, comprising the steps of:",
+        "(a) identifying mobile units in a frame picture at a time t on the basis of a correlation between frame pictures at times (t\u22121) and t;",
+        "(b) detecting a feature amount of a relative movement of a second mobile unit relative to a first mobile unit as an observation amount to store observation amounts in time-series as an observation series;",
+        "(c) calculating a similarity of the observation series to each reference series to classify a movement between mobile units; and",
+        "(d) determining that a collision accident has occurred when the similarity of the observation series to a collision reference series is larger than a predetermined value.",
+        "According to this method, it is possible to automatically detect an anomaly such as a collision accident.",
+        "However, in a case where a camera angle is low with respect to a road surface, for example, if the second mobile unit approaches the first mobile unit at rest and thereafter, the first mobile unit starts and stops, the second mobile unit overlaps the first mobile unit on pictures at times of the approach and a distance therebetween becomes zero, which is sometimes wrongly determined as a time series pattern of a collision accident",
+        "Further, in the above publication, a scalar obtained by quantizing V/(d+\u03b5) is used as an observation amount in the step (b), where V denotes a relative motion vector of the second mobile unit with respect to the first mobile unit and \u03b5 denotes a constant to avoid the denominator to be zero.",
+        "By using this observation amount, various kinds of movements between mobile units can be classified with a small number of reference series because of the quantization.",
+        "However, there has been a problem of impossibility of more detailed classification of movements between mobile units.",
+        "In the above publication, in the step (a), by using the identification result of a mobile unit in a frame picture at the time (t\u22121), the mobile unit in a frame picture at the time t can be identified with ease from the correlation.",
+        "However, in a case where mobile units are shot from the front thereof at a low camera angle with respect to a road surface in order to shoot a wide area with one camera to track the mobile units, overlap between mobile units on a picture frequently occurs as shown in FIG. 13. At the time (t\u22121), mobile units M1 and M2 are identified as one cluster without discriminating the mobile units M1 and M2 from each other. Although a representative motion vector of this cluster is used to identify the cluster including the mobile units M1 and M2 at the time t on the basis of the above-described correlation, accurate identification is disabled since there is a difference in speed between the mobile units M1 and M2. At the next time (t+1), although the mobile unit M2 has been separated from the mobile unit M1, the mobile units M2 and M3 are identified as one cluster since they overlap each other, disabling discrimination of the mobile units M2 and M3 from each other.",
+        "Accordingly, it is an object of the present invention to provide a method and an apparatus for processing pictures of mobile unit, capable of automatically detecting anomaly such as a collision accident more accurately.",
+        "It is another object of the present invention to provide a method and an apparatus for processing pictures of mobile units, capable of performing more detailed classification of various kinds of movements between mobile units with a small number of reference series.",
+        "It is still another object of the present invention to provide a method and an apparatus for processing pictures of mobile units, capable of identifying different mobile units even if overlapping between the mobile units frequently occurs.",
+        "In one aspect of the present invention, there is provided a mobile unit anomaly detection method of processing time series pictures to detect an anomaly of a mobile unit in a picture, comprising the steps of:",
+        "(a) detecting a feature amount of a relative movement of a second mobile unit with respect to a first mobile unit as an observation amount to store a time series of the observation amounts as an observation series;",
+        "(b) calculating a similarity of the observation series to a predetermined collision observation series; and",
+        "(c) when the similarity is larger than a predetermined value, determining whether or not a collision accident has happened on the basis of whether or not the first or second mobile unit is at rest in a predetermined stoppage prohibition area.",
+        "In a case where mobile units approaching each other overlap in a picture even if the mobile units have not collided against each other because of a low camera angle with respect to a road surface, collision accidents are excessively detected when a collision accident is determined only with a similarity between an observation series and a reference series. However, according to this configuration, the collision accident between mobile units is determined more accurately, enabling reduction in excessive detection of the collision accident.",
+        "In the above step (c), by considering whether or not another mobile unit is moving, chances of excessive detection of the collision accident can be further reduced. when the similarity is smaller than the predetermined value, determining whether or not the first or second mobile unit at rest is in failure on the basis of whether the first or second mobile unit is at rest in the predetermined stoppage prohibition area.",
+        "Further, in a case where the same conditions for collision determination are met except that the similarity obtained in the above step (b) is smaller than the predetermined value, it can be determined at a higher probability that a mobile unit at rest is in failure. In this case as well, by considering whether or not another mobile unit is moving, it can be determined at a higher probability that a mobile unit at rest is in failure. In another aspect of the present invention, there is provided an inter-mobile unit movement classification method of processing time series pictures to classify a movement between mobile units in at least one of the pictures, comprising the steps of:",
+        "(a) detecting a feature amount of a relative movement of a second mobile unit with respect to a first mobile unit as an observation amount to store a time series of the observation amounts as an observation series;",
+        "(b) calculating a similarity of the observation series to a reference series;",
+        "and (c) classifying a movement of the second object with respect to the first mobile unit according to a value of the similarity; wherein the observation amounts each include: a first scalar obtained by quantizing an amount associated with both a relative velocity V of the second mobile unit with respect to the first mobile unit and a distance d between the first and second mobile units; and a second scalar obtained by quantizing a relative position vector of the second mobile unit with respect to the first mobile unit.",
+        "With this configuration, since the second scalar obtained by quantizing the relative position vector V is used, relative movements between mobile units can be classified that have been unable to be discriminated from each other only with the first scalar associated with the relative velocity vector, which enables grasping a situation more accurately, leading to a contribution to more accurate detection of a traffic accident.",
+        "In still another aspect of the present invention, there is provided a mobile unit identification method dividing each of time series pictures to blocks each including a plurality of pixels to process the pictures, wherein the method assigns identification code of a plurality of mobile units included in a frame picture at a time t in units of the block, and obtains motion vectors of the plurality of mobile units in units of the block, in a case where identification code of the plurality of mobile units included in a frame picture at a time (t\u22121) have been assigned in units of the block, and motion vectors of the plurality of mobile units have been obtained in units of the block, the method comprises the steps of:",
+        "(a) moving a block j at the time (t\u22121), whose identification code is IDj and whose motion vector is Vj, by the vector Vj to obtain a substantially corresponding block i at the time t and moving the block i by a vector \u2212Vj to obtain a first box at the time (t\u22121), to calculate an evaluation value associated with a correlation between an image in the first box at the time (t\u22121) and an image of the block i at the time t;",
+        "(b) moving a block k at the time (t\u22121), whose identification code is IDk and whose motion vector is Vk, by the vector Vk to obtain a substantially corresponding block which is the block i at the time t and moving the block i by a vector \u2212Vk to obtain a second box at the time (t\u22121), to calculate an evaluation value associated with a correlation between an image in the second box at the time (t\u22121) and the image of the block i at the time t; and",
+        "(c) assigning the identification code IDj or IDk to the block i at the time t on the basis of magnitudes of the evaluation values calculated in the steps (a) and (b).",
+        "With this configuration, since a motion vector of each block is used, it is possible to assign one of a plurality of identification codes to a block within one cluster including a plurality of mobile units having different velocities at a time t; thereby enabling to divide the one cluster into clusters with different identification codes. That is, it becomes possible to track mobile units, for which it was not possible in the prior art, leading to a contribution to more accurate detection of such as a collision accident or a traffic violation.",
+        "For example, the evaluation value of the step (a) includes a sum over p=1 to Na of a value associated with a value |VCm(t\u22121)\u2212VBp(t\u22121)| on the assumption that an identification code of the block i at the time t is IDj, where VCm(t\u22121) denotes a motion vector of a block m at the time (t\u22121), the block m at the time (t\u22121) corresponds to the block i at the time t, and VBp(t\u22121) denotes a motion vector of a block whose identification code is IDj and which is adjacent to the block m at the time (t\u22121), wherein the evaluation value of the step (b) includes a sum over q=1 to Nb of a value associated with a value |VCn(t\u22121)\u2212VBq(t\u22121)| (for example, |VCn(t\u22121)\u2212VBq(t\u22121)|r, r>1) on the assumption that an identification code of the block i at the time t is IDk, where VCn(t\u22121) denotes a motion vector of a block n at the time (t\u22121), the block n at the time (t\u22121) corresponds to the block i at the time t, and VBq(t\u22121) denotes a motion vector of a block whose identification code is IDk which is adjacent to the block n at the time (t\u22121).",
+        "With this configuration, even if error of a motion vector at the time (t\u22121) is large because almost the same pixels distribute, it becomes possible to assign block identification codes more accurately, resulting in contribution to more accurate detection of such as a collision accident or a traffic violation.",
+        "Other aspects, objects, and the advantages of the present invention will become apparent from the following detailed description taken in connection with the accompanying drawings.",
+        "FIG. 1 is a schematic diagram showing an intersection and an apparatus, placed at the intersection, of an embodiment according to the present invention;",
+        "FIG. 2 is a functional block diagram of the mobile unit anomaly detection apparatus in FIG. 1;",
+        "FIG. 3 is a flow diagram showing a processing of the determination section in FIG. 2;",
+        "FIG. 4 is an illustration of slits set at 4 entrances to the intersection and 4 exits therefrom and identification codes of mobile units assigned to blocks;",
+        "FIG. 5 is an illustration of vectors for explaining a processing at the observation amount detecting section in FIG. 2;",
+        "FIG. 6 is an illustration of quantization of a vector V/D;",
+        "FIG. 7 is an illustration of quantization of a relative position vector and time-series classification;",
+        "FIGS. 8(A) and 8(B) are both illustrations of classification of movements between mobile units that pass close by each other;",
+        "FIGS. 9(A) and 9(B) are both illustrations of classification of movements between mobile units that pass close by each other;",
+        "FIG. 10 is an illustration of a time-series pattern in a collision accident",
+        "FIG. 11 is an illustration of determination of a mobile unit collision accident at an intersection;",
+        "FIG. 12 is an illustration of determining a failure of a mobile unit at an intersection;",
+        "FIG. 13 is an illustration of a case where an overlap between mobile units on a picture frequently occurs;",
+        "FIG. 14 is an illustration of preparing an object map;",
+        "FIG. 15 is an illustration of preparing an object map;",
+        "FIG. 16 is an illustration of preparing an object map;",
+        "FIG. 17 is an illustration of preparing an object map;",
+        "FIG. 18 is an illustration of preparing an object map; and",
+        "FIG. 19 is an illustration of preparing an object map.",
+        "Referring now to the drawings, wherein like reference characters designate like or corresponding parts throughout several views, preferred embodiment of the present invention is described below.",
+        "FIG. 1 is a schematic diagram showing an intersection and a mobile unit anomaly detection apparatus, placed at the intersection, of an embodiment according to the present invention.",
+        "This apparatus is provided with an electronic camera 10 shooting the intersection to output a picture signal and a mobile unit anomaly detection apparatus 20 processing pictures to automatically detect a collision accident between mobile units and a mobile unit failure.",
+        "FIG. 2 is a functional block diagram of the mobile unit anomaly detection apparatus 20 in FIG. 1. Of constituents of the mobile unit anomaly detection apparatus 20, each constituent other than storage sections can also be constructed of computer software or a dedicated hardware. Time series pictures shot by the electronic camera 10 are stored into an image memory 21 at a rate of, for example, 12 frames/sec.",
+        "A background picture generation section 22 is provided with a storage section and a processing section. This processing section accesses the image memory 21 to prepare histograms of respective pixels, each histogram having corresponding pixel values of all the frames, for example, over the past 10 minutes to generate a picture with no mobile unit therein as a background picture whose each pixel value is the mode of the corresponding histogram, and to store the background picture into the storage section. This processing is repeated periodically to update the background picture.",
+        "As shown in FIG. 4, data of the positions and sizes, in a picture frame, of slits EN1 to EN4 disposed at 4 entrances to an intersection and EX1 to EX4 disposed at 4 exits therefrom are in advance set in an ID generation/deletion section 23. The ID generation/deletion section 23 reads picture data in the entrance slits EN1 to EN4 from the picture memory 21 to determine whether or not a mobile unit exists in the entrance slits in block units. Squares in a mesh of FIG. 4 are blocks, each block is of a size of, for example, 8\u00d78 pixels and in a case where one frame is constituted of 480\u00d7640 pixels, one frame is divided into 60\u00d780 blocks. Whether or not a mobile unit exists in a block is determined by whether or not a total sum of differences between pixels in the block and corresponding pixels of the background picture is greater than a predetermined value. The determination is also performed in a mobile unit tracking section 25.",
+        "The ID generation/deletion section 23 assigns a new cluster identification codes ID to a block when determined that a mobile unit exists in the block. when determined that a mobile unit exists in a block adjacent to another block to which ID has been assigned, ID generation/deletion section 23 assigns the same ID as that of the block having been assigned to this adjacent block. This block to which ID has been assigned may be one adjacent to an entrance slit. For example in FIG. 4, ID=1 is assigned to blocks in the entrance slit EN1 in which a mobile unit exists and ID=5 is assigned to blocks in the entrance slit EN4 <and their neighboring blocks> in which a mobile unit exists.",
+        "Assignment of ID is performed to corresponding blocks in an object map storage section 24. The object map storage section 24 is used for storing information (object map) for facilitation of processing in regard each of the blocks 60\u00d780 in the above case, and the information includes flags each indicating whether or not ID has been assigned. In regard to each block, when the ID has been assigned, the information further includes the ID number and a block motion vector described later. Note that without using the flag, ID=0 may be used for indicating no assignment of ID. Further, the most significant bit of ID may be the flag.",
+        "For each cluster having passed through an entrance slit, the mobile unit tracking section 25 assigns the same ID to blocks located in a moving direction and deletes the same ID of blocks located in a direction opposite to the movement, that is, performs tracking processing for clusters. The mobile unit tracking section 25, as described later, generates an object map at a time t on the basis of an object map and frame picture at a time (t\u22121).",
+        "The mobile unit tracking section 25 performs the tracking processing as far as and within an exist slit for each cluster.",
+        "The ID generation/deletion section 23 further checks whether or not ID is assigned to the blocks in the exit slits EX1 to EX4 on the basis of contents of the object map storage section 24 and if assigned, deletes the ID when the cluster having the ID has passed though an exit slit. For example, when transition has been performed from a state where an ID is assigned to blocks in the exit slit EX1 in FIG. 4 to a state where no ID is assigned thereto, ID=3 is deleted. The deleted ID can be used as the next ID to be generated.",
+        "An observation amount detecting section 26 obtains a mean motion vector of each cluster on the basis of contents of the object map storage section 24 as a motion vector of the cluster, obtains a relative motion vector and a relative position vector between clusters, further obtains the shortest distance between the clusters, and thereby obtains an observation amount described below. The observation amount detecting section 26 stores the observation amount into an observation series storage section 27 to generate an observation series in regard to each between clusters.",
+        "As an observation amount, consideration is given to a first scalar obtained by quantizing an amount associated with a relative motion vector and a second scalar obtained by quantizing a relative position vector. First, description will be given of the first scalar and its time series.",
+        "For example, FIG. 5(B) shows a relative motion vector V of a motion vector V1 of a mobile unit M1 and a motion vector V2 of a mobile unit M2 shown in FIG. 5(A). As shown in FIG. 5(A), letting d be the shortest distance between the mobile units M1 and M2, consider a vector V/D, where D=d+\u03b5 and \u03b5 is a constant for guaranteeing D>0 when d=0. It will be easy to determine a collision from a time series of vectors V/D since V=0, namely V/D=0 in collision and |V/D| takes large values before and after the collision. In order to simply classify many of relative states between the mobile units M1 and M2, the vector V/D is quantized to a scalar as shown in FIG. 6. That is, letting an area divide into regions as shown in FIG. 6 with the origin of the vector V/D being the center of the area, and assigning scalars to respective divided regions, the vector V/D is quantized to the scalar of a region to which the tip of the vector belongs.",
+        "For example, in a case where a time series of V/D=v is v0\u2192v1\u2192v2, which is denoted by (v0, v1, v2) and quantized to (0, 1, 2). The time series of quantized observation amounts is referred to as an observation series. In a collision accident shown in FIG. 10, the observation series over a time t=4 to 9 is denoted by (1, 2, 3, 0, 8, 7). By such quantization, various kinds of collision accidents can be easily recognized since a collision pattern and another collision pattern analogous to it have the same observation series as each other. Further, by the quantization, an observation series is a simple sequence of numerical values, therefore a subsequent recognition process can be simplified.",
+        "Determination of a collision accident or not is performed by whether or not a similarity between an observation series and a reference series of each of some collision accidents (for example, observation series of each collision accident actually having happened) exceeds a predetermined value. Although the number of necessary reference series can be reduced by the above quantization, in order to further reduce the number, in a case where a time series pattern of a relative movement becomes the same by rotating a stationary coordinate system, an observation series is adjusted to be the same. For this purpose, regarding the above (v0, v1, v2) for example, the reference direction of the first vector v0 in the time series, that is, an angle \u03b8 to the X axis of FIG. 6, is obtained, followed by a rotation of \u2212\u03b8 of the vectors v0, v1 and v2. FIG. 5(C) shows the rotation in a case where V/D is the first vector in a time series. by the rotation, an observation amount of the relative vector V/D of the mobile unit M2 with respect to the mobile unit M1 and an observation amount of the relative vector \u2212V/D of the mobile unit M1 with respect to the mobile unit M2 are equal to each other.",
+        "In a case where a mobile unit M1 and a mobile unit M2 spaced apart from each other approach and pass close by each other, thereafter they are spaced apart from each other, which is one of patterns of FIGS. 8(A), 8(B), 9(A) and 9(B) and doted lines therein show tracks of the mobile units. Observation series in the respective cases are as follows for example:",
+        "FIG. 8(A): {1, 1, 2, 2, 3, 1, 1, 1, 1, 1, 1}",
+        "FIG. 8(B): {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}",
+        "FIG. 9(A): {1, 1, 2, 2, 3, 1, 1, 1, 1, 1, 1}",
+        "FIG. 9(B): {1, 1, 2, 2, 3, 1, 1, 1, 1, 1, 1}",
+        "As is apparent from these observation series, it is not possible to identify these relative movements from each other by the observation series of FIGS. 8(A), 8(B), 9(A) and 9(B). Therefore, in order to enable to identify the relative movements, a relative position vector of the mobile unit M2 with respect to the mobile unit M1 is quantized to obtain the second scalar as shown in FIG. 7. That is, an area is divided into regions with dotted lines as shown in FIG. 7, wherein the center of the area is the origin of the relative position vector P12 and a reference direction is equal to a direction of the motion vector V1 of the mobile unit M1, and scalars are assigned to the respective divided regions. The relative position vector P12 is quantized as a scalar of a region to which the tip thereof belongs.",
+        "In a case of FIG. 8(A) where mobile units M1 and M2 are moving in opposite directions with passing close by each other, letting a relative position vector P12 at the time t be P12(t), a time series of relative position vectors P12(t\u22121), P12(t) and P12(t+1) of the mobile unit M2 with respect to the mobile unit M1 are quantized as {20, 80, 60}.",
+        "The reason why the first scalar is represented by a one-digit numerical value while the second scalar by a two-digit numerical value with the lower digit being 0 is that both can be easily synthesized. For example, in a case where the first scalar is 6 and the second scalar is 20, a value of 26, which is the sum of both, represents an observation amount. In a case where the observation amount is defined as the sum of the first scalar, and the second scalar with respect to the mobile unit M2, the observation series of FIGS. 8(A), 8(B), 9(A) and 9(B) are represented as follows:",
+        "FIG. 8(A): {21, 21, 82, 82, 83, 81, 81, 81, 81, 61, 61}",
+        "FIG. 8(B): {21, 21, 41, 41, 41, 41, 41, 41, 41, 61, 61}",
+        "FIG. 9(A): {61, 61, 42, 42, 43, 41, 41, 41, 41, 21, 21}",
+        "FIG. 9(B): {21, 21, 42, 42, 43, 41, 41, 41, 41, 61, 61}",
+        "In a case where the observation amount is defined as the sum of the first scalar, and the second scalar with respect to the mobile unit M1, the observation series of FIGS. 8(A), 8(B), 9(A) and 9(B) are represented as follows:",
+        "FIG. 8(A): {21, 21, 82, 82, 83, 81, 81, 81, 81, 61, 61}",
+        "FIG. 8(B): {21, 21, 41, 41, 41, 41, 41, 41, 41, 61, 61}",
+        "FIG. 9(A): {21, 21, 82, 82, 83, 81, 81, 81, 81, 61, 61}",
+        "FIG. 9(B): {61, 61, 82, 82, 83, 81, 81, 81, 81, 21, 21}",
+        "As shown in FIG. 7 with straight lines each having an arrow, a case where the second scalar changes as 20\u219280\u219260 is classified as PASO, a case where the second scalar changes as 20\u219240\u219260 is classified as PAS1, a case where the second scalar changes as 60\u219240\u219220 is classified as PAS2, and a case where the second scalar changes as 60\u219280\u219220 is classified as PAS3. Further, in a case where a change in relative position vector of the mobile unit M2 with respect to the mobile unit M1 is represented as PASk and a change in relative position vector of the mobile unit M1 with respect to the mobile unit M2 is represented as PASm, it is denoted by PASkm.",
+        "In each case of FIGS. 8(A) and 8(B), a change in relative position vector of the mobile unit M2 with respect to the mobile unit M1 and a change in relative position vector of the mobile unit M1 with respect to the mobile unit M2 are the same as each other, which are classified as PAS00 and PAS11, respectively. On the other hand, in cases of FIGS. 9(A) and 9(B), a change in relative position vector of the mobile unit M2 with respect to the mobile unit M1 and a change in relative position vector of the mobile unit M1 with respect to the mobile unit M2 differ from each other, which are classified as PAS20 and PAS13, respectively.",
+        "In such a way, although it is not possible to discriminate and recognize the relative movement of mobile units only using the first scalar, this is enabled by classifying the relative movement using the second scalar, which enables more accurate understanding of the states.",
+        "For example, letting the number of clusters on an object map be 3, and IDs be 1, 2 and 3, and an observation series between clusters of ID=i and ID=j is denoted by OSi,j, observation series OS1,2; OS2,1; OS2,3; OS3,1 and OS,3 are stored in the observation series storage section 27 of FIG. 2. The reason why OSi,j and OSj,i are both stored is to enable classification of the above PASkm with focusing attention on second scalars in a time series. In the observation series storage section 27, each of stored observation series is consisted of a predetermined number, for example, 24, of observation amounts, and every time advance by 1 the most oldest observation amount is deleted and a new observation amount is added in each observation amount.",
+        "A classification section 28 reads observation series between clusters stored in the observation series storage section 27, to calculate similarities between each of the observation series and each of predetermined reference series of collision accidents and others and to give the calculated similarities to a determination section 29 as classification results. Each of the observation series is a time series of observation amounts each having a combination of the first scalar and the second scalar, and the reference series are constituted in a similar manner. Note that calculation may be performed on a similarity to each predetermined reference series of a collision accident only with respect to the first scalar of each observation series and on a similarity to each predetermined reference series of an above PASkm with respect to the second scalar thereof to give the determination section 29 the calculated similarities as classification results.",
+        "Known pattern similarity calculation methods such as a hidden Markov model (HMM) method and a pattern matching method can be applied. For example, as disclosed in the above-described publication of JP 2001-148019-A, a probability of occurrence of the observation series may be calculated as a similarity by the HMM whose parameters have been determined using observation series of actual collision accidents as learning series.",
+        "Now, description will be given of detection of a collision accident and a mobile unit failure with reference to FIGS. 11 and 12.",
+        "In FIG. 11, assume that there has been occurred a collision sequence between mobile units M1 and M2 as shown in FIG. 10 or a non-collision sequence similar to this collision sequence and the mobile units M1 and M2 is stopping. This collision sequence is similar to that of a case where a mobile unit M3 is at rest to make its right turn and at that time, a mobile unit M4 approaches the mobile unit M3 from the rear, and therefore the mobile unit M3 moves a bit forward and stops. In a case where mobile units are shot at a low camera angle with respect to a road surface, the mobile units look like overlapping to each other even when the mobile units are actually spaced apart from each other, so a chance arises where the situation is classified as collision between the mobile units in pictures.",
+        "However, the mobile units M3 and M4 are in an area where stoppage is permitted for a right turn. Contrast to this, mobile units M1 and M2 exist in an area where stopping is prohibited; therefore, there is a high possibility that a collision has happened between the mobile units M1 and M2. In this case, there is a possibility that the mobile units M1 and M2 are at rest since an ambulance or the like is approaching the intersection. Therefore, if there exists another mobile unit passing close by the mobile units M1 or M2 at rest, a possibility of collision between the mobile units M1 and M2 becomes higher.",
+        "From the above consideration, a determination is performed that the case is collision between the mobile units M1 and M2: if",
+        "(1) a relative movement between the mobile units M1 and M2 is classified as collision;",
+        "(2) the mobile unit M1 or M2 is at rest in a stoppage prohibition area; and",
+        "(3) a mobile unit other than the mobile units M1 and M2 are moving in the intersection.",
+        "Further, as shown in FIG. 12, in a case where the mobile unit M1 has not collided with another car, but is at rest in the stoppage prohibition area, there is a high possibility that the mobile unit M1 is in failure. In this case, if another mobile unit is moving in the intersection, there is a higher possibility that the mobile unit M1 is in failure. Therefore, if the above (1) is determined negative but the above (2) and (3) are determined positive, it is determined that the mobile unit at rest is in failure.",
+        "FIG. 3 is a flow diagram showing a processing in the determination section 29 of FIG. 2.",
+        "(S1) The determination section 29 reads a maximum collision similarity CS of a pair of clusters from the classification section 28.",
+        "(S2 to S4) If the collision similarity CS is larger than a predetermined value CSO, then a flag F is set, or else the flag F is reset.",
+        "(S5) An observation series corresponding to the pair of the clusters in the step S1, is read from the observation series storage section 27, and if the first scalars of a predetermined number of observation amounts from the latest time are all zero, that is, if a state where a relative motion vector V=0 lasts for over a predetermined time period, then the object map storage section 24 is referred to investigate whether or not motion vectors of all blocks belonging to the clusters having the IDs are zero, as a result of which if all the motion vectors are zero, it is determined that the mobile unit is at rest. If not at rest, then the process returns to the step S1 to read a maximum CS of another pair of clusters, or else the process advances to the step S6.",
+        "(S6) It is investigated whether or not the cluster at rest exists within any one of the stoppage prohibition areas stored in advance in a stoppage prohibition area storage section 30, and if exists, then the process advances to step S7, or else the process returns to the step S1.",
+        "(S7) In the classification results of the classification section 28, if a similarity of a pair of clusters one of which is other than the clusters at the step S1 to a reference series of anyone of the PAS00, PAS11, PAS20 or PAS13 exceeds a predetermined value, then it is determined that there exists a mobile unit moving in the intersection and the process advances to step S8, or else the process returns to the step S1.",
+        "(S8 to S10) If F=1, then it is determined to be an accident, or if F=0, then it is determined that the mobile unit is in failure, and this result is outputted. Then the process returns to step S1.",
+        "According to such processing, a collision accident and a mobile unit failure can be automatically detected with a high probability.",
+        "Now, detailed description will be given of a method for preparing an object map at a time t on the basis of an object map and a frame picture at a time (t\u22121) and a frame picture at the time t in the mobile unit tracking section 25 of FIG. 2.",
+        "In a case where a mobile unit is shot from the front thereof at a low camera angle with respect to a road surface in order to shoot a wide area with one camera to track mobile units, overlaps between mobile units in pictures frequently occurs as shown in (A) to (C) of FIG. 13.",
+        "FIGS. 14 and 15 show enlarged pictures of (A) and (B) of FIG. 13, respectively. Dotted lines are for dividing a picture into blocks. In FIG. 14, overlapped mobile units correspond to one cluster C12 in the object map storage section 24 of FIG. 2, and assume that the mobile units M1 and M2 are not yet discriminated from each other. On the other hand, a cluster 3 corresponds to one mobile unit M3.",
+        "A block on the i-th row and the j-th column at a time t is denoted by B(t: i, j). As shown in FIG. 14, motion vectors of blocks B (t\u22121 : 11, 13) and B (t\u22121 : 14, 13) are denoted by V2 and V3, respectively. The tips of the motion vectors V2 and V3 both exist in a block (t\u22121 : 18, 11). In a picture at the time t of FIG. 15, frames SB2 and SB3 correspond to respective regions where the blocks B (t\u22121 : 11, 13) and B (t\u22121 : 14, 13) in the picture of FIG. 14 are moved by the motion vectors V2 and V3, respectively.",
+        "Next, the motion vectors V2 and V3 are translated such that the tips of the motion vectors V2 and V3 both coincide with the center of the block B (18, 11). Then the motion vectors V2 and V3 are inversed and the block B (t\u22121 : 18, 11) which is hatched is moved by vectors \u2212V2 and \u2212V3 to obtain frames SBR2 and SBR3, respectively, as shown in FIG. 16. Images in the boxes SBR2 and SBR3 are estimated ones on the assumption that an image in the block B (t: 18, 11) of FIG. 17 would have belonged to the clusters C12 and C3 of FIG. 16 at the time (t\u22121). IDs of the clusters C12 and C13 are denoted by ID12 and ID3, respectively.",
+        "An evaluation value UD associated with a similarity between the image in the box SBR2 of FIG. 16 and the image in the block B(t: 18, 11) is calculated with the following equation, and the value is denoted by UD (ID12).\n\nUD=\u03a3|SP(t\u22121: i, j)\u2212BP(t: i, j)|\u2003\u2003(1)\n\nwhere SP(t\u22121: i, j) and BP(t: i, j) denote pixel values on the i-th row and the j-th column in the box SBR2 of FIG. 16 and in the block B(t: 18, 11) of FIG. 17, respectively, and \u03a3 denotes a sum over i=1 to 8 and j=1 to 8 (a sum over all pixels in a block or box). The smaller the evaluation value UD is, the higher the correlation is.",
+        "Likewise, an evaluation value UD associated with a correlation between the image in the block SBR3 of FIG. 16 and the image in the block B(t: 18, 11) of FIG. 17 is calculated, and the value is denoted by UD(ID3).",
+        "In the case of FIGS. 16 and 17, UD(ID3)<UD(ID12) holds and thereby ID3 is assigned to the block B(t: 18, 11).",
+        "In such a way, by using a motion vector of each block, different IDs can be assigned to blocks included in the cluster C123 including a plurality of mobile units at the time t, and thereby one cluster C123 can be divided into subclusters with different IDs.",
+        "How to find out the block B(t\u22121 : 11, 13) in the cluster C12 and the block B(t\u22121 : 14, 13) in the cluster C3 both corresponding to the block B(t: 18, 11) belonging to the cluster C123 of FIG. 15 is as follows: That is, letting a vector from the center of the block B(t\u22121: i, j) to the center of the block B(t\u22121 : 18, 11) be V(18\u2212j, 11\u2212j) and a motion vector of the block B (t\u221211: i, j) be V(t\u22121: i, j), it is equivalent to find out a block B(t\u22121: i, j) having V(t\u22121: j, j) satisfying the following expression:\n\n|V(18\u2212i, 11\u2212j)\u2212V(t\u22121: i, j)|<\u0394V \n\nwhere \u0394V is a constant whose value is, for example, three times the number of pixels on one side of a block. In a case where a plurality of blocks corresponding to the block B(t: 18, 11) exist in the cluster C12 or in a case where a plurality of blocks corresponding to the block B(t: 18, 11) exist in the cluster C3, the evaluation value is obtained for each of such blocks and ID corresponding to the least evaluation value is assigned to the block B(t: 18, 11).",
+        "The above procedure is applied to other blocks belonging to the cluster C123 of FIG. 15 in a similar manner.",
+        "In the above case where ID3 is assigned to the block B(t: 18, 11), a motion vector of the block can be estimated to be almost equal to the vector V3. In order to obtain the motion vector of the block B(t: 18, 11) more accurately, the box SBR3 is shifted by one pixel at a time in a predetermined range whose center is coincident with that of the box SBR3, the evaluation value is obtained for every shift, and the motion vector of the block B(t: 18, 11) is determined to be a vector whose origin is the center of the box SBR3 when the evaluation value assumes the minimum (the highest correlation) and whose tip is the center of the block B(t: 18, 11). A motion vector of a block at a time t is determined by such a block matching each time when ID is assigned to the block.",
+        "In order to estimate a similarity more accurately, amounts described below are considered.",
+        "Part of the box SBR3 in FIG. 16 is outside the cluster 3 and as the outside area is wider, it can be considered that a probability that ID of the block B(t: 18, 11) of FIG. 17 is ID3 is low. Therefore, assuming that ID of the block B(t: 18, 11) is equal to ID3, the number S(t\u22121) of pixels in the box SBR3 and belonging to the cluster C3 is obtained, and an evaluation value U associated with a correlation between the image in the box SBR3 of FIG. 16 and the image in the block B(t: 18, 11) of FIG. 17 is calculated with the following equation, and the calculated value is denoted by US(ID3):\n\nUS=(S(t\u22121)\u221264)2\u2003\u2003(2)",
+        "The smaller the evaluation value UD is, the higher the correlation is. Likewise, assuming that ID of the block B(t: 18, 11) is equal to ID12 and the number S of pixels in the box SBR2 and belonging to the cluster C12 is obtained to calculate the evaluation value US, and the value is denoted by US(ID12). In cases of FIGS. 16 and 17, US(ID12)=0 and US(ID3)>US(ID12) hold.",
+        "U=\u03b1UD+\u03b2US which is a linear combination of the above equations (1) and (2) is defined as an evaluation function, and it is determined that the smaller the evaluation value U, the higher the similarity is, where \u03b1 and \u03b2 are positive constants and determined on the basis of practical experiences such that the evaluation of similarity becomes more correct.",
+        "For each block of FIG. 17 at the time t, it is determined whether ID12 or ID3 is assigned to in a similar way as described above. Since a probability of a wrong determination is high in a case where the absolute value of a difference of evaluation values |U(ID12)\u2212U(ID3)| is equal to or less than a predetermined value, no ID is assigned and the following amount is considered with respect to an image at a time t. For example, in a case where it is assumed that ID of the block B(t: 18, 11) of FIG. 17, which has not been determined, is equal to ID3, the number N(t) of blocks assigned with ID3 among 8 blocks adjacent to the block B(t: 18, 11) is obtained, an evaluation value UN is calculated with the following equation, and the value is denoted by UN(ID3):\n\nUN=(N(t)\u22128)2.\u2003\u2003(3)",
+        "The smaller the evaluation value, the higher the correlation is. Similarly, in a case where it is assumed that ID of the block B(t: 11) of FIG. 17 is equal to ID12, the number N of blocks assigned with ID12 among 8 blocks adjacent to the block B(t: 18, 11) is obtained, the evaluation value UN is calculated, and the value is denoted by UN(ID12).",
+        "Further, when the error of a motion vector at a time (t\u22121) obtained by block matching is large since almost the same pixel values are distributed, a case can be considered where the absolute value |U(ID12)\u2212U(ID3)| of a difference in evaluation values of the linear combination U=\u03b1UD+\u03b2US of the above equations (1) to (3) is equal to or less than a predetermined value. Therefore, by paying attention to motion vectors of blocks in the neighborhood of blocks B(t\u22121 : 14, 13) and B(t\u22121 : 11, 13) corresponding to the block (t: 18, 11), an evaluation of a similarity is made more correct. That is, an evaluation value UV is calculated using the following equation which includes a motion vector VC(t\u22121)=V3 of the block B(t\u22121 : 14, 13) at the time (t\u22121) corresponding to the B(t: 18, 11) on the assumption that the block B(t 18, 11) has ID3; and motion vectors VBi(t\u22121), for i=1 to NX and NX=NX3, of blocks (blocks each attached with a small black dot in FIG. 16) which are ones among 8 blocks adjacent to the block B(t\u22121 : 14, 13) and whose ID is equal to ID3, and the evaluation value is denoted by UV(ID3):\n\nUV=\u03a3|VC(t\u22121)\u2212VBi(t\u22121)|2/NX\u2003\u2003(4)\n\nwhere \u03a3 denotes a sum over i=1 to NX. The smaller the evaluation value is, the higher the correlation is. Similarly, an evaluation value UV is calculated in regard to a motion vector VC=V2 of the block B(t\u22121 : 11, 13) at the time (t\u22121) corresponding to the B(t: 18, 11) on the assumption that the block B(t: 18, 11) has ID12; and motion vectors VBj(t\u22121), for j=1 to NX and NX=NX12, of blocks (blocks each attached with a mark x in FIG. 16) which are ones among 8 blocks adjacent to the block B(t\u22121 : 11, 13) and whose ID is equal to ID12, and the evaluation value is denoted by UV(ID12).",
+        "A linear combination of the above equations (1) to (4),\n\nU=\u03b1UD+\u03b2US+\u03b3UN+\u0394UV\u2003\u2003(5)\n\nis used as an evaluation function and it is determined that the smaller the evaluation value, the higher the similarity is, where \u03b3 and \u03b4 are also positive constants and determined on the basis of practical experiences such that the evaluation of similarity becomes more correct.",
+        "In such a way, not only is it determined whether ID is ID12 or ID3 in each block in the cluster C123 of FIG. 17, but a motion vector of each block is also determined. That is, an object map at a time t is determined, and as shown in FIG. 18, even if the mobile unit M2 overlaps both of the mobile units M1 and M3, the cluster can be divided into clusters with different IDs.",
+        "Similarly, an object map at the time (t+1) can be obtained from a frame picture and an object map at the time t. Since C12 and C3 are discriminated from each other at the time t and the mobile unit M1 is separated from the mobile unit M2 in the frame picture at the time (t+1), as shown in FIG. 19, C1 to C3 corresponding to the mobile units M1 to M3, are discriminated from each other at the time (t+1).",
+        "Note that in a case where the equation (5) is used, one or more of \u03b2, \u03b3 and \u03b4 may be zero in order to reduce a calculation time.",
+        "Further, an object map X at a time (t\u22121) may be copied into a work area as an object map Y prior to preparation of an object map at a time t and a motion vector Vi of each block i whose ID is equal to ID\u03b1 in the object map X may be replaced with a mean vector (\u03a3\u0394Vj)/p, for j=1 to p, where \u0394V1 to \u0394Vp are motion vectors of all blocks, in the object map Y, including a block corresponding to the block i and blocks adjacent to this corresponding block and having ID=ID\u03b1. With such a procedure, in a case where errors of motion vectors are large since a texture in a block is similar to those in adjacent blocks, the errors are reduced. Copying to a work area is for uniquely determining the mean vector.",
+        "Then, description will be given of a method for obtaining an object map more accurately using the evaluation function of the above equation (5) and an object map at a time t obtained as described above as an initial condition. Since this method itself is the same as disclosed in the above publication except for the evaluation function U, an outline thereof will be given.",
+        "The blocks in the clusters C12 and C3 of FIG. 18 are denoted by BKi, for i=1 to n. ID of a block BKi is a variable IDi and the U thereof is expressed as U(BKI, IDi). IDi is equal to ID12 or ID3. ID1 to IDn are determined such that a sum UT of evaluation values U over i=1 to n,\n\nUT=\u03a3U(BKi, IDi),\n\ntakes the minimum. Initial values of ID1 to IDn are given by an object map at the time t obtained as described above.",
+        "Although preferred embodiment of the present invention has been described, it is to be understood that the invention is not limited thereto and that various changes and modifications may be made without departing from the spirit and scope of the invention.",
+        "For example, the apparatus of FIG. 2 automatically detecting a collision accident and a vehicle failure has characteristics in the determination section 29 and observation amounts detected by the observation amount detecting section 26 may be only of the first scalars. Further, a configuration in which an observed value including the first and second scalars are used can be applied for use in an apparatus performing other than determination of a collision accident and a vehicle failure, for example, in an apparatus automatically classifying movements of mobile units to get a statistics. Furthermore, a processing method in the mobile unit tracking section 25 using the above-described evaluation function U can be applied to various kinds of mobile unit tracking apparatuses."
+    ],
+    "citations": [
+        "5296852",
+        "5554983",
+        "6188778",
+        "6317693",
+        "6430303",
+        "6690011",
+        "6731777",
+        "6810132",
+        "2002/0126875",
+        "0 505 858",
+        "0 807 914",
+        "2001-148019",
+        "WO 00/31706"
+    ],
+    "us_classification": "348149",
+    "international_classifications": [
+        {
+            "classification_level": "A",
+            "section": "H",
+            "classification_class": "04",
+            "subclass": "N",
+            "main_group": "7",
+            "subgroup": "18"
+        }
+    ]
+}
