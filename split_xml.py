@@ -22,8 +22,9 @@ def process_xml_file(input_file_path):
                 doc_number_elem = tree.find('.//doc-number')
                 patent_number = doc_number_elem.text.strip() if doc_number_elem is not None else f'unknown_{file_counter}'
 
+                target_folder = 'xml_patents_wn'
                 # Define the output file name
-                output_file_name = f'xml_patents_wn/{patent_number}.xml'
+                output_file_name = f'{target_folder}/{patent_number}.xml'
                 with open(output_file_name, 'w') as output_file:
                     output_file.write(etree.tostring(tree, pretty_print=True, encoding='unicode'))
             except Exception as e:
@@ -31,4 +32,4 @@ def process_xml_file(input_file_path):
 
             file_counter += 1
 
-    return "Processing completed"
+    return f"Processing completed. The xml files have been saved in {target_folder}"
